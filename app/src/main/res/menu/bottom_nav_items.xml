@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item android:id="@+id/search_bottom_nav"
+            android:title="search"
+            android:icon="@drawable/ic_launcher_background" />
+
+         <item android:id="@+id/shipment_bottom_nav"
+            android:title="shipment"
+            android:icon="@drawable/ic_launcher_background" />
+
+         <item android:id="@+id/trib_bottom_nav"
+            android:title="trib"
+            android:icon="@drawable/ic_launcher_background" />
+
+        <item android:id="@+id/inbox_bottom_nav"
+            android:title="inbox"
+            android:icon="@drawable/ic_launcher_background" />
+
+        <item android:id="@+id/profile_bottom_nav"
+            android:title="profile"
+            android:icon="@drawable/ic_launcher_background" />
+</menu>

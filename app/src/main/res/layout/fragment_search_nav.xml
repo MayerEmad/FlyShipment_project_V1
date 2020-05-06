@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="search_classes.SearchNavFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/upper_page"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/up">
+
+            <EditText
+                android:id="@+id/from"
+                android:layout_width="220dp"
+                android:layout_height="35dp"
+                android:padding="7dp"
+                android:layout_marginLeft="5dp"
+                android:background="#FFF"
+                android:textColorHighlight="#000"
+                android:hint="From Enter Countery"
+                android:inputType="textAutoComplete" />
+            <EditText
+                android:id="@+id/to"
+                android:layout_width="220dp"
+                android:layout_height="35dp"
+                android:padding="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="#FFF"
+                android:textColorHighlight="#000"
+                android:hint="To Enter Countery"
+                android:inputType="textAutoComplete"
+                android:layout_below="@+id/from"/>
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="220dp"
+                android:layout_height="35dp"
+                android:padding="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:background="#FFF"
+                android:textColorHighlight="#000"
+                android:hint="day/mon/year"
+                android:inputType="textAutoComplete"
+                android:layout_below="@+id/to"
+                />
+            <EditText
+                android:id="@+id/weight"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:padding="7dp"
+                android:background="#FFF"
+                android:textColorHighlight="#000"
+                android:hint="Weight (Kg)"
+                android:inputType="textAutoComplete"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/from"
+                />
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:padding="7dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="13dp"
+                android:layout_toRightOf="@+id/date"
+                android:layout_below="@+id/weight"
+                android:text="Search"
+                android:textSize="15sp"
+                android:background="@color/gray2"
+                />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/search_page_upper_tab"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/gray1"
+                android:outlineSpotShadowColor="@color/cardview_dark_background"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="start"
+                app:menu="@menu/search_page_upper_tab_items"/>
+        </RelativeLayout>
+
+        <!-- Container for Shipment_Shower_Freg & Trip_Shower_Freg-->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/search_page_viewer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/upper_page"
+            android:background="@color/down"
+            />
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>

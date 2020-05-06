@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/start_sc"/>
+
+
+
+    <Button
+        android:id="@+id/Regbu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textColor="#304558"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="139dp"
+        android:textSize="20dp"
+        android:background="@drawable/bushape"
+        android:text="Register"
+
+        />
+
+    <Button
+        android:id="@+id/Logbu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#304558"
+        android:textSize="20dp"
+        android:layout_marginBottom="61dp"
+        android:background="@drawable/bushape"
+        android:text="Login"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/Regbu" />
+
+</RelativeLayout>
