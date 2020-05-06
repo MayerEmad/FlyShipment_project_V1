@@ -19,11 +19,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import search_classes.SearchViewModel;
 
-interface ApiTripInterface
-{
-    @GET("travellerInfo")
-    Call<List<TripItem>> get_api_response();
-}
 
 public class ApiTripSearch extends AppCompatActivity
 {
@@ -40,7 +35,7 @@ public class ApiTripSearch extends AppCompatActivity
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiTripInterface client=retrofit.create(ApiTripInterface.class);
+        theApiFunctions client=retrofit.create(theApiFunctions.class);
         Call<List<TripItem>> call = client.get_api_response();
         call.enqueue(new Callback<List<TripItem>>()
         {

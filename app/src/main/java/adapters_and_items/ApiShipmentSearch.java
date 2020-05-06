@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +15,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
 import search_classes.SearchViewModel;
 
-interface ApiShipmentInterface
-{
-    @GET("shipInfo")
-    Call<List<ShipmentItem>> get_api_response();
-}
 
 public class ApiShipmentSearch extends AppCompatActivity
 {
@@ -40,8 +33,8 @@ public class ApiShipmentSearch extends AppCompatActivity
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiShipmentInterface client=retrofit.create(ApiShipmentInterface.class);
-        Call<List<ShipmentItem>> call = client.get_api_response();
+        theApiFunctions client=retrofit.create(theApiFunctions.class);
+        Call<List<ShipmentItem>> call = client.get_api_response_1();
         call.enqueue(new Callback<List<ShipmentItem>>()
         {
             @Override
