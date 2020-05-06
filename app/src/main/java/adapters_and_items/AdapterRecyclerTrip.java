@@ -74,7 +74,6 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         holder.meeting_date.setText(item.getMeeting_date());
         holder.available_weight_text.setText(item.getAvailable_weight());
         holder.consumed_weight_text.setText(item.getConsumed_weight());
-       // holder.profile_image.setImageBitmap(null);
         Glide.with(mContext).load(item.getProfile_image_url()).into(holder.profile_image);
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUser_rate());

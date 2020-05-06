@@ -1,5 +1,6 @@
 package adapters_and_items;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.flyshippment_project.R;
 
 import java.util.ArrayList;
@@ -18,11 +20,13 @@ import java.util.ArrayList;
 public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecyclerShipment.MyViewHolder>
 {
     private ArrayList<ShipmentItem> ShipmentsList;
+    private Context mContext;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AdapterRecyclerShipment(ArrayList<ShipmentItem> DataList)
+    public AdapterRecyclerShipment(ArrayList<ShipmentItem> DataList,Context con)
     {
         ShipmentsList = DataList;
+        mContext=con;
     }
 
     //ok
@@ -67,14 +71,16 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ShipmentItem item = ShipmentsList.get(position);
 
-        holder.product_image.setImageBitmap(item.getProduct_image());
+        //holder.product_image.setImageBitmap(item.getProduct_image());
+        Glide.with(mContext).load(item.getProduct_image()).into(holder.product_image);
         holder.weight_text.setText(item.getStrWeight());
         holder.product_name.setText(item.getProduct_name());
         holder.country_from.setText(item.getCountry_from());
         holder.country_to.setText(item.getCountry_to());
         holder.last_date.setText(item.getLast_date());
         holder.reward_text.setText(item.getStrReward());
-        holder.profile_image.setImageBitmap(item.getProfile_image());
+        // holder.profile_image.setImageBitmap(item.getProfile_image());
+        Glide.with(mContext).load(item.getProfile_image()).into(holder.profile_image);
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUserRate());
 

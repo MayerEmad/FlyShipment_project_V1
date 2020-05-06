@@ -1,19 +1,29 @@
 package adapters_and_items;
 import android.graphics.Bitmap;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ShipmentItem {
 
     private static final int NO_IMAGE_PROVIDED = -1;  //TODO (Edit) put a customn photo
 
-    private String product_name, country_from, country_to,profile_name,last_date;
-    private double user_rate,reward,weight,items_number;
-    private Bitmap product_image,profile_image;
+    @SerializedName("itemName") private String product_name;
+    @SerializedName("from_country") private String country_from;
+    @SerializedName("to_country")  private String country_to;
+    @SerializedName("user_name")  private String profile_name;
+    @SerializedName("deadline")  private String last_date;
+    @SerializedName("image")  private String product_image;
+    @SerializedName("url")    private String profile_image;
+    @SerializedName("user_rate")  private double user_rate;
+    @SerializedName("price")  private double reward;
+    @SerializedName("weight")  private double weight;
+    @SerializedName("count")  private double items_number;
     private int ImageId = NO_IMAGE_PROVIDED;
 
 
     // constructor
-    public ShipmentItem(Bitmap prodImg, double prodWeight, double itemsNum, String name, String from, String to, String date,
-                        double money, Bitmap profImg, String profName, double rate)
+    public ShipmentItem(String prodImg, double prodWeight, double itemsNum, String name, String from, String to, String date,
+                        double money, String profImg, String profName, double rate)
     {
         product_image=prodImg;
         weight=prodWeight;
@@ -29,7 +39,7 @@ public class ShipmentItem {
 
     }
 
-    public Bitmap getProduct_image() { return product_image; }
+    public String getProduct_image() { return product_image; }
     public double getWeight(){ return weight*items_number; }
     public String getStrWeight(){
         return  Double.toString(weight*items_number)+"Kg";
@@ -56,7 +66,7 @@ public class ShipmentItem {
     public String getStrReward() {
         return "reward $"+Double.toString(reward);
     }
-    public Bitmap getProfile_image() { return profile_image; }
+    public String getProfile_image() { return profile_image; }
 
 
 

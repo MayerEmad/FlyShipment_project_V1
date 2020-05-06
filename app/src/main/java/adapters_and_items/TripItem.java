@@ -1,14 +1,23 @@
 package adapters_and_items;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TripItem {
     private static final int NO_IMAGE_PROVIDED = -1;  //TODO (Edit) put a customn photo
 
+    @SerializedName("from_country")
     private String country_from;
+    @SerializedName("to_country")
     private String country_to;
+    @SerializedName("user_name")
     private String profile_name;
+    @SerializedName("date")
     private String meeting_date;
+    @SerializedName("user_rate")
     private double user_rate;
+    @SerializedName("available_weight")
     private double available_weight;
+    @SerializedName("user_image")
     private String profile_image_url;
 
     private int ImageId = NO_IMAGE_PROVIDED;
@@ -19,7 +28,7 @@ public class TripItem {
         country_to =to;
         meeting_date=date;
         available_weight=availableWeight;
-       // consumed_weight=consumedWeight;
+        // consumed_weight=consumedWeight;
         profile_image_url=profImgUrl;
         profile_name=profName;
         user_rate=rate;

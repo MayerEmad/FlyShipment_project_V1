@@ -1,143 +1,64 @@
 package adapters_and_items;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.text.TextUtils;
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
-public final class ApiTripSearch {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import search_classes.SearchViewModel;
 
-    /**
-     * Create a private constructor because no one should ever create a {@link ApiShipmentSearch} object.
-     * This class is only meant to hold static variables and methods, which can be accessed
-     * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
-     */
-    private ApiTripSearch() { }
+interface ApiTripInterface
+{
+    @GET("travellerInfo")
+    Call<List<TripItem>> get_api_response();
+}
 
-    private static ArrayList<TripItem> extractJson(String responsJSON)
+public class ApiTripSearch extends AppCompatActivity
+{
+    private ArrayList<TripItem> list;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState)
     {
-        if (TextUtils.isEmpty(responsJSON))
+        super.onCreate(savedInstanceState);
+    }
+
+    public void DoTaskInBack()
+    {
+        Retrofit retrofit= new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiTripInterface client=retrofit.create(ApiTripInterface.class);
+        Call<List<TripItem>> call = client.get_api_response();
+        call.enqueue(new Callback<List<TripItem>>()
         {
-            Log.i("a", "Json respons is null---------------------: ");
-            return null;
-        }
-        ArrayList<TripItem> TripItemsListAPI = new ArrayList<>();
-        Log.i("refresh", "---------------Again---------------------: ");
-        try {
-            JSONArray itemsArray = new JSONArray(responsJSON);
-            for (int i = 0; i < itemsArray.length(); i++)
-            {
-                JSONObject currentItem = itemsArray.getJSONObject(i);
-                String countryFrom=currentItem.getString("from_country");
-                String countryTo=currentItem.getString("to_country");
-                String meetingDate=currentItem.getString("date");
-                double availabeWeight=currentItem.getDouble("available_weight");
-                String userName=currentItem.getString("user_name");
-                String imageUrl=currentItem.getString("user_image");
-                double rate=currentItem.getDouble("user_rate");
-
-                TripItem item = new TripItem(countryFrom, countryTo,meetingDate, availabeWeight,imageUrl, userName,rate);
-                TripItemsListAPI.add(item);
+            @Override
+            public void onResponse(Call<List<TripItem>> call, Response<List<TripItem>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(ApiTripSearch.this, "Response has error X(", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                list = (ArrayList<TripItem>) response.body();
+                SearchViewModel.setTripLiveData(list);
+                //for(int i=0;i<list.size();i++) Log.i("response------>", list.get(i).getProfile_name());
             }
-        }
-        catch (JSONException e) {
-            Log.e("QueryUtils", "-------Problem parsing the Shipment JSON results", e);
-        }
-
-        return TripItemsListAPI;
+            @Override
+            public void onFailure(Call<List<TripItem>> call, Throwable t) {
+                Toast.makeText(ApiTripSearch.this, "Response failed :(", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private static URL createUrl(String stringUrl) {
-        URL url = null;
-        try {
-            url = new URL(stringUrl);
-        } catch (MalformedURLException e) {
-            Log.e("QueryUtils", "Problem building the URL ", e);
-        }
-        return url;
-    }
-
-    private static String makeHttpRequest(URL url) throws IOException {
-        String jsonResponse = "";
-
-        // If the URL is null, then return early.
-        if (url == null) {
-            return jsonResponse;
-        }
-
-        HttpURLConnection urlConnection = null;
-        InputStream inputStream = null;
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
-
-            // If the request was successful (response code 200),
-            if (urlConnection.getResponseCode() == 200) {
-                inputStream = urlConnection.getInputStream();
-                jsonResponse = readFromStream(inputStream);
-            } else {
-                Log.e("QueryUtils", "--------Error response code: " + urlConnection.getResponseCode());
-            }
-        }
-        catch (IOException e) {
-            Log.e("QueryUtils", "----------Problem retrieving the Shipment JSON results.", e);
-        }
-        finally {
-            if (urlConnection != null) { urlConnection.disconnect();
-            }
-            if (inputStream != null)   { inputStream.close();
-            }
-        }
-        return jsonResponse;
-    }
-
-
-    // Convert the {@link InputStream} into a String which contains the whole JSON response from the server.
-    private static String readFromStream(InputStream inputStream) throws IOException {
-        StringBuilder output = new StringBuilder();
-        if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line = reader.readLine();
-            while (line != null) {
-                output.append(line);
-                line = reader.readLine();
-            }
-        }
-        return output.toString();
-    }
-
-    //TODO start
-    // use makeHttpRequest & readFromStream
-    public static ArrayList<TripItem>getApiTripItemsData(String requestUrl) {
-
-        URL url = createUrl(requestUrl);
-        // Perform HTTP request to the URL and receive a JSON response back
-        String jsonResponse = null;
-        try {
-            jsonResponse = makeHttpRequest(url);
-        } catch (IOException e) {
-            Log.e("QueryUtils", "-------Problem making the HTTP request.", e);
-        }
-        ArrayList<TripItem> Data= extractJson(jsonResponse);
-
-        return Data;
-    }
 }

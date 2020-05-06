@@ -57,29 +57,30 @@ public class SearchNavFragment extends Fragment
         ArrayList<ShipmentItem> filteredShipmentList= new ArrayList<ShipmentItem>();
 
         for(int i=0;i<ShipmentList.size();i++)
-           {
-               ShipmentItem item=ShipmentList.get(i);
-               //Log.i("SEARCH--->", item.getCountry_from()+" "+item.getCountry_to()+" "+item.getWeight());
-               //Log.i("copare--->", fromCountery+" "+toCountery+" "+weight);
-               if(fromCountery.equals(item.getCountry_from()) )//&& toCountery==item.getCountry_to() && weight>=item.getWeight())
-               {
-                   filteredShipmentList.add(item);
-               }
-           }
+        {
+            ShipmentItem item=ShipmentList.get(i);
+            //Log.i("SEARCH--->", item.getCountry_from()+" "+item.getCountry_to()+" "+item.getWeight());
+            //Log.i("copare--->", fromCountery+" "+toCountery+" "+weight);
+            if(fromCountery.equals(item.getCountry_from()) )//&& toCountery==item.getCountry_to() && weight>=item.getWeight())
+            {
+                filteredShipmentList.add(item);
+            }
+        }
         return filteredShipmentList;
     }
 
     private ArrayList<TripItem> getFilteredTrips()
     {
+        Repository r=new Repository();
         ArrayList<TripItem> TripList = Repository.getTripsFromApi();
         ArrayList<TripItem> filteredtripList= new ArrayList<TripItem>();
         for(int i=0;i<TripList.size();i++)
         {
             TripItem item=TripList.get(i);
             if(fromCountery.equals(item.getCountry_from()) ||toCountery.equals(item.getCountry_to())  )  // && weight>=item.getWeight())
-             {
+            {
                 filteredtripList.add(item);
-             }
+            }
         }
         return filteredtripList;
     }

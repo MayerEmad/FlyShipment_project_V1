@@ -47,7 +47,7 @@ public class Shipment_Shower_Freg extends Fragment
         //Intialise the Recycler Viewer
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        mAdapter=new AdapterRecyclerShipment(Repository.getShipmentsFromApi());
+        mAdapter=new AdapterRecyclerShipment(Repository.getShipmentsFromApi(),getContext());
         recyclerView.setAdapter(mAdapter);
 
         // For the first time API will take time to get Shipments from doInBackground
@@ -58,7 +58,7 @@ public class Shipment_Shower_Freg extends Fragment
         viewModel.getShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
             @Override
             public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
-                recyclerView.setAdapter(new AdapterRecyclerShipment( shipmentItems));
+                recyclerView.setAdapter(new AdapterRecyclerShipment( shipmentItems,getContext()));
 
                 // Remove the Progress par
                 loadingIndicator.setVisibility(View.GONE);
