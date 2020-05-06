@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import adapters_and_items.AdapterRecyclerShipment;
 import adapters_and_items.Repository;
 import adapters_and_items.ShipmentItem;
-import search_classes.SearchViewModel;
+import adapters_and_items.SearchViewModel;
 
 
 public class ShipmentNavFragment extends Fragment {

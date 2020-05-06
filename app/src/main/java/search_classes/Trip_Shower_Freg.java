@@ -15,16 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import adapters_and_items.AdapterRecyclerShipment;
 import com.example.flyshippment_project.R;
 
 import adapters_and_items.AdapterRecyclerTrip;
 import adapters_and_items.Repository;
-import adapters_and_items.ShipmentItem;
+import adapters_and_items.SearchViewModel;
 import adapters_and_items.TripItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,14 +1,6 @@
 package adapters_and_items;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
-import search_classes.SearchViewModel;
 
 public class Repository
 {
