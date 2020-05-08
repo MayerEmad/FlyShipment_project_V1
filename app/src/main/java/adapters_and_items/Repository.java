@@ -12,7 +12,12 @@ public class Repository
         // TODO -->Background Task to get Shipments
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.DoTaskInBack();
-        return SearchViewModel.getShipmentLiveData().getValue();  //Update Recycler View Adapters
+        ArrayList<ShipmentItem>list=SearchViewModel.getShipmentLiveData().getValue();
+        if(list==null){
+            SearchViewModel.setShipmentLiveData(new ArrayList<ShipmentItem>());
+            list=SearchViewModel.getShipmentLiveData().getValue();
+        }
+        return list ;  //Update Recycler View Adapters
     }
 
     public static ArrayList<TripItem> getTripsFromApi()
@@ -20,9 +25,27 @@ public class Repository
         // TODO -->Background Task to get Trips
         ApiTripSearch task=new ApiTripSearch();
         task.DoTaskInBack();
-        return SearchViewModel.getTripLiveData().getValue();  //Update Recycler View Adapters
+        ArrayList<TripItem>list=SearchViewModel.getTripLiveData().getValue();
+        if(list==null){
+            SearchViewModel.setTripLiveData(new ArrayList<TripItem>());
+            list=SearchViewModel.getTripLiveData().getValue();
+        }
+        return list ;  //Update Recycler View Adapters
     }
 
+    public static ArrayList<ShipmentItem> getUserShipmentsFromApi()
+    {
+        return SearchViewModel.getUserShipmentLiveData().getValue();  //Update Recycler View Adapters
+    }
 
+    public static ArrayList<TripItem> getUserTripsFromApi()
+    {
+        ArrayList<TripItem>list=SearchViewModel.getUserTripLiveData().getValue();
+        if(list==null){
+            SearchViewModel.setUserTripLiveData(new ArrayList<TripItem>());
+            list=SearchViewModel.getUserTripLiveData().getValue();
+        }
+        return list ;  //Update Recycler View Adapters
+    }
 }
 

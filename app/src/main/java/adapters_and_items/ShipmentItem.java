@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class ShipmentItem {
 
-    private static final int NO_IMAGE_PROVIDED = -1;  //TODO (Edit) put a customn photo
+    private static final int NO_IMAGE_PROVIDED = -1;
 
     @SerializedName("itemName") private String product_name;
     @SerializedName("from_country") private String country_from;
@@ -18,12 +18,13 @@ public class ShipmentItem {
     @SerializedName("price")  private double reward;
     @SerializedName("weight")  private double weight;
     @SerializedName("count")  private double items_number;
+    private Bitmap product_image_bm;
+    private Bitmap profile_image_bm;
     private int ImageId = NO_IMAGE_PROVIDED;
-
 
     // constructor
     public ShipmentItem(String prodImg, double prodWeight, double itemsNum, String name, String from, String to, String date,
-                        double money, String profImg, String profName, double rate)
+                          double money, String profImg, String profName, double rate,Bitmap prdBm,Bitmap profBm)
     {
         product_image=prodImg;
         weight=prodWeight;
@@ -36,8 +37,10 @@ public class ShipmentItem {
         profile_image=profImg;
         profile_name=profName;
         user_rate=rate;
-
+        product_image_bm=prdBm;
+        profile_image_bm=profBm;
     }
+
 
     public String getProduct_image() { return product_image; }
     public double getWeight(){ return weight*items_number; }
@@ -68,7 +71,13 @@ public class ShipmentItem {
     }
     public String getProfile_image() { return profile_image; }
 
+    public Bitmap getProduct_image_bm() {
+        return product_image_bm;
+    }
 
+    public Bitmap getProfile_image_bm() {
+        return profile_image_bm;
+    }
 
 
     /*public boolean hasImage() {

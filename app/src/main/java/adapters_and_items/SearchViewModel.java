@@ -30,9 +30,9 @@ public class SearchViewModel extends ViewModel
     public static void setUserShipmentLiveData(ArrayList<ShipmentItem> data) { UserShipmentListLiveData.setValue(data); }
 
     //For user Trips
-    private static MutableLiveData<ArrayList<ShipmentItem>> UserTripLiveData = new MutableLiveData<ArrayList<ShipmentItem>>();
-    public static LiveData<ArrayList<ShipmentItem>> getUserTripLiveData() { return UserTripLiveData; }
-    public static void setUserTripLiveData(ArrayList<ShipmentItem> data) { UserTripLiveData.setValue(data); }
+    private static MutableLiveData<ArrayList<TripItem>> UserTripLiveData = new MutableLiveData<ArrayList<TripItem>>();
+    public static LiveData<ArrayList<TripItem>> getUserTripLiveData() { return UserTripLiveData; }
+    public static void setUserTripLiveData(ArrayList<TripItem> data) { UserTripLiveData.setValue(data); }
 
 }
 

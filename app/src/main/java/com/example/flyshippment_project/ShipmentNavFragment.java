@@ -1,5 +1,6 @@
 package com.example.flyshippment_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,7 +32,6 @@ import adapters_and_items.SearchViewModel;
 public class ShipmentNavFragment extends Fragment {
 
     private RecyclerView recyclerView;
-
     public ShipmentNavFragment() {
         // Required empty public constructor
     }
@@ -44,25 +46,38 @@ public class ShipmentNavFragment extends Fragment {
     {
         final SearchViewModel viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(SearchViewModel.class);
         FloatingActionButton fab =(FloatingActionButton) view.findViewById(R.id.floating_button_shipment_nav);
+        final TextView noShipmentText=(TextView) view.findViewById(R.id.no_shipments_text);
         recyclerView = (RecyclerView) view.findViewById(R.id.user_shipments_recycler_view);
 
         //Intialise the Recycler Viewer
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        RecyclerView.Adapter mAdapter = new AdapterRecyclerShipment(Repository.getShipmentsFromApi(), getContext());
-        recyclerView.setAdapter(mAdapter);
-
+        ArrayList<ShipmentItem>userList=Repository.getUserShipmentsFromApi();
+        if(userList!=null)
+        {
+            noShipmentText.setVisibility(View.INVISIBLE);
+            RecyclerView.Adapter mAdapter = new AdapterRecyclerShipment(userList, getContext());
+            recyclerView.setAdapter(mAdapter);
+        }
+        else
+        {
+            //Toast.makeText(ShipmentNavFragment.this.getContext(), "userlist is full", Toast.LENGTH_SHORT).show();
+            noShipmentText.setVisibility(View.VISIBLE);
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                //Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Intent intent =new Intent(getContext(),CreateShipmentItemActivity.class);
+                startActivity(intent);
             }
         });
         //When the LiveData  Changes due to Loading or Filtering it will be updated here
-        viewModel.getShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
+        SearchViewModel.getUserShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
             @Override
             public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
                 recyclerView.setAdapter(new AdapterRecyclerShipment( shipmentItems,getContext()));
+                noShipmentText.setVisibility(View.INVISIBLE);
             }
         });
     }

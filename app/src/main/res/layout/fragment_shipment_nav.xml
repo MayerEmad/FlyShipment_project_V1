@@ -7,20 +7,21 @@
     android:layout_height="match_parent">
 
 <!-- Main content -->
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Add Shipment"
-    android:textSize="40sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_shipments_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:background="@color/down"
         android:drawSelectorOnTop="true"
         android:orientation="vertical" />
+    <TextView
+        android:id="@+id/no_shipments_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have no shipments yet"
+        android:textSize="40sp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button_shipment_nav"
