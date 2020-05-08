@@ -71,8 +71,8 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ShipmentItem item = ShipmentsList.get(position);
 
-       if(item.getProfile_image_bm()!=null)
-           holder.product_image.setImageBitmap(item.getProfile_image_bm());
+        if(item.getProduct_image_bm()!=null)
+           holder.product_image.setImageBitmap(item.getProduct_image_bm());
         else Glide.with(mContext).load(item.getProduct_image()).into(holder.product_image);
         holder.weight_text.setText(item.getStrWeight());
         holder.product_name.setText(item.getProduct_name());

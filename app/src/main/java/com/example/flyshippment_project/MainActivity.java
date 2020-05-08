@@ -19,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import adapters_and_items.ShipmentItem;
 import login_rejester_splash.SplashScreen;
@@ -65,20 +66,26 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Check if the device is connected to the internet
+        //* Check if the device is connected to the internet
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        NetworkInfo activeNetwork = Objects.requireNonNull(cm).getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        if(isConnected) {
-            Toast.makeText(this, "Connected  ", Toast.LENGTH_SHORT).show();
+        if(!isConnected) {
+            Toast.makeText(this, "there is no internet access :(", Toast.LENGTH_SHORT).show();
+        }
+
+        //* Bottom Navigation Bar Listener
+        BottomNavigationView bottomNav=findViewById(R.id.bottom_nav);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+        //*choose the Fragment to go
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null && extras.containsKey("openShipmentNav") && extras.getBoolean("openShipmentNav")) {
+          getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new ShipmentNavFragment()).commit();
         }
         else {
-            Toast.makeText(this, "No net  ", Toast.LENGTH_SHORT).show();
+          getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new SearchNavFragment()).commit(); //Default
         }
-        // Bottom Navigation Bar Listener
-        BottomNavigationView bottomNav=findViewById(R.id.bottom_nav);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new SearchNavFragment()).commit(); //Default
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
     }
 
 }

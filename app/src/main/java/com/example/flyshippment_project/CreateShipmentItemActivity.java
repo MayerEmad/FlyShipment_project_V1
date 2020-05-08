@@ -66,7 +66,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
 
     private boolean noEmptyField() {
         if (fromCountry.isEmpty() || toCountry.isEmpty() || lastDate.isEmpty() || itemName.isEmpty() ||
-                itemPrice.isEmpty() || itemWeight.isEmpty() || itemNumber.isEmpty() ||
+                itemPrice.isEmpty() || itemWeight.isEmpty() || itemNumber.equals("0") ||
                 itemUrl.isEmpty() || itemImage==null) return false;
         return true;
     }
@@ -145,12 +145,19 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                     }
                     list.add(item);
 
+                    Toast.makeText(CreateShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
+                    // Go back ShipmentNavFragment
+                    Intent intent = new Intent(CreateShipmentItemActivity.this,MainActivity.class);
+                    intent .putExtra("openShipmentNav",true);
+                    overridePendingTransition(0, 0);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    finish();
+                    startActivity(intent);
                 } else {
                     Toast.makeText(CreateShipmentItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 
     //TODO----> get image from camera
