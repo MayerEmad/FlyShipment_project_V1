@@ -18,13 +18,11 @@ public class ShipmentItem {
     @SerializedName("price")  private double reward;
     @SerializedName("weight")  private double weight;
     @SerializedName("count")  private double items_number;
-    private Bitmap product_image_bm;
-    private Bitmap profile_image_bm;
     private int ImageId = NO_IMAGE_PROVIDED;
 
     // constructor
     public ShipmentItem(String prodImg, double prodWeight, double itemsNum, String name, String from, String to, String date,
-                          double money, String profImg, String profName, double rate,Bitmap prdBm,Bitmap profBm)
+                          double money, String profImg, String profName, double rate)
     {
         product_image=prodImg;
         weight=prodWeight;
@@ -37,8 +35,6 @@ public class ShipmentItem {
         profile_image=profImg;
         profile_name=profName;
         user_rate=rate;
-        product_image_bm=prdBm;
-        profile_image_bm=profBm;
     }
 
 
@@ -70,15 +66,6 @@ public class ShipmentItem {
         return "reward $"+Double.toString(reward);
     }
     public String getProfile_image() { return profile_image; }
-
-    public Bitmap getProduct_image_bm() {
-        return product_image_bm;
-    }
-
-    public Bitmap getProfile_image_bm() {
-        return profile_image_bm;
-    }
-
 
     /*public boolean hasImage() {
         return ImageId != NO_IMAGE_PROVIDED;

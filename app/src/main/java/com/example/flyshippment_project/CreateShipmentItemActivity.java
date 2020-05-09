@@ -29,7 +29,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
     private String itemWeight = "";
     private String itemNumber = "";
     private String itemUrl = "";
-    private Bitmap itemImage = null;
+    private Uri itemImageUrl = null;
 
     private EditText fromText;
     private EditText toText;
@@ -67,7 +67,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
     private boolean noEmptyField() {
         if (fromCountry.isEmpty() || toCountry.isEmpty() || lastDate.isEmpty() || itemName.isEmpty() ||
                 itemPrice.isEmpty() || itemWeight.isEmpty() || itemNumber.equals("0") ||
-                itemUrl.isEmpty() || itemImage==null) return false;
+                itemUrl.isEmpty() || itemImageUrl ==null) return false;
         return true;
     }
 
@@ -133,11 +133,11 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                 //itemImage---->  get its value at onActivityResult
                 if (noEmptyField())
                 {
-                    //FIXME add -->username,rate,profile_bitmap
+                    //FIXME add -->username,rate,profile_bitmap, use itemUrl=amazon
                     ShipmentItem item =new ShipmentItem(
-                            "",Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
+                            itemImageUrl.toString(),Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
-                            "", "UserName", 5,itemImage,null);
+                            "", "UserName", 5);
                     ArrayList<ShipmentItem>list=Repository.getUserShipmentsFromApi();
                     if(list==null) {
                         SearchViewModel.setUserShipmentLiveData(new ArrayList<ShipmentItem>());
@@ -168,11 +168,11 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
         if(resultCode ==RESULT_OK && requestCode==GALLERY_REQUEST)
             {
                 Uri selectedImage = data.getData();
+                itemImageUrl =selectedImage;
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
                     theImageView = (ImageView) findViewById(R.id.create_shipment_the_image);
                     theImageView.setImageBitmap(bitmap);
-                    itemImage=bitmap;
                 } catch (IOException e) {
                     Toast.makeText(CreateShipmentItemActivity.this,"Error" , Toast.LENGTH_SHORT).show();
                 }

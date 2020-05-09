@@ -71,18 +71,14 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ShipmentItem item = ShipmentsList.get(position);
 
-        if(item.getProduct_image_bm()!=null)
-           holder.product_image.setImageBitmap(item.getProduct_image_bm());
-        else Glide.with(mContext).load(item.getProduct_image()).into(holder.product_image);
+        Glide.with(mContext).load(item.getProduct_image()).into(holder.product_image);
         holder.weight_text.setText(item.getStrWeight());
         holder.product_name.setText(item.getProduct_name());
         holder.country_from.setText(item.getCountry_from());
         holder.country_to.setText(item.getCountry_to());
         holder.last_date.setText(item.getLast_date());
         holder.reward_text.setText(item.getStrReward());
-        if(item.getProfile_image_bm()!=null)
-            holder.profile_image.setImageBitmap(item.getProfile_image_bm());
-        else  Glide.with(mContext).load(item.getProfile_image()).into(holder.profile_image);
+        Glide.with(mContext).load(item.getProfile_image()).into(holder.profile_image);
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUserRate());
 
