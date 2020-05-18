@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +19,20 @@ import adapters_and_items.AdapterRecyclerShipment;
 import com.example.flyshippment_project.R;
 
 import adapters_and_items.Repository;
-import adapters_and_items.SearchViewModel;
+import adapters_and_items.MyViewModel;
 import adapters_and_items.ShipmentItem;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Shipment_Shower_Freg extends Fragment
 {
     public Shipment_Shower_Freg() { }
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter ;
-
+    private ArrayList<ShipmentItem>userList;
+    private AdapterRecyclerShipment mAdapter;
+    private View loadingIndicator;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -40,30 +43,35 @@ public class Shipment_Shower_Freg extends Fragment
     @Override
     public void onViewCreated(@NonNull  View view, @Nullable Bundle savedInstanceState)
     {
-        final SearchViewModel viewModel = ViewModelProviders.of(getActivity()).get(SearchViewModel.class);
-        final View loadingIndicator = view.findViewById(R.id.loading_indicator);
+       // Log.i("onViewCreated: ","1----------->is here");
+        loadingIndicator = view.findViewById(R.id.loading_indicator);
         recyclerView = (RecyclerView) view.findViewById(R.id.rc1);
-
-        //Intialise the Recycler Viewer
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
-        mAdapter=new AdapterRecyclerShipment(Repository.getShipmentsFromApi(),getContext());
-        recyclerView.setAdapter(mAdapter);
+        userList=Repository.getShipmentsFromApi();
 
         // For the first time API will take time to get Shipments from doInBackground
-        // So after we get Shipments AsyncTask onPostExecute will update LiveData
-        loadingIndicator.setVisibility(View.VISIBLE);  /*TODO Problem*/
+        loadingIndicator.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         //When the LiveData  Changes due to Loading or Filtering it will be updated here
-        viewModel.getShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
+        MyViewModel.getShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>()
+        {
             @Override
-            public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
-                recyclerView.setAdapter(new AdapterRecyclerShipment( shipmentItems,getContext()));
-
-                // Remove the Progress par
-                loadingIndicator.setVisibility(View.GONE);
+            public void onChanged(ArrayList<ShipmentItem> shipmentItems)
+            {
+               // Log.d("TEST", "[onChanged]: " + hashCode());
+              //  Log.i("ship observer arr", " change has happen : -------> ");
+                loadingIndicator.setVisibility(View.INVISIBLE);
+                userList=MyViewModel.getShipmentLiveData().getValue();
+                mAdapter=new AdapterRecyclerShipment(userList,getContext());
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(mAdapter);
             }
         });
     }
-
 }
+

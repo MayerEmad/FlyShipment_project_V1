@@ -1,6 +1,7 @@
 package adapters_and_items;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -33,6 +34,7 @@ public class ApiShipmentSearch extends AppCompatActivity
                 .build();
         theApiFunctions client=retrofit.create(theApiFunctions.class);
         Call<List<ShipmentItem>> call = client.get_api_response_1();
+       // call.execute().body();
         call.enqueue(new Callback<List<ShipmentItem>>()
         {
             @Override
@@ -42,8 +44,12 @@ public class ApiShipmentSearch extends AppCompatActivity
                     return;
                 }
                 list = (ArrayList<ShipmentItem>) response.body();
-                SearchViewModel.setShipmentLiveData(list);
-                //for(int i=0;i<list.size();i++) Log.i("response------>", list.get(i).getProfile_name());
+                if(list==null){
+                   // Log.i("ApiShipment onResponse", "-----> ask for response again");
+                    Repository.getShipmentsFromApi();
+                }
+              //  Log.i("ApiShipment onResponse", "-----> go to ModelView set function");
+                MyViewModel.setShipmentLiveData(list);
             }
             @Override
             public void onFailure(Call<List<ShipmentItem>> call, Throwable t) {

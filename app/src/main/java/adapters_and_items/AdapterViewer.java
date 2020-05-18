@@ -21,10 +21,10 @@ public class AdapterViewer extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            Log.i("AdapterViewer", "----------Shipment_Shower_Freg is Created");
+           // Log.i("AdapterViewer", "----------Shipment_Shower_Freg is Created");
             return new Shipment_Shower_Freg();
         } else {
-            Log.i("AdapterViewer", "----------Trip_Shower_Freg is created");
+            //Log.i("AdapterViewer", "----------Trip_Shower_Freg is created");
             return new Trip_Shower_Freg();
         }
     }

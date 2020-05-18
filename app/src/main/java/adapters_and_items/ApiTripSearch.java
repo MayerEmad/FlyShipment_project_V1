@@ -42,7 +42,11 @@ public class ApiTripSearch extends AppCompatActivity
                     return;
                 }
                 list = (ArrayList<TripItem>) response.body();
-                SearchViewModel.setTripLiveData(list);
+                if(list==null){
+                    // Log.i("ApiShipment onResponse", "-----> ask for response again");
+                    Repository.getTripsFromApi();
+                }
+                MyViewModel.setTripLiveData(list);
                 //for(int i=0;i<list.size();i++) Log.i("response------>", list.get(i).getProfile_name());
             }
             @Override

@@ -24,9 +24,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import adapters_and_items.AdapterRecyclerShipment;
+import adapters_and_items.MyViewModel;
 import adapters_and_items.Repository;
 import adapters_and_items.ShipmentItem;
-import adapters_and_items.SearchViewModel;
+import adapters_and_items.MyViewModel;
 
 
 public class ShipmentNavFragment extends Fragment {
@@ -44,7 +45,7 @@ public class ShipmentNavFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        final SearchViewModel viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(SearchViewModel.class);
+        final MyViewModel viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MyViewModel.class);
         FloatingActionButton fab =(FloatingActionButton) view.findViewById(R.id.floating_button_shipment_nav);
         final TextView noShipmentText=(TextView) view.findViewById(R.id.no_shipments_text);
         recyclerView = (RecyclerView) view.findViewById(R.id.user_shipments_recycler_view);
@@ -73,7 +74,7 @@ public class ShipmentNavFragment extends Fragment {
             }
         });
         //When the LiveData  Changes due to Loading or Filtering it will be updated here
-        SearchViewModel.getUserShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
+        MyViewModel.getUserShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
             @Override
             public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
                 recyclerView.setAdapter(new AdapterRecyclerShipment( shipmentItems,getContext()));

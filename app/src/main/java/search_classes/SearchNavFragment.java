@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import android.widget.EditText;
 
 import adapters_and_items.AdapterViewer;
 import adapters_and_items.Repository;
-import adapters_and_items.SearchViewModel;
+import adapters_and_items.MyViewModel;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.TripItem;
 
@@ -30,12 +31,10 @@ import java.util.Date;
 
 public class SearchNavFragment extends Fragment
 {
-
     public SearchNavFragment() {
         // Required empty public constructor
     }
 
-    private SearchViewModel viewModel;
     private String fromCountery="";
     private String toCountery="";
     private double weight=0;
@@ -51,7 +50,7 @@ public class SearchNavFragment extends Fragment
 
     private ArrayList<ShipmentItem> getFilteredShipments()
     {
-        ArrayList<ShipmentItem> ShipmentList =Repository.getShipmentsFromApi();
+        ArrayList<ShipmentItem> ShipmentList =MyViewModel.getShipmentLiveData().getValue();//Repository.getShipmentsFromApi();
         ArrayList<ShipmentItem> filteredShipmentList= new ArrayList<ShipmentItem>();
 
         for(int i=0;i<ShipmentList.size();i++)
@@ -64,12 +63,12 @@ public class SearchNavFragment extends Fragment
                 filteredShipmentList.add(item);
             }
         }
+        Log.i("AfterSearch", "getFilteredShipments: --> size"+String.valueOf(filteredShipmentList.size()));
         return filteredShipmentList;
     }
 
     private ArrayList<TripItem> getFilteredTrips()
     {
-        Repository r=new Repository();
         ArrayList<TripItem> TripList = Repository.getTripsFromApi();
         ArrayList<TripItem> filteredtripList= new ArrayList<TripItem>();
         for(int i=0;i<TripList.size();i++)
@@ -106,8 +105,6 @@ public class SearchNavFragment extends Fragment
         final EditText et_weight=(EditText)view.findViewById(R.id.weight);
         final EditText et_date=(EditText)view.findViewById(R.id.date);
 
-
-        viewModel = ViewModelProviders.of(getActivity()).get(SearchViewModel.class);
         // on Searching..
         searchButton.setOnClickListener(new View.OnClickListener()
         {
@@ -128,8 +125,8 @@ public class SearchNavFragment extends Fragment
 
                 //TODO apply filtering and store them in list
 
-                viewModel.setShipmentLiveData(getFilteredShipments());
-                viewModel.setTripLiveData(getFilteredTrips());
+                MyViewModel.setShipmentLiveData(getFilteredShipments());
+                MyViewModel.setTripLiveData(getFilteredTrips());
             }
         });
     }

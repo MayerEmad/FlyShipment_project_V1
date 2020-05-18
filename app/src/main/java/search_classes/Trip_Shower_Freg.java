@@ -19,14 +19,11 @@ import com.example.flyshippment_project.R;
 
 import adapters_and_items.AdapterRecyclerTrip;
 import adapters_and_items.Repository;
-import adapters_and_items.SearchViewModel;
+import adapters_and_items.MyViewModel;
 import adapters_and_items.TripItem;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Trip_Shower_Freg extends Fragment
 {
 
@@ -35,7 +32,9 @@ public class Trip_Shower_Freg extends Fragment
     }
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter ;
+    private ArrayList<TripItem>userList;
+    private AdapterRecyclerTrip mAdapter;
+    private View loadingIndicator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -48,29 +47,24 @@ public class Trip_Shower_Freg extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        Log.i("refresh", "---------------ViewCreated---------------------: ");
-        final SearchViewModel viewModel = ViewModelProviders.of(getActivity()).get(SearchViewModel.class);
-        final View loadingIndicator = view.findViewById(R.id.loading_indicator);
-        recyclerView = (RecyclerView) view.findViewById(R.id.rc1);
 
-        //Intialise the Recycler Viewer
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
-        mAdapter=new AdapterRecyclerTrip(Repository.getTripsFromApi(),getContext());
-        recyclerView.setAdapter(mAdapter);
+        loadingIndicator = view.findViewById(R.id.loading_indicator);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rc1);
+        userList=Repository.getTripsFromApi();
 
         // For the first time API will take time to get Shipments from doInBackground
-        // So after we get Shipments AsyncTask onPostExecute will update LiveData
-        loadingIndicator.setVisibility(View.VISIBLE);  /*TODO Problem*/
+        loadingIndicator.setVisibility(View.VISIBLE);
 
         //When the LiveData  Changes due to Loading or Filtering it will be updated here
-        viewModel.getTripLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<TripItem>>() {
+        MyViewModel.getTripLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<TripItem>>() {
             @Override
             public void onChanged(ArrayList<TripItem> tripItems) {
-                recyclerView.setAdapter(new AdapterRecyclerTrip(tripItems,getContext()));
-
-                // Remove the Progress par
-                loadingIndicator.setVisibility(View.GONE);
+                loadingIndicator.setVisibility(View.INVISIBLE);
+                userList=MyViewModel.getTripLiveData().getValue();
+                mAdapter=new AdapterRecyclerTrip(userList,getContext());
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(mAdapter);
             }
         });
     }

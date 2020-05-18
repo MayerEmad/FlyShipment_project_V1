@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import adapters_and_items.Repository;
-import adapters_and_items.SearchViewModel;
+import adapters_and_items.MyViewModel;
 import adapters_and_items.ShipmentItem;
 
 public class CreateShipmentItemActivity extends AppCompatActivity {
@@ -140,7 +140,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                             "", "UserName", 5);
                     ArrayList<ShipmentItem>list=Repository.getUserShipmentsFromApi();
                     if(list==null) {
-                        SearchViewModel.setUserShipmentLiveData(new ArrayList<ShipmentItem>());
+                        MyViewModel.setUserShipmentLiveData(new ArrayList<ShipmentItem>());
                         list=Repository.getUserShipmentsFromApi();
                     }
                     list.add(item);
