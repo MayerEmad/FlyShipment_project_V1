@@ -1,9 +1,11 @@
-package adapters_and_items;
-
-import android.util.Log;
+package com.example.flyshippment_project;
 
 import java.util.ArrayList;
-import java.util.concurrent.Semaphore;
+
+import adapters_and_items.ApiShipmentSearch;
+import adapters_and_items.ApiTripSearch;
+import adapters_and_items.ShipmentItem;
+import adapters_and_items.TripItem;
 
 public class Repository
 {

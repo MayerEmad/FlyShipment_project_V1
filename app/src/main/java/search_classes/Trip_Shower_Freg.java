@@ -6,11 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +16,8 @@ import android.view.ViewGroup;
 import com.example.flyshippment_project.R;
 
 import adapters_and_items.AdapterRecyclerTrip;
-import adapters_and_items.Repository;
-import adapters_and_items.MyViewModel;
+import com.example.flyshippment_project.Repository;
+import com.example.flyshippment_project.MyViewModel;
 import adapters_and_items.TripItem;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package adapters_and_items;
+package com.example.flyshippment_project;
 
 import android.util.Log;
 

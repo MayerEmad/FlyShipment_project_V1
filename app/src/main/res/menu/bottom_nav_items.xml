@@ -18,7 +18,7 @@
             android:title="inbox"
             android:icon="@drawable/ic_launcher_background" />
 
-        <item android:id="@+id/profile_bottom_nav"
-            android:title="profile"
+        <item android:id="@+id/more_bottom_nav"
+            android:title="more"
             android:icon="@drawable/ic_launcher_background" />
 </menu>

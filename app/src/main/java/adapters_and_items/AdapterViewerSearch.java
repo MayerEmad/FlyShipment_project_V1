@@ -12,12 +12,13 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import search_classes.Shipment_Shower_Freg;
 import search_classes.Trip_Shower_Freg;
 
-public class AdapterViewer extends FragmentStatePagerAdapter
+public class AdapterViewerSearch extends FragmentStatePagerAdapter
 {
-    public AdapterViewer(@NonNull FragmentManager fm, int behavior) {
+    public AdapterViewerSearch(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {

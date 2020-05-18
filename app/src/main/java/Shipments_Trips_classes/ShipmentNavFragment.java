@@ -1,4 +1,4 @@
-package com.example.flyshippment_project;
+package Shipments_Trips_classes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,19 +15,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.flyshippment_project.MyViewModel;
+import com.example.flyshippment_project.R;
+import com.example.flyshippment_project.Repository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import adapters_and_items.AdapterRecyclerShipment;
-import adapters_and_items.MyViewModel;
-import adapters_and_items.Repository;
 import adapters_and_items.ShipmentItem;
-import adapters_and_items.MyViewModel;
 
 
 public class ShipmentNavFragment extends Fragment {
@@ -53,7 +51,7 @@ public class ShipmentNavFragment extends Fragment {
         //Intialise the Recycler Viewer
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        ArrayList<ShipmentItem>userList=Repository.getUserShipmentsFromApi();
+        ArrayList<ShipmentItem>userList= Repository.getUserShipmentsFromApi();
         if(userList!=null)
         {
             noShipmentText.setVisibility(View.INVISIBLE);
@@ -77,7 +75,7 @@ public class ShipmentNavFragment extends Fragment {
         MyViewModel.getUserShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
             @Override
             public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
-                recyclerView.setAdapter(new AdapterRecyclerShipment( shipmentItems,getContext()));
+                recyclerView.setAdapter(new AdapterRecyclerShipment(shipmentItems,getContext()));
                 noShipmentText.setVisibility(View.INVISIBLE);
             }
         });

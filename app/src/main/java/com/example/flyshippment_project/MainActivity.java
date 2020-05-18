@@ -3,28 +3,22 @@ package com.example.flyshippment_project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import adapters_and_items.ShipmentItem;
-import login_rejester_splash.SplashScreen;
+import Shipments_Trips_classes.ShipmentNavFragment;
+import Shipments_Trips_classes.TripNavFragment;
+import more_classes.MoreNavFragment;
 import search_classes.SearchNavFragment;
-import search_classes.Shipment_Shower_Freg;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -52,8 +46,8 @@ public class MainActivity extends AppCompatActivity
                         case R.id.inbox_bottom_nav:
                             SelectedFragment=new InboxNavFragment();
                             break;
-                        case R.id.profile_bottom_nav:
-                            SelectedFragment=new ProfileNavFragment();
+                        case R.id.more_bottom_nav:
+                            SelectedFragment=new MoreNavFragment();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,SelectedFragment).commit();
@@ -84,6 +78,10 @@ public class MainActivity extends AppCompatActivity
         if(extras!=null && extras.containsKey("openShipmentNav") && extras.getBoolean("openShipmentNav")) {
             bottomNav.getMenu().getItem(1).setChecked(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new ShipmentNavFragment()).commit();
+        }
+        else if(extras!=null && extras.containsKey("openMoreNav") && extras.getBoolean("openMoreNav")) {
+            bottomNav.getMenu().getItem(4).setChecked(true);
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new MoreNavFragment()).commit();
         }
         else {
           getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new SearchNavFragment()).commit(); //Default

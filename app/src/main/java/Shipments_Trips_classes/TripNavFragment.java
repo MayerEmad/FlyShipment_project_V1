@@ -1,4 +1,4 @@
-package com.example.flyshippment_project;
+package Shipments_Trips_classes;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.flyshippment_project.R;
 
 public class TripNavFragment extends Fragment {
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -15,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import adapters_and_items.AdapterViewer;
-import adapters_and_items.Repository;
-import adapters_and_items.MyViewModel;
+import adapters_and_items.AdapterViewerSearch;
+import com.example.flyshippment_project.Repository;
+import com.example.flyshippment_project.MyViewModel;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.TripItem;
 
@@ -91,7 +90,7 @@ public class SearchNavFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         // Create an adapter that knows which fragment should be shown on each page
-        final AdapterViewer adapter = new AdapterViewer(getChildFragmentManager(),1);
+        final AdapterViewerSearch adapter = new AdapterViewerSearch(getChildFragmentManager(),1);
 
         // Viewer page hosts the Shipment_Shower_Freg & Trip_Shower_Freg
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.search_page_viewer);

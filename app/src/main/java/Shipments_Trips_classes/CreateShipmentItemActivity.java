@@ -1,4 +1,4 @@
-package com.example.flyshippment_project;
+package Shipments_Trips_classes;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,11 +13,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.flyshippment_project.MainActivity;
+import com.example.flyshippment_project.MyViewModel;
+import com.example.flyshippment_project.R;
+import com.example.flyshippment_project.Repository;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
-import adapters_and_items.Repository;
-import adapters_and_items.MyViewModel;
 import adapters_and_items.ShipmentItem;
 
 public class CreateShipmentItemActivity extends AppCompatActivity {
@@ -138,7 +141,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                             itemImageUrl.toString(),Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
                             "", "UserName", 5);
-                    ArrayList<ShipmentItem>list=Repository.getUserShipmentsFromApi();
+                    ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
                     if(list==null) {
                         MyViewModel.setUserShipmentLiveData(new ArrayList<ShipmentItem>());
                         list=Repository.getUserShipmentsFromApi();
@@ -147,7 +150,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
 
                     Toast.makeText(CreateShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
-                    Intent intent = new Intent(CreateShipmentItemActivity.this,MainActivity.class);
+                    Intent intent = new Intent(CreateShipmentItemActivity.this, MainActivity.class);
                     intent .putExtra("openShipmentNav",true);
                     overridePendingTransition(0, 0);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
