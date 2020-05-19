@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flyshippment_project.MyViewModel;
+import com.example.flyshippment_project.Repository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -27,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiUserInfo extends AppCompatActivity
 {
-    private ProfileItem userInfo;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -51,10 +52,10 @@ public class ApiUserInfo extends AppCompatActivity
                     Toast.makeText(ApiUserInfo.this, "Response has error X(", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                userInfo = response.body();
-                //Log.w("Full json---------- ",new Gson().toJson(response.body()));
-                Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                Repository.TheProfileItem = response.body();
+                Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(Repository.TheProfileItem ));
             }
+
             @Override
             public void onFailure(Call<ProfileItem> call, Throwable t) {
                 Toast.makeText(ApiUserInfo.this, "Response failed :(", Toast.LENGTH_SHORT).show();

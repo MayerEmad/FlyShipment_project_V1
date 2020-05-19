@@ -48,7 +48,7 @@ public class ApiShipmentSearch extends AppCompatActivity
                     return;
                 }
                 list = (ArrayList<ShipmentItem>) response.body();
-                //Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+               // Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
 
                 if(list==null){
                    // Log.i("ApiShipment onResponse", "-----> ask for response again");
