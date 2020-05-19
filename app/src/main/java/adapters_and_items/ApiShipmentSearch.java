@@ -1,6 +1,7 @@
 package adapters_and_items;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.Repository;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,7 @@ public class ApiShipmentSearch extends AppCompatActivity
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         theApiFunctions client=retrofit.create(theApiFunctions.class);
-        Call<List<ShipmentItem>> call = client.get_api_response_1();
+        Call<List<ShipmentItem>> call = client.get_api_shipments();
        // call.execute().body();
         call.enqueue(new Callback<List<ShipmentItem>>()
         {
@@ -46,6 +48,8 @@ public class ApiShipmentSearch extends AppCompatActivity
                     return;
                 }
                 list = (ArrayList<ShipmentItem>) response.body();
+                //Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+
                 if(list==null){
                    // Log.i("ApiShipment onResponse", "-----> ask for response again");
                     Repository.getShipmentsFromApi();

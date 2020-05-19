@@ -4,25 +4,29 @@ import java.util.ArrayList;
 
 import adapters_and_items.ApiShipmentSearch;
 import adapters_and_items.ApiTripSearch;
+import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.TripItem;
 
 public class Repository
 {
-    // for RecyclerShipment we use LiveData
-    // Data is stored in  SearchViewModel.getShipmentLiveData().getValue();
+    public static ProfileItem TheProfileItem;
+    public static void getFoOnceUserInfo(){
+        // TODO : Background [sync] Task to get userInfo
+    }
+
+    // return LiveData from MyModelView
     public static ArrayList<ShipmentItem> getShipmentsFromApi()
     {
-        // TODO -->Background Task to get Shipments
+        // TODO : Background async Task to get Shipments
         ApiShipmentSearch task=new ApiShipmentSearch();
-        task.DoTaskInBack();
-      //  Log.i("Repository getShips", "------> getting data from server...");
+        task.DoTaskInBack(); //  Log.i("Repository getShips", "------> getting data from server...");
         return MyViewModel.getShipmentLiveData().getValue();
     }
 
     public static ArrayList<TripItem> getTripsFromApi()
     {
-        // TODO -->Background Task to get Trips
+        // TODO : Background async Task to get Trips
         ApiTripSearch task=new ApiTripSearch();
         task.DoTaskInBack();
         return MyViewModel.getTripLiveData().getValue();

@@ -35,7 +35,7 @@ public class ApiTripSearch extends AppCompatActivity
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         theApiFunctions client=retrofit.create(theApiFunctions.class);
-        Call<List<TripItem>> call = client.get_api_response();
+        Call<List<TripItem>> call = client.get_api_trips();
         call.enqueue(new Callback<List<TripItem>>()
         {
             @Override

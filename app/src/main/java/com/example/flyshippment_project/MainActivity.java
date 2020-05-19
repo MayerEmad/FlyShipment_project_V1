@@ -17,6 +17,7 @@ import java.util.Objects;
 
 import Shipments_Trips_classes.ShipmentNavFragment;
 import Shipments_Trips_classes.TripNavFragment;
+import adapters_and_items.ApiUserInfo;
 import more_classes.MoreNavFragment;
 import search_classes.SearchNavFragment;
 
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity
         if(!isConnected) {
             Toast.makeText(this, "there is no internet access :(", Toast.LENGTH_SHORT).show();
         }
+
+        // TODO Temporary------------
+        ApiUserInfo task=new ApiUserInfo(); task.DoTaskInBack();
 
         //* Bottom Navigation Bar Listener
         BottomNavigationView bottomNav=findViewById(R.id.bottom_nav);
