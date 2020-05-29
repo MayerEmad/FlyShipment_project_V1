@@ -21,6 +21,7 @@ import com.example.flyshippment_project.Repository;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import adapters_and_items.ApiShipmentSearch;
 import adapters_and_items.ShipmentItem;
 
 public class CreateShipmentItemActivity extends AppCompatActivity {
@@ -141,6 +142,9 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                             itemImageUrl.toString(),Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
                             "", "UserName", 5);
+
+                    //FIXME ApiShipmentSearch task=new ApiShipmentSearch();task.UploadInBack(item);
+
                     ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
                     if(list==null) {
                         MyViewModel.setUserShipmentLiveData(new ArrayList<ShipmentItem>());

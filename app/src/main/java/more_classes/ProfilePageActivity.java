@@ -1,6 +1,7 @@
 package more_classes;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -34,16 +36,7 @@ public class ProfilePageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    CheckBox.OnClickListener CheckBoxFreeze= new CheckBox.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            boolean checked = ((CheckBox) v).isChecked();
-            if(!checked) ((CheckBox) v).setChecked(true);
-            else         ((CheckBox) v).setChecked(false);
-            //Toast.makeText(ProfilePageActivity.this, "pressed", Toast.LENGTH_SHORT).show();
-        }
-    };
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,16 +49,16 @@ public class ProfilePageActivity extends AppCompatActivity {
         RatingBar userRate= (RatingBar) findViewById(R.id.profile_ratingbar);
         ImageView userImage= (ImageView) findViewById(R.id.profile_image_imageview);
 
-        CheckBox phoneCheckBox=(CheckBox)findViewById(R.id.profile_phone_checkBox);
-        CheckBox passportCheckBox=(CheckBox)findViewById(R.id.profile_passport_checkbox);
         TextView userDeals=(TextView)findViewById(R.id.profile_deals_number_textview);
         TextView userTrips=(TextView)findViewById(R.id.profile_trips_number_textview);
         TextView userShipments=(TextView)findViewById(R.id.profile_shipments_number_textview);
 
         CheckedTextView emailCheckText=(CheckedTextView) findViewById(R.id.profile_email_checktext);
         CheckedTextView phoneCheckText=(CheckedTextView) findViewById(R.id.profile_phone_checktext);
-        TextView userEmail=(TextView)findViewById(R.id.profile_email_textview);
-        TextView userPhone=(TextView)findViewById(R.id.profile_phone_textview);
+        CheckedTextView passportCheckText=(CheckedTextView) findViewById(R.id.profile_passport_checktext);
+        TextView userEmailTextV=(TextView)findViewById(R.id.profile_email_textview);
+        TextView userPhoneTextV=(TextView)findViewById(R.id.profile_phone_textview);
+        TextView userPassportTextV=(TextView)findViewById(R.id.profile_passport_textview);
 
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,28 +74,47 @@ public class ProfilePageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        phoneCheckBox.setOnClickListener(CheckBoxFreeze);
-        passportCheckBox.setOnClickListener(CheckBoxFreeze);
 
         // Binding user Data
         ProfileItem user=Repository.TheProfileItem;
 
         userNameText.setText(user.getUser_name());
         userRate.setRating((float) user.getUser_rate());
-        Glide.with(this).load(user.getUser_image_url()).into(userImage);
 
-        if(!user.getUser_phone().equals("")) phoneCheckBox.setChecked(false);
-        else  phoneCheckBox.setChecked(true);
-        if(!user.getUser_passport().equals("")) passportCheckBox.setChecked(false);
-        else  passportCheckBox.setChecked(true);
+        if(user.getUser_image_url()==null){
+            userImage.setForeground(null);
+            Glide.with(this).load(user.getUser_image_url()).into(userImage);
+        }else{
+            Glide.with(this).load(R.drawable.round_error_black_18dp).into(userImage);
+        }
 
         userDeals.setText(String.valueOf(user.getUser_deals()));
         userTrips.setText(String.valueOf(user.getUser_trips()));
         userShipments.setText(String.valueOf(user.getUser_shipments()));
 
-        if(user.getUser_phone().equals("")) emailCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
-        else emailCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
-        if(user.getUser_mail().equals("")) phoneCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
-        else phoneCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
+        if(user.getUser_phone()!=null) {
+            phoneCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
+            userPhoneTextV.setText("need to fill");
+        }
+        else {
+            phoneCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
+            userPhoneTextV.setText(user.getUser_phone());
+        }
+        if(user.getUser_mail()==null) {
+            emailCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
+            userEmailTextV.setText("need to fill");
+        }
+        else{
+            emailCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
+            userEmailTextV.setText(user.getUser_mail());
+        }
+        if(user.getUser_passport()==null){
+            passportCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
+            userPassportTextV.setText("need to fill");
+        }
+        else{
+            passportCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
+            userPassportTextV.setText(user.getUser_passport());
+        }
     }
 }

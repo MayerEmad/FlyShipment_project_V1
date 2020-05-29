@@ -1,6 +1,8 @@
 package adapters_and_items;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,9 +13,14 @@ import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.Repository;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,6 +67,47 @@ public class ApiShipmentSearch extends AppCompatActivity
             @Override
             public void onFailure(Call<List<ShipmentItem>> call, Throwable t) {
                 Toast.makeText(ApiShipmentSearch.this, "Response failed :(", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void UploadInBack(ShipmentItem item)
+    {
+        Retrofit retrofit= new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions service=retrofit.create(theApiFunctions.class);
+
+        RequestBody itemName = RequestBody.create(MediaType.parse("multipart/form-data"), item.getProduct_name());
+        RequestBody from_country = RequestBody.create(MediaType.parse("multipart/form-data"), item.getCountry_from());
+        RequestBody to_country = RequestBody.create(MediaType.parse("multipart/form-data"), item.getCountry_to());
+        RequestBody user_name = RequestBody.create(MediaType.parse("multipart/form-data"), item.getProfile_name());
+        RequestBody deadline = RequestBody.create(MediaType.parse("multipart/form-data"), item.getLast_date());
+        RequestBody user_rate = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(item.getUserRate()));
+        RequestBody price = RequestBody.create(MediaType.parse("multipart/form-data"), item.getStrReward());
+        RequestBody weight = RequestBody.create(MediaType.parse("multipart/form-data"), item.getStrWeight());
+        RequestBody count = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(item.getItemsNumber()));
+
+        File productImageFile = new File(item.getProfile_image());
+        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), productImageFile);
+        MultipartBody.Part productImagePart = MultipartBody.Part.createFormData("upload", productImageFile.getName(), fileReqBody);
+
+        File profileImageFile = new File(item.getProfile_image());
+        fileReqBody = RequestBody.create(MediaType.parse("image/*"), profileImageFile);
+        MultipartBody.Part profileImagePart = MultipartBody.Part.createFormData("upload", profileImageFile.getName(), fileReqBody);
+
+        Call<ResponseBody> call=service.uploadShipmentItem(
+                itemName,from_country,to_country,user_name,deadline,user_rate,price,weight,count,productImagePart,profileImagePart
+        );
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.i("APIShipmentSearch", "onResponse:-------->  succeed on uploading");
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.i("APIShipmentSearch", "onFailure:-------->  failed to upload");
             }
         });
     }

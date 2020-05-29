@@ -37,12 +37,12 @@ public class ApiUserInfo extends AppCompatActivity
 
     public void DoTaskInBack()
     {
-        Retrofit retrofit= new Retrofit.Builder()
-                .baseUrl("https://originaliereny.com/shipping/public/api/userInfo/")
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         theApiFunctions client=retrofit.create(theApiFunctions.class);
-        Call<ProfileItem> call = client.get_api_userInfo();
+        Call<ProfileItem> call = client.get_api_userInfo(1001);
         // call.execute().body();
         call.enqueue(new Callback<ProfileItem>()
         {
@@ -53,7 +53,7 @@ public class ApiUserInfo extends AppCompatActivity
                     return;
                 }
                 Repository.TheProfileItem = response.body();
-                Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(Repository.TheProfileItem ));
+                Log.i("Pretty Response -->->>-",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
             }
 
             @Override

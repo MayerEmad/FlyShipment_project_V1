@@ -66,6 +66,7 @@ public class ShipmentItem {
         return "reward $"+Double.toString(reward);
     }
     public String getProfile_image() { return profile_image; }
+    public double getItemsNumber() { return items_number; }
 
     /*public boolean hasImage() {
         return ImageId != NO_IMAGE_PROVIDED;

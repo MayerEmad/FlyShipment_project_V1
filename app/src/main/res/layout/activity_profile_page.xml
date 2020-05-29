@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#B7A1ABAC">
 
+
+    <TextView
+        android:id="@+id/profile_passport_textview"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical|end"
+        android:text=""
+        android:textColor="@color/gray2"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_phone_textview" />
+
+    <CheckedTextView
+        android:id="@+id/profile_passport_checktext"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="7dp"
+        android:checked="true"
+        android:gravity="center_vertical"
+        android:text="passport number "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_phone_checktext" />
 
     <TextView
         android:id="@+id/profile_phone_textview"
@@ -109,48 +138,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/profile_phone_checkBox"
-        android:layout_width="151dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="110dp"
-        android:text="phone varefied"
-        app:layout_constraintStart_toEndOf="@+id/profile_image_imageview"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/profile_passport_checkbox"
-        android:layout_width="151dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="10dp"
-        android:text="passpore varefied"
-        app:layout_constraintStart_toEndOf="@+id/profile_image_imageview"
-        app:layout_constraintTop_toBottomOf="@+id/profile_phone_checkBox" />
-
     <TextView
         android:id="@+id/profile_deals_number_textview"
         android:layout_width="50dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="140dp"
         android:gravity="center"
         android:text="0"
         android:textSize="19sp"
         app:layout_constraintStart_toEndOf="@+id/profile_image_imageview"
-        app:layout_constraintTop_toBottomOf="@+id/profile_passport_checkbox" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="90dp"
         android:layout_height="35dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="140dp"
         android:gravity="center"
         android:text="Deals"
         android:textSize="17sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toEndOf="@+id/profile_deals_number_textview"
-        app:layout_constraintTop_toBottomOf="@+id/profile_passport_checkbox" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckedTextView
         android:id="@+id/profile_email_checktext"
@@ -182,10 +192,10 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="24dp"
         android:layout_marginStart="23dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="65dp"
         android:text="Rate"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -196,9 +206,9 @@
         android:id="@+id/profile_ratingbar"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="24dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="68dp"
         android:numStars="5"
         android:rating="4.3"
         android:stepSize="0.1"
