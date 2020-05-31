@@ -85,7 +85,7 @@ public class ApiShipmentSearch extends AppCompatActivity
         RequestBody user_name = RequestBody.create(MediaType.parse("multipart/form-data"), item.getProfile_name());
         RequestBody deadline = RequestBody.create(MediaType.parse("multipart/form-data"), item.getLast_date());
         RequestBody user_rate = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(item.getUserRate()));
-        RequestBody price = RequestBody.create(MediaType.parse("multipart/form-data"), item.getStrReward());
+        RequestBody price = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(item.getReward()));
         RequestBody weight = RequestBody.create(MediaType.parse("multipart/form-data"), item.getStrWeight());
         RequestBody count = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(item.getItemsNumber()));
 

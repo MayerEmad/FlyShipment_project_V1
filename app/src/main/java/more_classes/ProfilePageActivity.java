@@ -5,13 +5,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -45,20 +43,20 @@ public class ProfilePageActivity extends AppCompatActivity {
         ImageButton backArrowButton = (ImageButton) findViewById(R.id.profile_back_button);
         Button editProfileButton = (Button) findViewById(R.id.profile_edit_button);
 
-        TextView userNameText = (TextView) findViewById(R.id.profile_user_name_textview);
+        TextView userNameText = (TextView) findViewById(R.id.profile_user_name_text_view);
         RatingBar userRate= (RatingBar) findViewById(R.id.profile_ratingbar);
-        ImageView userImage= (ImageView) findViewById(R.id.profile_image_imageview);
+        ImageView userImage= (ImageView) findViewById(R.id.profile_image_image_view);
 
         TextView userDeals=(TextView)findViewById(R.id.profile_deals_number_textview);
         TextView userTrips=(TextView)findViewById(R.id.profile_trips_number_textview);
         TextView userShipments=(TextView)findViewById(R.id.profile_shipments_number_textview);
 
-        CheckedTextView emailCheckText=(CheckedTextView) findViewById(R.id.profile_email_checktext);
-        CheckedTextView phoneCheckText=(CheckedTextView) findViewById(R.id.profile_phone_checktext);
-        CheckedTextView passportCheckText=(CheckedTextView) findViewById(R.id.profile_passport_checktext);
-        TextView userEmailTextV=(TextView)findViewById(R.id.profile_email_textview);
-        TextView userPhoneTextV=(TextView)findViewById(R.id.profile_phone_textview);
-        TextView userPassportTextV=(TextView)findViewById(R.id.profile_passport_textview);
+        CheckedTextView emailCheckText=(CheckedTextView) findViewById(R.id.profile_email_check_text);
+        CheckedTextView phoneCheckText=(CheckedTextView) findViewById(R.id.profile_phone_check_text);
+        CheckedTextView passportCheckText=(CheckedTextView) findViewById(R.id.profile_passport_check_text);
+        TextView userEmailTextV=(TextView)findViewById(R.id.profile_email_edit_text);
+        TextView userPhoneTextV=(TextView)findViewById(R.id.profile_phone_edit_text);
+        TextView userPassportTextV=(TextView)findViewById(R.id.profile_passport_edit_text);
 
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +79,7 @@ public class ProfilePageActivity extends AppCompatActivity {
         userNameText.setText(user.getUser_name());
         userRate.setRating((float) user.getUser_rate());
 
-        if(user.getUser_image_url()==null){
+        if(user.getUser_image_url()!=null){
             userImage.setForeground(null);
             Glide.with(this).load(user.getUser_image_url()).into(userImage);
         }else{
@@ -92,7 +90,7 @@ public class ProfilePageActivity extends AppCompatActivity {
         userTrips.setText(String.valueOf(user.getUser_trips()));
         userShipments.setText(String.valueOf(user.getUser_shipments()));
 
-        if(user.getUser_phone()!=null) {
+        if(user.getUser_phone()==null) {
             phoneCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
             userPhoneTextV.setText("need to fill");
         }

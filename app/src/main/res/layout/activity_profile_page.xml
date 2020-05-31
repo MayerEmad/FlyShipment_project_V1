@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/profile_passport_textview"
+        android:id="@+id/profile_passport_edit_text"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginTop="7dp"
@@ -20,10 +20,10 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_phone_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_phone_edit_text" />
 
     <CheckedTextView
-        android:id="@+id/profile_passport_checktext"
+        android:id="@+id/profile_passport_check_text"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="23dp"
@@ -34,10 +34,10 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_phone_checktext" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_phone_check_text" />
 
     <TextView
-        android:id="@+id/profile_phone_textview"
+        android:id="@+id/profile_phone_edit_text"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_marginTop="7dp"
@@ -48,7 +48,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_email_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_email_edit_text" />
 
     <TextView
         android:id="@+id/textView11"
@@ -80,7 +80,7 @@
         android:gravity="center"
         android:text="0"
         android:textSize="19sp"
-        app:layout_constraintStart_toEndOf="@+id/profile_image_imageview"
+        app:layout_constraintStart_toEndOf="@+id/profile_image_image_view"
         app:layout_constraintTop_toBottomOf="@+id/profile_shipments_number_textview" />
 
     <TextView
@@ -91,7 +91,7 @@
         android:gravity="center"
         android:text="0"
         android:textSize="19sp"
-        app:layout_constraintStart_toEndOf="@+id/profile_image_imageview"
+        app:layout_constraintStart_toEndOf="@+id/profile_image_image_view"
         app:layout_constraintTop_toBottomOf="@+id/profile_deals_number_textview" />
 
     <ImageButton
@@ -106,15 +106,15 @@
         app:srcCompat="@android:drawable/ic_media_rew" />
 
     <TextView
-        android:id="@+id/profile_user_name_textview"
+        android:id="@+id/profile_user_name_text_view"
         android:layout_width="189dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:gravity="center"
         android:text="User name"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image_imageview" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_image_image_view" />
 
     <Button
         android:id="@+id/profile_edit_button"
@@ -128,7 +128,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/profile_image_imageview"
+        android:id="@+id/profile_image_image_view"
         android:layout_width="189dp"
         android:layout_height="186dp"
         android:layout_marginStart="20dp"
@@ -147,7 +147,7 @@
         android:gravity="center"
         android:text="0"
         android:textSize="19sp"
-        app:layout_constraintStart_toEndOf="@+id/profile_image_imageview"
+        app:layout_constraintStart_toEndOf="@+id/profile_image_image_view"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -163,7 +163,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckedTextView
-        android:id="@+id/profile_email_checktext"
+        android:id="@+id/profile_email_check_text"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="23dp"
@@ -174,10 +174,10 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_user_name_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_user_name_text_view" />
 
     <CheckedTextView
-        android:id="@+id/profile_phone_checktext"
+        android:id="@+id/profile_phone_check_text"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="23dp"
@@ -188,7 +188,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_email_checktext" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_email_check_text" />
 
     <TextView
         android:id="@+id/textView3"
@@ -199,7 +199,7 @@
         android:text="Rate"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/profile_user_name_textview"
+        app:layout_constraintStart_toEndOf="@+id/profile_user_name_text_view"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <RatingBar
@@ -216,7 +216,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <TextView
-        android:id="@+id/profile_email_textview"
+        android:id="@+id/profile_email_edit_text"
         android:layout_width="240dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
@@ -227,6 +227,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_user_name_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_user_name_text_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

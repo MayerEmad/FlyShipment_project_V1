@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -36,7 +37,7 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         public ImageView product_image,profile_image;
         public Button request_btn;
         public RatingBar sender_rate_bar;
-        public LinearLayout upper_info_part;
+        public ConstraintLayout upper_info_part;
 
         public MyViewHolder(View listItemView)
         {
@@ -53,7 +54,7 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
             profile_name=(TextView)listItemView.findViewById(R.id.shipment_item_profile_name);
             sender_rate_bar=(RatingBar)listItemView.findViewById(R.id.shipment_item_rating_bar);
             request_btn=(Button)listItemView.findViewById(R.id.shipment_item_request_btn);
-            upper_info_part=(LinearLayout)listItemView.findViewById(R.id.shipment_item_upper_part);
+            upper_info_part=(ConstraintLayout) listItemView.findViewById(R.id.shipment_item_upper_part);
         }
     }
 
@@ -77,7 +78,7 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         holder.country_from.setText(item.getCountry_from());
         holder.country_to.setText(item.getCountry_to());
         holder.last_date.setText(item.getLast_date());
-        holder.reward_text.setText(item.getStrReward());
+        holder.reward_text.setText(String.valueOf(item.getReward()));
         Glide.with(mContext).load(item.getProfile_image()).into(holder.profile_image);
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUserRate());
@@ -91,11 +92,14 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         holder.profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //go to profile
             }
         });
         holder.upper_info_part.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //go to details
+                // go to edit
             }
         });
     }

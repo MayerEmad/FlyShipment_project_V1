@@ -22,7 +22,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import adapters_and_items.ApiShipmentSearch;
+import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
+import more_classes.ProfilePageActivity;
 
 public class CreateShipmentItemActivity extends AppCompatActivity {
     private String fromCountry = "";
@@ -53,6 +55,14 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
 
     private static int GALLERY_REQUEST = 1;
 
+    private void arrow_back_function() {
+        Intent intent = new Intent(CreateShipmentItemActivity.this, MainActivity.class);
+        intent .putExtra("openShipmentNav",true);
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        startActivity(intent);
+    }
     private void update(double itemsNumber) {
         numberText.setText(String.valueOf((int) itemsNumber));
         String priceStr = priceText.getText().toString();
@@ -67,7 +77,6 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
             totalWeightText.setText("Total weight= " + String.valueOf(itemWeight * itemsNumber) + "gm");
         }
     }
-
     private boolean noEmptyField() {
         if (fromCountry.isEmpty() || toCountry.isEmpty() || lastDate.isEmpty() || itemName.isEmpty() ||
                 itemPrice.isEmpty() || itemWeight.isEmpty() || itemNumber.equals("0") ||
@@ -79,6 +88,8 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_shipment);
+
+        final ProfileItem USERINFO= Repository.TheProfileItem ;
 
         fromText = (EditText) findViewById(R.id.create_shipment_from);
         toText = (EditText) findViewById(R.id.create_shipment_to);
@@ -95,6 +106,14 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
         weightText = (EditText) findViewById(R.id.create_shipment_item_weight);
         totalPriceText = (TextView) findViewById(R.id.create_shipment_item_total_price);
         totalWeightText = (TextView) findViewById(R.id.create_shipment_item_total_weight);
+
+        Button backArrowButton = (Button) findViewById(R.id.create_shipment_back_button);
+        backArrowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrow_back_function();
+            }
+        });
 
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,11 +156,11 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                 //itemImage---->  get its value at onActivityResult
                 if (noEmptyField())
                 {
-                    //FIXME add -->username,rate,profile_bitmap, use itemUrl=amazon
+                    //FIXME add notes
                     ShipmentItem item =new ShipmentItem(
                             itemImageUrl.toString(),Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
-                            "", "UserName", 5);
+                            USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl);
 
                     //FIXME ApiShipmentSearch task=new ApiShipmentSearch();task.UploadInBack(item);
 
@@ -154,12 +173,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
 
                     Toast.makeText(CreateShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
-                    Intent intent = new Intent(CreateShipmentItemActivity.this, MainActivity.class);
-                    intent .putExtra("openShipmentNav",true);
-                    overridePendingTransition(0, 0);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    finish();
-                    startActivity(intent);
+                    arrow_back_function();
                 } else {
                     Toast.makeText(CreateShipmentItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
                 }
@@ -167,7 +181,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
         });
     }
 
-    //TODO----> get image from camera
+    //getting Image from camera
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {

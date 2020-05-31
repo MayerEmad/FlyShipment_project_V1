@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "there is no internet access :(", Toast.LENGTH_SHORT).show();
         }
 
-        // TODO Temporary------------
+        // FIXME Temporary------------
         ApiUserInfo task=new ApiUserInfo(); task.DoTaskInBack();
 
         //* Bottom Navigation Bar Listener

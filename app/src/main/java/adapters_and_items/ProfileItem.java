@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class ProfileItem
 {
     @SerializedName("user_info_id")   private int user_id;
-    @SerializedName("userName") @Expose private String user_name;
+    @SerializedName("fullName") @Expose private String user_name;
     @SerializedName("image") @Expose private String user_image_url;
     @SerializedName("email") @Expose  private String user_mail;
     @SerializedName("phone") private String user_phone;
@@ -40,7 +40,17 @@ public class ProfileItem
     }
 
     public String getUser_name() {
-        return user_name;
+        String formattedName="";
+        boolean space=false;
+        for(int i=0;i<user_name.length();i++) {
+            if(user_name.charAt(i)!=' ')
+                formattedName+=user_name.charAt(i);
+            else if(!space){
+                formattedName+=user_name.charAt(i);
+                space=true;
+            }
+        }
+        return formattedName;
     }
 
     public void setUser_name(String user_name) {

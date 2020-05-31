@@ -18,11 +18,13 @@ public class ShipmentItem {
     @SerializedName("price")  private double reward;
     @SerializedName("weight")  private double weight;
     @SerializedName("count")  private double items_number;
-    private int ImageId = NO_IMAGE_PROVIDED;
+    private String product_url;
+    // FIXME  notes
+
 
     // constructor
     public ShipmentItem(String prodImg, double prodWeight, double itemsNum, String name, String from, String to, String date,
-                          double money, String profImg, String profName, double rate)
+                          double money, String profImg, String profName, double rate, String productUrl)
     {
         product_image=prodImg;
         weight=prodWeight;
@@ -35,6 +37,7 @@ public class ShipmentItem {
         profile_image=profImg;
         profile_name=profName;
         user_rate=rate;
+        product_url=productUrl;
     }
 
 
@@ -67,9 +70,7 @@ public class ShipmentItem {
     }
     public String getProfile_image() { return profile_image; }
     public double getItemsNumber() { return items_number; }
-
-    /*public boolean hasImage() {
-        return ImageId != NO_IMAGE_PROVIDED;
-    }*/
-
+    public String getProduct_url() {
+        return product_url;
+    }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="left">
+    android:layout_gravity="left"
+    android:background="#9BB6B3">
 
     <EditText
         android:id="@+id/create_shipment_item_urll"
@@ -24,7 +25,6 @@
         android:layout_width="133dp"
         android:layout_height="43dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
@@ -37,7 +37,7 @@
         android:layout_width="133dp"
         android:layout_height="43dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
@@ -61,7 +61,7 @@
         android:id="@+id/create_shipment_item_price"
         android:layout_width="133dp"
         android:layout_height="43dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
@@ -73,7 +73,6 @@
         android:id="@+id/create_shipment_item_weight"
         android:layout_width="133dp"
         android:layout_height="43dp"
-        android:layout_marginTop="20dp"
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
@@ -109,7 +108,7 @@
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
@@ -163,7 +162,8 @@
         android:clickable="true"
         android:foreground="@android:drawable/ic_input_add"
         app:layout_constraintEnd_toStartOf="@+id/create_shipment_item_number"
-        app:layout_constraintTop_toBottomOf="@+id/create_shipment_item_urll" />
+        app:layout_constraintTop_toBottomOf="@+id/create_shipment_item_urll"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/create_shipment_minus_item"
@@ -173,7 +173,8 @@
         android:clickable="true"
         android:foreground="@android:drawable/ic_delete"
         app:layout_constraintStart_toEndOf="@+id/create_shipment_item_number"
-        app:layout_constraintTop_toBottomOf="@+id/create_shipment_item_urll" />
+        app:layout_constraintTop_toBottomOf="@+id/create_shipment_item_urll"
+        android:focusable="true" />
 
     <ImageView
         android:id="@+id/create_shipment_the_image"
@@ -181,6 +182,7 @@
         android:layout_height="140dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toEndOf="@+id/create_shipment_get_image_button"
         app:layout_constraintTop_toBottomOf="@+id/create_shipment_item_weight"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
@@ -193,5 +195,16 @@
         android:text="Add shipment"
         app:layout_constraintStart_toStartOf="@+id/create_shipment_get_image_button"
         app:layout_constraintTop_toBottomOf="@+id/create_shipment_get_image_button" />
+
+    <Button
+        android:id="@+id/create_shipment_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#FFF"
+        android:foreground="?attr/actionModeCloseDrawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
