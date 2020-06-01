@@ -13,19 +13,21 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import adapters_and_items.ApiShipmentSearch;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
 
-public class CreateShipmentItemActivity extends AppCompatActivity {
+public class EditShipmentItemActivity extends AppCompatActivity {
     private String fromCountry = "";
     private String toCountry = "";
     private String lastDate = "";
@@ -34,7 +36,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
     private String itemWeight = "";
     private String itemNumber = "";
     private String itemUrl = "";
-    private Uri itemImageUrl = null;
+    private String itemImageUrl = null;
 
     private EditText fromText;
     private EditText toText;
@@ -49,13 +51,13 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
     private Button plusBtn;
     private Button minusBtn;
     private Button takeImageBtn;
-    private Button addShipmentBtn;
+    private Button editShipmentBtn;
     private ImageView theImageView;
 
     private static int GALLERY_REQUEST = 1;
 
     private void arrow_back_function() {
-        Intent intent = new Intent(CreateShipmentItemActivity.this, MainActivity.class);
+        Intent intent = new Intent(EditShipmentItemActivity.this, MainActivity.class);
         intent .putExtra("openShipmentNav",true);
         overridePendingTransition(0, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -86,27 +88,41 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_shipment);
+        setContentView(R.layout.activity_edit_shipment);
 
         final ProfileItem USERINFO= Repository.TheProfileItem ;
+        Bundle extras = getIntent().getExtras();
+        int pos=extras.getInt("ShipmentItemPosition");
+        final ShipmentItem ITEM=MyViewModel.getShipmentLiveData().getValue().get(pos);
 
-        fromText = (EditText) findViewById(R.id.create_shipment_from);
-        toText = (EditText) findViewById(R.id.create_shipment_to);
-        dateText = (EditText) findViewById(R.id.create_shipment_date);
-        nameText = (EditText) findViewById(R.id.create_shipment_item_name);
-        urlText = (EditText) findViewById(R.id.create_shipment_item_urll);
-        plusBtn = (Button) findViewById(R.id.create_shipment_plus_item);
-        minusBtn = (Button) findViewById(R.id.create_shipment_minus_item);
-        takeImageBtn = (Button) findViewById(R.id.create_shipment_get_image_button);
-        addShipmentBtn = (Button) findViewById(R.id.create_shipment_add_button);
-        //theImageView=(ImageView)findViewById(R.id.create_shipment_the_image);
-        numberText = (EditText) findViewById(R.id.create_shipment_item_number);
-        priceText = (EditText) findViewById(R.id.create_shipment_item_price);
-        weightText = (EditText) findViewById(R.id.create_shipment_item_weight);
-        totalPriceText = (TextView) findViewById(R.id.create_shipment_item_total_price);
-        totalWeightText = (TextView) findViewById(R.id.create_shipment_item_total_weight);
+        fromText = (EditText) findViewById(R.id.edit_shipment_from);
+         fromText.setText(ITEM.getCountry_from());
+        toText = (EditText) findViewById(R.id.edit_shipment_to);
+         toText.setText(ITEM.getCountry_to());
+        dateText = (EditText) findViewById(R.id.edit_shipment_date);
+         dateText.setText(ITEM.getLast_date());
+        nameText = (EditText) findViewById(R.id.edit_shipment_item_name);
+         nameText.setText(ITEM.getProfile_name());
+        urlText = (EditText) findViewById(R.id.edit_shipment_item_urll);
+         urlText.setText(ITEM.getProduct_url());
+        theImageView=(ImageView)findViewById(R.id.edit_shipment_the_image);
+         Glide.with(this).load(ITEM.getProduct_image()).into(theImageView);
+        numberText = (EditText) findViewById(R.id.edit_shipment_item_number);
+         numberText.setText(String.valueOf(((int) ITEM.getItemsNumber())));
+        priceText = (EditText) findViewById(R.id.edit_shipment_item_price);
+         priceText.setText(String.valueOf(ITEM.getReward()));
+        weightText = (EditText) findViewById(R.id.edit_shipment_item_weight);
+         weightText.setText(String.valueOf(ITEM.getWeight()));
 
-        Button backArrowButton = (Button) findViewById(R.id.create_shipment_back_button);
+        totalPriceText = (TextView) findViewById(R.id.edit_shipment_item_total_price);
+        totalWeightText = (TextView) findViewById(R.id.edit_shipment_item_total_weight);
+        update(ITEM.getItemsNumber());
+
+        plusBtn = (Button) findViewById(R.id.edit_shipment_plus_item);
+        minusBtn = (Button) findViewById(R.id.edit_shipment_minus_item);
+        takeImageBtn = (Button) findViewById(R.id.edit_shipment_get_image_button);
+        editShipmentBtn = (Button) findViewById(R.id.edit_shipment_edit_button);
+        Button backArrowButton = (Button) findViewById(R.id.edit_shipment_back_button);
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +157,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                 startActivityForResult(i, GALLERY_REQUEST);
             }
         });
-        addShipmentBtn.setOnClickListener(new View.OnClickListener() {
+        editShipmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fromCountry = fromText.getText().toString();
@@ -152,29 +168,36 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                 itemPrice = priceText.getText().toString();
                 itemWeight = weightText.getText().toString();
                 itemNumber = numberText.getText().toString();
+                itemImageUrl=ITEM.getProduct_image();
                 //itemImage---->  get its value at onActivityResult
                 if (noEmptyField())
                 {
                     //FIXME add notes
-                    ShipmentItem item =new ShipmentItem(
-                            itemImageUrl.toString(),Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
-                            itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
-                            USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl);
-
-                    //FIXME ApiShipmentSearch task=new ApiShipmentSearch();task.UploadInBack(item);
-
+                    ITEM.setCountry_from(fromCountry);
+                    ITEM.setCountry_to(toCountry);
+                    ITEM.setLast_date(lastDate);
+                    ITEM.setProduct_name(itemName);
+                    ITEM.setProduct_url(itemUrl);
+                    ITEM.setReward(Double.parseDouble(itemPrice));
+                    ITEM.setWeight(Double.parseDouble(itemWeight));
+                    ITEM.setItems_number(Integer.parseInt(itemNumber));
+                    ITEM.setProduct_image(itemImageUrl);
+                    ITEM.setProfile_name(USERINFO.getUser_name());
+                    ITEM.setProfile_image(USERINFO.getUser_image_url());
+                    ITEM.setUser_rate(USERINFO.getUser_rate());
+                   //FIXME upload this item
                     ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
                     if(list==null) {
                         MyViewModel.setUserShipmentLiveData(new ArrayList<ShipmentItem>());
                         list=Repository.getUserShipmentsFromApi();
                     }
-                    list.add(item);
+                    list.add(ITEM);
 
-                    Toast.makeText(CreateShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
                     arrow_back_function();
                 } else {
-                    Toast.makeText(CreateShipmentItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditShipmentItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -186,16 +209,18 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
     {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode ==RESULT_OK && requestCode==GALLERY_REQUEST)
-            {
-                Uri selectedImage = data.getData();
-                itemImageUrl =selectedImage;
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                    theImageView = (ImageView) findViewById(R.id.create_shipment_the_image);
-                    theImageView.setImageBitmap(bitmap);
-                } catch (IOException e) {
-                    Toast.makeText(CreateShipmentItemActivity.this,"Error" , Toast.LENGTH_SHORT).show();
-                }
+        {
+            Uri selectedImage = data.getData();
+            itemImageUrl =selectedImage.toString();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                theImageView = (ImageView) findViewById(R.id.edit_shipment_the_image);
+                theImageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                Toast.makeText(EditShipmentItemActivity.this,"Error" , Toast.LENGTH_SHORT).show();
             }
+        }
     }
 }
+
+

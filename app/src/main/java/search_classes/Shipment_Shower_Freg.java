@@ -33,7 +33,7 @@ public class Shipment_Shower_Freg extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        //Its Layout is the Recycler View as Trip_Shower_Freg
+        //Its Layout is the Recycler View as shipment_Shower_Freg
         return inflater.inflate(R.layout.recycler_viewer_search, container, false);
     }
 
@@ -63,7 +63,7 @@ public class Shipment_Shower_Freg extends Fragment
               //  Log.i("ship observer arr", " change has happen : -------> ");
                 loadingIndicator.setVisibility(View.INVISIBLE);
                 userList=MyViewModel.getShipmentLiveData().getValue();
-                mAdapter=new AdapterRecyclerShipment(userList,getContext());
+                mAdapter=new AdapterRecyclerShipment(userList,getContext(),"shipment_shower_freg");
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(mAdapter);

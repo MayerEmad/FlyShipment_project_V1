@@ -55,7 +55,7 @@ public class ShipmentNavFragment extends Fragment {
         if(userList!=null)
         {
             noShipmentText.setVisibility(View.INVISIBLE);
-            RecyclerView.Adapter mAdapter = new AdapterRecyclerShipment(userList, getContext());
+            RecyclerView.Adapter mAdapter = new AdapterRecyclerShipment(userList, getContext(),"shipment_freg");
             recyclerView.setAdapter(mAdapter);
         }
         else
@@ -75,7 +75,7 @@ public class ShipmentNavFragment extends Fragment {
         MyViewModel.getUserShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
             @Override
             public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
-                recyclerView.setAdapter(new AdapterRecyclerShipment(shipmentItems,getContext()));
+                recyclerView.setAdapter(new AdapterRecyclerShipment(shipmentItems,getContext(),"shipment_freg"));
                 noShipmentText.setVisibility(View.INVISIBLE);
             }
         });

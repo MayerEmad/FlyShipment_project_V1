@@ -1,6 +1,7 @@
 package adapters_and_items;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,16 +20,22 @@ import com.example.flyshippment_project.R;
 
 import java.util.ArrayList;
 
+import Shipments_Trips_classes.CreateShipmentItemActivity;
+import Shipments_Trips_classes.EditShipmentItemActivity;
+import more_classes.EditProfilePageActivity;
+import search_classes.Shipment_Shower_Freg;
+
 public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecyclerShipment.MyViewHolder>
 {
     private ArrayList<ShipmentItem> ShipmentsList;
     private Context mContext;
-
+    private String parent;
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AdapterRecyclerShipment(ArrayList<ShipmentItem> DataList,Context con)
+    public AdapterRecyclerShipment(ArrayList<ShipmentItem> DataList,Context con,String dad)
     {
         ShipmentsList = DataList;
         mContext=con;
+        parent=dad;
     }
 
     //ok
@@ -69,7 +77,7 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
 
     // ok Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         ShipmentItem item = ShipmentsList.get(position);
 
         Glide.with(mContext).load(item.getProduct_image()).into(holder.product_image);
@@ -98,8 +106,19 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         holder.upper_info_part.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //go to details
-                // go to edit
+
+                if(parent.equals("shipment_freg"))
+                {
+                    //go to show the ShipmentItem
+                    Intent intent =new Intent(mContext, CreateShipmentItemActivity.class);
+                    mContext.startActivity(intent);
+                }
+                else if(parent.equals("shipment_shower_freg")){
+                    //go to Edit the shipmentItem
+                    Intent intent =new Intent(mContext, EditShipmentItemActivity.class);
+                    intent.putExtra("ShipmentItemPosition",position);
+                    mContext.startActivity(intent);
+                }
             }
         });
     }

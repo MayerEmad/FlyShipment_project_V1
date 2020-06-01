@@ -64,6 +64,55 @@ public class ShipmentItem {
     public float getUserRate() {
         return (float)user_rate;
     }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public void setCountry_from(String country_from) {
+        this.country_from = country_from;
+    }
+
+    public void setCountry_to(String country_to) {
+        this.country_to = country_to;
+    }
+
+    public void setProfile_name(String profile_name) {
+        this.profile_name = profile_name;
+    }
+
+    public void setLast_date(String last_date) {
+        this.last_date = last_date;
+    }
+
+    public void setProduct_image(String product_image) {
+        this.product_image = product_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
+    }
+
+    public void setUser_rate(double user_rate) {
+        this.user_rate = user_rate;
+    }
+
+    public void setReward(double reward) {
+        this.reward = reward;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setItems_number(double items_number) {
+        this.items_number = items_number;
+    }
+
+    public void setProduct_url(String product_url) {
+        this.product_url = product_url;
+    }
+
     public double getReward() { return reward; }
     public String getStrReward() {
         return "reward $"+Double.toString(reward);
