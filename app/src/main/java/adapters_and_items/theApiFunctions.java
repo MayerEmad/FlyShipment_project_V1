@@ -6,6 +6,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -23,19 +25,26 @@ public interface theApiFunctions {
     public Call<ProfileItem> get_api_userInfo(@Path("id") int id) ;
 
     @Multipart
-    @POST("/api/Pharmarcy/UploadImage")
+    @POST("storeShip")
     Call<ResponseBody> uploadShipmentItem(
+            @Part MultipartBody.Part image,
             @Part("itemName") RequestBody itemName,
             @Part("from_country") RequestBody from_country,
             @Part("to_country") RequestBody to_country,
-            @Part("user_name") RequestBody user_name,
+            @Part("user_info_id") RequestBody user_info_id,
             @Part("deadline") RequestBody deadline,
-            @Part("user_rate") RequestBody user_rate,
             @Part("price") RequestBody price,
             @Part("weight") RequestBody weight,
-            @Part("count") RequestBody count,
+            @Part("count") RequestBody count
+    );
 
-            @Part MultipartBody.Part prod_image,
-            @Part MultipartBody.Part user_image
+    @POST("storeTraveller")
+    @FormUrlEncoded
+    Call<TripItem> uploadTripItem(
+            @Field("user_info_id")  String user_info_id,
+            @Field("from_country")  String from_country,
+            @Field("to_country")    String to_country,
+            @Field("available_weight") String available_weight,
+            @Field("date")     String date
     );
 }

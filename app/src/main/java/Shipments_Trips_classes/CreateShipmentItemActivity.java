@@ -161,7 +161,8 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
                             USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl);
 
-                    //FIXME ApiShipmentSearch task=new ApiShipmentSearch();task.UploadInBack(item);
+                    //FIXME
+                     ApiShipmentSearch task=new ApiShipmentSearch();task.UploadInBack(item);
 
                     ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
                     if(list==null) {

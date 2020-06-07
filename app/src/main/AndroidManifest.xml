@@ -54,6 +54,9 @@
         <activity android:name="Shipments_Trips_classes.EditShipmentItemActivity" >
             <intent-filter><action android:name="android.intent.action.MAIN" /></intent-filter>
         </activity>
+        <activity android:name="Shipments_Trips_classes.CreateTripItemActivity" >
+            <intent-filter><action android:name="android.intent.action.MAIN" /></intent-filter>
+        </activity>
         <activity android:name="more_classes.ProfilePageActivity" >
             <intent-filter><action android:name="android.intent.action.MAIN" /></intent-filter>
         </activity>

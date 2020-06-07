@@ -53,7 +53,7 @@ public class ApiUserInfo extends AppCompatActivity
                     return;
                 }
                 Repository.TheProfileItem = response.body();
-                Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+              //  Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
             }
 
             @Override

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -36,7 +37,7 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         public ImageView profile_image;
         public Button request_btn;
         public RatingBar sender_rate_bar;
-        public LinearLayout upper_info_part;
+        public ConstraintLayout upper_info_part;
 
         public MyViewHolder(View listItemView)
         {
@@ -51,7 +52,7 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
             profile_name=(TextView)listItemView.findViewById(R.id.trip_item_profile_name);
             sender_rate_bar=(RatingBar)listItemView.findViewById(R.id.trip_item_rating_bar);
             request_btn=(Button)listItemView.findViewById(R.id.trip_item_request_btn);
-            upper_info_part=(LinearLayout)listItemView.findViewById(R.id.trip_item_upper_part);
+            upper_info_part=(ConstraintLayout)listItemView.findViewById(R.id.trip_item_upper_part);
         }
     }
 

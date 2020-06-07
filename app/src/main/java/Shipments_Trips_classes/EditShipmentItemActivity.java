@@ -192,7 +192,7 @@ public class EditShipmentItemActivity extends AppCompatActivity {
                         list=Repository.getUserShipmentsFromApi();
                     }
                     list.add(ITEM);
-
+                    ApiShipmentSearch task=new ApiShipmentSearch();task.UploadInBack(ITEM);
                     Toast.makeText(EditShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
                     arrow_back_function();

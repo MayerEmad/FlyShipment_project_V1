@@ -11,6 +11,7 @@ public class ProfileItem
     @SerializedName("email") @Expose  private String user_mail;
     @SerializedName("phone") private String user_phone;
     @SerializedName("identification") private String user_passport;
+
     @SerializedName("rate")  private double user_rate;
     @SerializedName("deal")private int user_deals;
     @SerializedName("trip") private int user_trips;
@@ -58,12 +59,11 @@ public class ProfileItem
     }
 
     public String getUser_image_url() {
+        if(user_image_url.equals("")|| user_image_url==null) return "";
         return user_image_url;
     }
 
-    public void setUser_image_url(String user_image_url) {
-        this.user_image_url = user_image_url;
-    }
+    public void setUser_image_url(String user_image_url) { this.user_image_url = user_image_url; }
 
     public String getUser_mail() {
         return user_mail;

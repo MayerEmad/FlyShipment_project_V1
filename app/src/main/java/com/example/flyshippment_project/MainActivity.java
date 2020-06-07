@@ -83,6 +83,10 @@ public class MainActivity extends AppCompatActivity
             bottomNav.getMenu().getItem(1).setChecked(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new ShipmentNavFragment()).commit();
         }
+        else if(extras!=null && extras.containsKey("openTripNav") && extras.getBoolean("openTripNav")) {
+            bottomNav.getMenu().getItem(4).setChecked(true);
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new TripNavFragment()).commit();
+        }
         else if(extras!=null && extras.containsKey("openMoreNav") && extras.getBoolean("openMoreNav")) {
             bottomNav.getMenu().getItem(4).setChecked(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new MoreNavFragment()).commit();
