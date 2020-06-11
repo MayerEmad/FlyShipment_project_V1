@@ -42,7 +42,7 @@ public class ApiUserInfo extends AppCompatActivity
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         theApiFunctions client=retrofit.create(theApiFunctions.class);
-        Call<ProfileItem> call = client.get_api_userInfo(1001);
+        Call<ProfileItem> call = client.get_api_userInfo(1);
         // call.execute().body();
         call.enqueue(new Callback<ProfileItem>()
         {

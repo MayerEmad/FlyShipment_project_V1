@@ -80,7 +80,7 @@ public class RejesterActivity extends AppCompatActivity {
     }
     private void callsignupApi() {
 
-        APIManager.getInstance().getAPI().register(email.getText().toString(), name.getText().toString(),pass.getText().toString(),id.getText().toString(),full)
+        APIManager.getInstance().getAPI().register(email.getText().toString(), name.getText().toString(),pass.getText().toString(),full)
                 .enqueue(new Callback<RespnseModel>() {
                     @Override
                     public void onResponse(Call<RespnseModel> call, Response<RespnseModel> response) {

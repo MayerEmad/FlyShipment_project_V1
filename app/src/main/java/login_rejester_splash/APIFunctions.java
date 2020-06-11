@@ -7,8 +7,8 @@ import retrofit2.http.Query;
 public interface APIFunctions {
     @POST("register?")
     public Call<RespnseModel> register(@Query("email") String email, @Query("userName") String name,
-                                                @Query("password") String pass, @Query("fullName") String fullname,
-                                                @Query("user_info_id") String id
+                                                @Query("password") String pass, @Query("fullName") String fullname
+
 
     ) ;
 
