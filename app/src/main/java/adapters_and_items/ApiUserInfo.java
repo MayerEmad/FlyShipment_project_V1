@@ -42,18 +42,18 @@ public class ApiUserInfo extends AppCompatActivity
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         theApiFunctions client=retrofit.create(theApiFunctions.class);
-        Call<ProfileItem> call = client.get_api_userInfo(1001);
+        Call<ProfileItem> call = client.get_api_userInfo(1);  //FIXME hardcoded id
         // call.execute().body();
         call.enqueue(new Callback<ProfileItem>()
         {
             @Override
             public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(ApiUserInfo.this, "Response has error X(", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ApiUserInfo.this, "Response has error X(", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Repository.TheProfileItem = response.body();
-              //  Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                //Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
             }
 
             @Override

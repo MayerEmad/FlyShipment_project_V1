@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -73,7 +72,7 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         holder.country_from.setText(item.getCountry_from());
         holder.country_to.setText(item.getCountry_to());
         holder.meeting_date.setText(item.getMeeting_date());
-        holder.available_weight_text.setText(item.getAvailable_weight());
+        holder.available_weight_text.setText(item.getStrAvailable_weight());
         holder.consumed_weight_text.setText(item.getConsumed_weight());
         Glide.with(mContext).load(item.getProfile_image_url()).into(holder.profile_image);
         holder.profile_name.setText(item.getProfile_name());

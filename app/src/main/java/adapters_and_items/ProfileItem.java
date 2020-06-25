@@ -1,21 +1,22 @@
 package adapters_and_items;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ProfileItem
 {
-    @SerializedName("user_info_id")   private int user_id;
+    @SerializedName("user_info_id") @Expose  private int user_id;
     @SerializedName("fullName") @Expose private String user_name;
     @SerializedName("image") @Expose private String user_image_url;
     @SerializedName("email") @Expose  private String user_mail;
-    @SerializedName("phone") private String user_phone;
-    @SerializedName("identification") private String user_passport;
-
-    @SerializedName("rate")  private double user_rate;
-    @SerializedName("deal")private int user_deals;
-    @SerializedName("trip") private int user_trips;
-    @SerializedName("ship") private int user_shipments;
+    @SerializedName("phone") @Expose private String user_phone;
+    @SerializedName("identification") @Expose private String user_passport;
+    @SerializedName("rate") @Expose private double user_rate;
+    @SerializedName("deal") @Expose private int user_deals;
+    @SerializedName("trip") @Expose private int user_trips;
+    @SerializedName("ship") @Expose private int user_shipments;
 
 
     public ProfileItem(int user_id, String user_name, String user_image_url, String user_mail, String user_phone,
@@ -58,10 +59,7 @@ public class ProfileItem
         this.user_name = user_name;
     }
 
-    public String getUser_image_url() {
-        if(user_image_url.equals("")|| user_image_url==null) return "";
-        return user_image_url;
-    }
+    public String getUser_image_url() { return user_image_url; }
 
     public void setUser_image_url(String user_image_url) { this.user_image_url = user_image_url; }
 

@@ -13,12 +13,12 @@ public class ShipmentItem {
     @SerializedName("user_name")  private String profile_name;
     @SerializedName("deadline")  private String last_date;
     @SerializedName("image")  private String product_image;
-    @SerializedName("url")    private String profile_image;
+    @SerializedName("user_image")  private String profile_image;
     @SerializedName("user_rate")  private double user_rate;
     @SerializedName("price")  private double reward;
     @SerializedName("weight")  private double weight;
     @SerializedName("count")  private double items_number;
-    private String product_url;
+    @SerializedName("url")  private String product_url;
     // FIXME  notes
 
 

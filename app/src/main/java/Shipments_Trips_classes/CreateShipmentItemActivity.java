@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,17 +14,31 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.flyshippment_project.FileUtil;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import adapters_and_items.ApiShipmentSearch;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
+import adapters_and_items.theApiFunctions;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CreateShipmentItemActivity extends AppCompatActivity {
     private String fromCountry = "";
@@ -34,7 +49,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
     private String itemWeight = "";
     private String itemNumber = "";
     private String itemUrl = "";
-    private Uri itemImageUrl = null;
+    private String itemImageUrl = "";
 
     private EditText fromText;
     private EditText toText;
@@ -94,7 +109,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
         toText = (EditText) findViewById(R.id.create_shipment_to);
         dateText = (EditText) findViewById(R.id.create_shipment_date);
         nameText = (EditText) findViewById(R.id.create_shipment_item_name);
-        urlText = (EditText) findViewById(R.id.create_shipment_item_urll);
+        urlText = (EditText) findViewById(R.id.create_shipment_item_url);
         plusBtn = (Button) findViewById(R.id.create_shipment_plus_item);
         minusBtn = (Button) findViewById(R.id.create_shipment_minus_item);
         takeImageBtn = (Button) findViewById(R.id.create_shipment_get_image_button);
@@ -152,17 +167,18 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                 itemPrice = priceText.getText().toString();
                 itemWeight = weightText.getText().toString();
                 itemNumber = numberText.getText().toString();
-                //itemImage---->  get its value at onActivityResult
-                if (noEmptyField())
+                //itemImageURl---->  get its value at onActivityResult
+                if (noEmptyField() )
                 {
                     //FIXME add notes
                     ShipmentItem item =new ShipmentItem(
-                            itemImageUrl.toString(),Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
+                            itemImageUrl,Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
                             USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl);
 
                     //FIXME
-                     ApiShipmentSearch task=new ApiShipmentSearch();task.UploadInBack(item);
+                     ApiShipmentSearch task=new ApiShipmentSearch();
+                     task.UploadInBack(item,CreateShipmentItemActivity.this);
 
                     ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
                     if(list==null) {
@@ -173,7 +189,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
 
                     Toast.makeText(CreateShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
-                    arrow_back_function();
+                   // arrow_back_function();
                 } else {
                     Toast.makeText(CreateShipmentItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
                 }
@@ -188,10 +204,12 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode ==RESULT_OK && requestCode==GALLERY_REQUEST)
             {
-                Uri selectedImage = data.getData();
-                itemImageUrl =selectedImage;
+                Uri selectedImagePath = data.getData();
+                itemImageUrl=selectedImagePath.toString();
+               // itemImageUrl = FileUtil.getPath(selectedImagePath,CreateShipmentItemActivity.this );
+                Log.i("onActivityResult", "------------------->\n "+itemImageUrl);
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImagePath);
                     theImageView = (ImageView) findViewById(R.id.create_shipment_the_image);
                     theImageView.setImageBitmap(bitmap);
                 } catch (IOException e) {
