@@ -1,5 +1,6 @@
 package adapters_and_items;
-import android.graphics.Bitmap;
+
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,6 +8,7 @@ public class ShipmentItem {
 
     private static final int NO_IMAGE_PROVIDED = -1;
 
+    @SerializedName("ship_info_id") private int shipment_id;
     @SerializedName("itemName") private String product_name;
     @SerializedName("from_country") private String country_from;
     @SerializedName("to_country")  private String country_to;
@@ -19,13 +21,14 @@ public class ShipmentItem {
     @SerializedName("weight")  private double weight;
     @SerializedName("count")  private double items_number;
     @SerializedName("url")  private String product_url;
-    // FIXME  notes
+
 
 
     // constructor
-    public ShipmentItem(String prodImg, double prodWeight, double itemsNum, String name, String from, String to, String date,
-                          double money, String profImg, String profName, double rate, String productUrl)
+    public ShipmentItem( int shipment_id, String prodImg, double prodWeight, double itemsNum, String name, String from, String to, String date,
+                        double money, String profImg, String profName, double rate, String productUrl)
     {
+        this.shipment_id = shipment_id;
         product_image=prodImg;
         weight=prodWeight;
         items_number=itemsNum;
@@ -121,5 +124,13 @@ public class ShipmentItem {
     public double getItemsNumber() { return items_number; }
     public String getProduct_url() {
         return product_url;
+    }
+
+    public int getShipment_id() {
+        return shipment_id;
+    }
+
+    public void setShipment_id(int shipment_id) {
+        this.shipment_id = shipment_id;
     }
 }

@@ -79,6 +79,52 @@ public class ApiShipmentSearch extends AppCompatActivity
 
     public void UploadInBack(ShipmentItem item, Context mContext)
     {
+        Retrofit retrofit= new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                //.client(okHttpClient)
+                .build();
+        theApiFunctions service=retrofit.create(theApiFunctions.class);
+
+        RequestBody itemName = RequestBody.create(MediaType.parse("text/plain"), item.getProduct_name());
+        RequestBody from_country = RequestBody.create(MediaType.parse("text/plain"), item.getCountry_from());
+        RequestBody to_country = RequestBody.create(MediaType.parse("text/plain"), item.getCountry_to());
+        RequestBody user_info_id = RequestBody.create(MediaType.parse("text/plain"), "1");  //FixMe hardcoded
+        RequestBody deadline = RequestBody.create(MediaType.parse("text/plain"), item.getLast_date());
+        RequestBody productUrl = RequestBody.create(MediaType.parse("text/plain"), item.getProduct_url());
+        RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getReward()));
+        RequestBody weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getWeight()));
+        RequestBody count = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemsNumber()));
+
+        String filePath= item.getProduct_image();
+        File productImageFile = new File(FileUtil.getPath(Uri.parse(filePath),mContext));
+        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), productImageFile);
+        MultipartBody.Part image = MultipartBody.Part.createFormData("image", productImageFile.getName(), fileReqBody);
+
+        Call<ShipmentItem> call=service.uploadShipmentItem(
+                image,itemName,from_country,to_country,user_info_id,deadline,productUrl,price,weight,count
+        );
+        call.enqueue(new Callback<ShipmentItem>() {
+            @Override
+            public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
+            {
+                if (!response.isSuccessful()) {
+                    Log.i("APIShipmemtSearch get", "Response has error--------------- = "+response.body());
+                }
+               else {
+                    Log.i("APIShipmentSearch", "onResponse:------------------->  succeed on uploading "+response.body());
+                }
+            }
+            @Override
+            public void onFailure(Call<ShipmentItem> call, Throwable t) {
+                Log.i("APIShipmentSearch", "onFailure:-------->  failed to upload cause "+
+                        t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
+            }
+        });
+    }
+
+    public void UpdateShipmentItem(ShipmentItem item, Context mContext)
+    {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -92,6 +138,7 @@ public class ApiShipmentSearch extends AppCompatActivity
                 .build();
         theApiFunctions service=retrofit.create(theApiFunctions.class);
 
+        int itemId=item.getShipment_id();
         RequestBody itemName = RequestBody.create(MediaType.parse("text/plain"), item.getProduct_name());
         RequestBody from_country = RequestBody.create(MediaType.parse("text/plain"), item.getCountry_from());
         RequestBody to_country = RequestBody.create(MediaType.parse("text/plain"), item.getCountry_to());
@@ -101,37 +148,33 @@ public class ApiShipmentSearch extends AppCompatActivity
         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getReward()));
         RequestBody weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getWeight()));
         RequestBody count = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemsNumber()));
-        //   multipart/form-data
-        String filePath= item.getProduct_image();
-       // Log.i("filePath", "------------------> "+filePath);
-        //Log.i("APIShipment", "----------------->\n" + CreateShipmentItemActivity.class +"----------is shipActivity\n");
 
+        String filePath= item.getProduct_image();
+        Log.i("---Test---", "filepath= -----------------------------"+filePath);
+        //Log.i("---Test---", "name= -----------------------------"+item.getProduct_name());
         File productImageFile = new File(FileUtil.getPath(Uri.parse(filePath),mContext));
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), productImageFile);
         MultipartBody.Part image = MultipartBody.Part.createFormData("image", productImageFile.getName(), fileReqBody);
 
-        Call<ShipmentItem> call=service.uploadShipmentItem(
-                image,itemName,from_country,to_country,user_info_id,deadline,productUrl,price,weight,count
+        Call<ShipmentItem> call=service.updateShipmentItem(
+                itemId,image,itemName,from_country,to_country,user_info_id,deadline,productUrl,price,weight,count
         );
         call.enqueue(new Callback<ShipmentItem>() {
             @Override
-            public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response) {
+            public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
+            {
                 if (!response.isSuccessful()) {
-                    Log.i("APIShipmemtSearch get", "Response has error--------------- = "+response.body()
-                            +"\n------------- code = "+response.code()
-                            +"\n------------- message = "+response.message()
-                            +"\n------------- errorBody = "+response.errorBody()
-                            +"\n------------- raw = "+response.raw());
-                    return;
+                    Log.i("APIShipmem update", "Response has error--------------- = "+response.body());
                 }
-               else Log.i("APIShipmentSearch", "onResponse:------------------->  succeed on uploading "+response.body());
+                else {
+                    Log.i("APIShipmem update", "onResponse:------------------->  succeed on updating "+response.message());
+                }
             }
             @Override
             public void onFailure(Call<ShipmentItem> call, Throwable t) {
-                Log.i("APIShipmentSearch", "onFailure:-------->  failed to upload cause"+
+                Log.i("APIShipmem update", "onFailure:-------->  failed to update cause "+
                         t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
             }
         });
     }
-
 }

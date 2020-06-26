@@ -1,6 +1,7 @@
 package adapters_and_items;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +18,21 @@ import com.example.flyshippment_project.R;
 
 import java.util.ArrayList;
 
+import Shipments_Trips_classes.CreateTripItemActivity;
+import Shipments_Trips_classes.EditTripItemActivity;
+
 public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTrip.MyViewHolder>
 {
     private ArrayList<TripItem> TripList;
     private Context mContext;
+    private String parent;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AdapterRecyclerTrip(ArrayList<TripItem> DataList,Context con)
+    public AdapterRecyclerTrip(ArrayList<TripItem> DataList,Context con,String dad)
     {
         TripList = DataList;
         mContext=con;
+        parent=dad;
     }
 
     //ok
@@ -66,7 +72,7 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
 
     // ok Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         TripItem item = TripList.get(position);
 
         holder.country_from.setText(item.getCountry_from());
@@ -92,6 +98,18 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         holder.upper_info_part.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(parent.equals("trip_freg"))
+                {
+                    //go to show the ShipmentItem
+                    Intent intent =new Intent(mContext, CreateTripItemActivity.class);
+                    mContext.startActivity(intent);
+                }
+                else if(parent.equals("trip_shower_freg")){
+                    //go to Edit the shipmentItem
+                    Intent intent =new Intent(mContext, EditTripItemActivity.class);
+                    intent.putExtra("TripItemPosition",position);
+                    mContext.startActivity(intent);
+                }
             }
         });
     }

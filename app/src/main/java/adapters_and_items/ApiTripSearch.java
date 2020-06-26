@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.Repository;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,25 +21,22 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class ApiTripSearch extends AppCompatActivity
-{
+public class ApiTripSearch extends AppCompatActivity {
     private ArrayList<TripItem> list;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    public void DoTaskInBack()
-    {
-        Retrofit retrofit= new Retrofit.Builder()
+    public void DoTaskInBack() {
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        theApiFunctions client=retrofit.create(theApiFunctions.class);
+        theApiFunctions client = retrofit.create(theApiFunctions.class);
         Call<List<TripItem>> call = client.get_api_trips();
-        call.enqueue(new Callback<List<TripItem>>()
-        {
+        call.enqueue(new Callback<List<TripItem>>() {
             @Override
             public void onResponse(Call<List<TripItem>> call, Response<List<TripItem>> response) {
                 if (!response.isSuccessful()) {
@@ -47,52 +45,90 @@ public class ApiTripSearch extends AppCompatActivity
                     return;
                 }
                 list = (ArrayList<TripItem>) response.body();
-                if(list==null){
+                if (list == null) {
                     // Log.i("ApiShipment onResponse", "-----> ask for response again");
-                    Repository.getTripsFromApi();
+                   // Repository.getTripsFromApi();
                 }
                 MyViewModel.setTripLiveData(list);
-                //for(int i=0;i<list.size();i++) Log.i("response------>", list.get(i).getProfile_name());
+                 Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+
             }
+
             @Override
             public void onFailure(Call<List<TripItem>> call, Throwable t) {
-                Toast.makeText(ApiTripSearch.this, "Response failed :(", Toast.LENGTH_SHORT).show();
+                Log.i("APITripSearch get", "Response failed :(");
+                // Toast.makeText(ApiTripSearch.this, "Response failed :(", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void UploadInBack(TripItem item)
-    {
-        Retrofit retrofit= new Retrofit.Builder()
+    public void UploadInBack(TripItem item) {
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        theApiFunctions service=retrofit.create(theApiFunctions.class);
+        theApiFunctions service = retrofit.create(theApiFunctions.class);
 
-        String userId="1";  //FIXME HardCoded userID
-        String from_country=item.getCountry_from();
-        String to_country=item.getCountry_to();
-        Double weight=item.getAvailable_weight();
-        String deadline=item.getMeeting_date();
-        TripItem uploadingTripItem=new TripItem(from_country,to_country,deadline,weight,userId);
-        Call<TripItem> call=service.uploadTripItem(uploadingTripItem);
+        String userId = "1";  //FIXME HardCoded userID
+        String from_country = item.getCountry_from();
+        String to_country = item.getCountry_to();
+        Double weight = item.getAvailable_weight();
+        String deadline = item.getMeeting_date();
+        TripItem uploadingTripItem = new TripItem(from_country, to_country, deadline, weight, userId);
+
+        Call<TripItem> call = service.uploadTripItem(uploadingTripItem);
 
         call.enqueue(new Callback<TripItem>() {
             @Override
             public void onResponse(Call<TripItem> call, Response<TripItem> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("APITripSearch post", response.message() +" ------- "+response.errorBody());
+                    Log.i("APITripSearch post", response.message() + " ------- " + response.errorBody());
                     //Toast.makeText(ApiTripSearch.this, "Response has error X(", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //Log.i("APITripSearch Uploading", "onResponse:-------->  succeed on uploading "+response.body());
+                Log.i("APITripSearch Uploading", "onResponse:--------->  succeed on uploading " + response.body());
             }
+
             @Override
             public void onFailure(Call<TripItem> call, Throwable t) {
                 Log.i("APITripSearch Uploading", "onFailure:----------------->  failed to upload " +
-                        "  "+t.getLocalizedMessage()+"\n --------"+t.getCause());
+                        "  " + t.getLocalizedMessage() + "\n --------" + t.getCause());
             }
         });
     }
 
+    public void UpdateTripItem(TripItem item) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions service = retrofit.create(theApiFunctions.class);
+
+        String userId = "1";  //FIXME HardCoded userID
+        String from_country = item.getCountry_from();
+        String to_country = item.getCountry_to();
+        Double weight = item.getAvailable_weight();
+        String deadline = item.getMeeting_date();
+        TripItem uploadingTripItem = new TripItem(from_country, to_country, deadline, weight, userId);
+
+        Call<TripItem> call = service.updateTripItem(item.getTrip_id(),uploadingTripItem);
+
+        call.enqueue(new Callback<TripItem>() {
+            @Override
+            public void onResponse(Call<TripItem> call, Response<TripItem> response) {
+                if (!response.isSuccessful()) {
+                    Log.i("APITripSearch response",  " BadResponse -------------> " + response.errorBody());
+                    //Toast.makeText(ApiTripSearch.this, "Response has error X(", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Log.i("APITripSearch Uploading", "onResponse:--------->  succeed on updating " + response.body());
+            }
+
+            @Override
+            public void onFailure(Call<TripItem> call, Throwable t) {
+                Log.i("APITripSearch Uploading", "onFailure:----------------->  failed to update " +
+                        "  " + t.getLocalizedMessage() + "\n --------" + t.getCause());
+            }
+        });
+    }
 }

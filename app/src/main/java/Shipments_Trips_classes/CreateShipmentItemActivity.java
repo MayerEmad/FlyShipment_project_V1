@@ -14,31 +14,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.flyshippment_project.FileUtil;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
-import adapters_and_items.ApiShipmentSearch;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
-import adapters_and_items.theApiFunctions;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CreateShipmentItemActivity extends AppCompatActivity {
     private String fromCountry = "";
@@ -159,6 +144,8 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
         addShipmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //FIXME
+                      int itemId = -1;
                 fromCountry = fromText.getText().toString();
                 toCountry = toText.getText().toString();
                 lastDate = dateText.getText().toString();
@@ -170,15 +157,13 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                 //itemImageURl---->  get its value at onActivityResult
                 if (noEmptyField() )
                 {
-                    //FIXME add notes
                     ShipmentItem item =new ShipmentItem(
-                            itemImageUrl,Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
+                            itemId, itemImageUrl,Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
                             USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl);
 
-                    //FIXME
-                     ApiShipmentSearch task=new ApiShipmentSearch();
-                     task.UploadInBack(item,CreateShipmentItemActivity.this);
+                    // uploading...
+                    Repository.uploadShipmentItem(item,CreateShipmentItemActivity.this);
 
                     ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
                     if(list==null) {
@@ -187,9 +172,10 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                     }
                     list.add(item);
 
+                    Log.i("CreateShipmentItemvity", "--------------------------uploading done first: ");
                     Toast.makeText(CreateShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
-                   // arrow_back_function();
+                    arrow_back_function();
                 } else {
                     Toast.makeText(CreateShipmentItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
                 }
@@ -207,7 +193,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                 Uri selectedImagePath = data.getData();
                 itemImageUrl=selectedImagePath.toString();
                // itemImageUrl = FileUtil.getPath(selectedImagePath,CreateShipmentItemActivity.this );
-                Log.i("onActivityResult", "------------------->\n "+itemImageUrl);
+               // Log.i("onActivityResult", "------------------->\n "+itemImageUrl);
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImagePath);
                     theImageView = (ImageView) findViewById(R.id.create_shipment_the_image);
