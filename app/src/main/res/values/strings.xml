@@ -1,7 +1,44 @@
 <resources>
     <string name="app_name">FlyShippment_Project</string>
 
+    // Belly
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="log_in">Log IN</string>
+
+    // mayer
+    <string name="search_word">search</string>
+    <string name="save_word">save</string>
+    <string name="save_changes_word">save changes</string>
+    <string name="update_word">update</string>
+
+    <string name="from_word">from</string>
+    <string name="to_word">to</string>
+    <string name="item_name_word">item name</string>
+    <string name="item_url_word">item url</string>
+    <string name="item_number_word">item number</string>
+    <string name="item_price_word">item price</string>
+    <string name="item_weight_word">item weight</string>
+    <string name="total_price_word">total price</string>
+    <string name="total_weight_word">total weight</string>
+    <string name="available_weight_word">available weight</string>
+    <string name="date_word">date</string>
+    <string name="email_word">Email:</string>
+    <string name="passport_num_word">Passport num:</string>
+    <string name="phone_num_word">Phone num:</string>
+    <string name="change_photo_word">change photo</string>
+    <string name="first_name_word">first name</string>
+    <string name="last_name_word">last name</string>
+    <string name="go_profile_word">go to profile</string>
+
+
+    <string name="add_shipment_word">ADD SHIPMENT</string>
+    <string name="add_trip_word">ADD TRIP</string>
+    <string name="edit_word">Edit</string>
+    <string name="deals_word">Deals</string>
+    <string name="trips_word">Trips</string>
+    <string name="shipments_word">Shipments</string>
+    <string name="rate_word">Rate</string>
+    <string name="user_name_word">User name</string>
+
 </resources>

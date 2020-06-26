@@ -24,7 +24,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="82dp"
         android:background="#FFEB3B"
-        android:text="go to profile"
+        android:text="@string/go_profile_word"
         app:layout_constraintStart_toEndOf="@+id/more_profile_image"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

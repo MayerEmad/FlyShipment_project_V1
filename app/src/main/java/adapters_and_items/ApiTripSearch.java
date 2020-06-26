@@ -10,14 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.Repository;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,15 +69,13 @@ public class ApiTripSearch extends AppCompatActivity
                 .build();
         theApiFunctions service=retrofit.create(theApiFunctions.class);
 
-        /*RequestBody user_info_id = RequestBody.create(MediaType.parse("multipart/form-data"), "1212");
-        RequestBody from_country = RequestBody.create(MediaType.parse("multipart/form-data"), item.getCountry_from());
-        RequestBody to_country = RequestBody.create(MediaType.parse("multipart/form-data"), item.getCountry_to());
-        RequestBody deadline = RequestBody.create(MediaType.parse("multipart/form-data"), item.getMeeting_date());
-        RequestBody weight = RequestBody.create(MediaType.parse("multipart/form-data"), item.getAvailable_weight());
-
-        Call<ResponseBody> call=service.uploadTripItem(user_info_id,from_country,to_country,weight,deadline);*/
-        Call<TripItem> call=service.uploadTripItem("1212".trim(),item.getCountry_from().trim(),
-                item.getCountry_to().trim(),item.getMeeting_date().trim(),item.getAvailable_weight().trim());
+        String userId="1";  //FIXME HardCoded userID
+        String from_country=item.getCountry_from();
+        String to_country=item.getCountry_to();
+        Double weight=item.getAvailable_weight();
+        String deadline=item.getMeeting_date();
+        TripItem uploadingTripItem=new TripItem(from_country,to_country,deadline,weight,userId);
+        Call<TripItem> call=service.uploadTripItem(uploadingTripItem);
 
         call.enqueue(new Callback<TripItem>() {
             @Override
@@ -92,11 +85,12 @@ public class ApiTripSearch extends AppCompatActivity
                     //Toast.makeText(ApiTripSearch.this, "Response has error X(", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else Log.i("APITripSearch Uploading", "onResponse:-------->  succeed on uploading ");
+                //Log.i("APITripSearch Uploading", "onResponse:-------->  succeed on uploading "+response.body());
             }
             @Override
             public void onFailure(Call<TripItem> call, Throwable t) {
-                Log.i("APITripSearch Uploading", "onFailure:-------->  failed to upload "+t.getCause());
+                Log.i("APITripSearch Uploading", "onFailure:----------------->  failed to upload " +
+                        "  "+t.getLocalizedMessage()+"\n --------"+t.getCause());
             }
         });
     }
