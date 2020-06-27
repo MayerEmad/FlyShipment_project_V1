@@ -3,6 +3,7 @@ package login_rejester_splash;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    public SharedPreferences prefs;
+    public SharedPreferences prefs , idpref;
     Button login;
     EditText email, pass;
 
@@ -56,20 +57,26 @@ public class LoginActivity extends AppCompatActivity {
 
         private void calloginApi() {
             APIManager.getInstance().getAPI().login(email.getText().toString(), pass.getText().toString())
-                    .enqueue(new Callback<RespnseModel>() {
+                    .enqueue(new Callback<LoginResponsemodel>() {
                         @Override
-                        public void onResponse(Call<RespnseModel> call, Response<RespnseModel> response) {
+                        public void onResponse(Call<LoginResponsemodel> call, Response<LoginResponsemodel> response) {
 
                             if (response.isSuccessful()) {
-                                RespnseModel msg = response.body();
-                                if(msg.getmessage().equals("Login Done")){
+                                LoginResponsemodel msg = response.body();
+                                if(msg.getMessage().equals("Login Done")){
 
                                 prefs =getSharedPreferences("checkbox", MODE_PRIVATE);
                                 SharedPreferences.Editor et = prefs.edit();
                                 et.putBoolean("isLogin", true);
                                 et.commit();
 
-                                Toast.makeText(getApplicationContext(), msg.message,
+                                idpref = getSharedPreferences("userid" , MODE_PRIVATE);
+                                SharedPreferences.Editor idet = idpref.edit();
+                                idet.putInt("userid", msg.getData().getUserInfoId());
+                                idet.commit();
+
+                                Log.i("id", "onResponse: "+  msg.getData().getUserInfoId());
+                                Toast.makeText(getApplicationContext(), msg.getMessage(),
                                         Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(i);
@@ -78,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<RespnseModel> call, Throwable t) {
+                        public void onFailure(Call<LoginResponsemodel> call, Throwable t) {
 
                             Toast.makeText(getApplicationContext(), "Failed",
                                     Toast.LENGTH_LONG).show();
