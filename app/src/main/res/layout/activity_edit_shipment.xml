@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="left"
-    android:background="#9BB6B3">
+    android:background="#798C8A">
 
     <EditText
         android:id="@+id/edit_shipment_item_urll"
@@ -37,37 +37,37 @@
         android:layout_width="133dp"
         android:layout_height="43dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
         android:text="total price=0$"
         app:layout_constraintStart_toEndOf="@+id/edit_shipment_item_price"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_urll" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="116dp"
         android:layout_height="43dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="13dp"
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
         android:text="@string/item_number_word"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_item_urll"
-        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_urll" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_weight" />
 
     <EditText
         android:id="@+id/edit_shipment_item_price"
         android:layout_width="133dp"
         android:layout_height="43dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
         android:hint="@string/item_price_word"
         app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_urll" />
 
     <EditText
         android:id="@+id/edit_shipment_item_weight"
@@ -136,55 +136,56 @@
         android:id="@+id/edit_shipment_get_image_button"
         android:layout_width="130dp"
         android:layout_height="57dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:foreground="@android:drawable/ic_menu_camera"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_item_weight"
-        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_weight" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_plus_item" />
 
     <EditText
         android:id="@+id/edit_shipment_item_number"
         android:layout_width="79dp"
         android:layout_height="43dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="100dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="number"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_urll" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_total_weight" />
 
     <Button
         android:id="@+id/edit_shipment_plus_item"
         android:layout_width="42dp"
         android:layout_height="43dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
+        android:focusable="true"
         android:foreground="@android:drawable/ic_input_add"
         app:layout_constraintEnd_toStartOf="@+id/edit_shipment_item_number"
-        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_urll"
-        android:focusable="true" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_total_weight" />
 
     <Button
         android:id="@+id/edit_shipment_minus_item"
         android:layout_width="45dp"
         android:layout_height="43dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
+        android:focusable="true"
         android:foreground="@android:drawable/ic_delete"
         app:layout_constraintStart_toEndOf="@+id/edit_shipment_item_number"
-        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_urll"
-        android:focusable="true" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_total_weight" />
 
     <ImageView
         android:id="@+id/edit_shipment_the_image"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toEndOf="@+id/edit_shipment_get_image_button"
-        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_weight"
+        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_number"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <Button

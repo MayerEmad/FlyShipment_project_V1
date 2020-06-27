@@ -59,7 +59,7 @@ public class Trip_Shower_Freg extends Fragment
             public void onChanged(ArrayList<TripItem> tripItems) {
                 loadingIndicator.setVisibility(View.INVISIBLE);
                 userList=MyViewModel.getTripLiveData().getValue();
-                mAdapter=new AdapterRecyclerTrip(userList,getContext());
+                mAdapter=new AdapterRecyclerTrip(userList,getContext(),"trip_shower_freg");
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(mAdapter);

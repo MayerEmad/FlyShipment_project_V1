@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 public class TripItem {
     private static final int NO_IMAGE_PROVIDED = -1;  //TODO (Edit) put a customn photo
 
+    @SerializedName("traveller_info_id")
+    private int trip_id;
     @SerializedName("user_info_id")
     private String user_id;
     @SerializedName("from_country")
@@ -33,8 +35,10 @@ public class TripItem {
         available_weight=availableWeight;
         user_id=userId;
     }
-    public TripItem(String from, String to, String date, double availableWeight,String profImgUrl, String profName, double rate)
+
+    public TripItem(int trip_id, String from, String to, String date, double availableWeight, String profImgUrl, String profName, double rate)
     {
+        this.trip_id = trip_id;
         country_from =from;
         country_to =to;
         meeting_date=date;
@@ -44,6 +48,8 @@ public class TripItem {
         profile_name=profName;
         user_rate=rate;
     }
+
+    public int getTrip_id() { return trip_id; }
 
     public String getCountry_from() {
         return country_from;
@@ -71,5 +77,21 @@ public class TripItem {
 
     public String getProfile_image_url() {
         return profile_image_url;
+    }
+
+    public void setCountry_from(String country_from) {
+        this.country_from = country_from;
+    }
+
+    public void setCountry_to(String country_to) {
+        this.country_to = country_to;
+    }
+
+    public void setMeeting_date(String meeting_date) {
+        this.meeting_date = meeting_date;
+    }
+
+    public void setAvailable_weight(double available_weight) {
+        this.available_weight = available_weight;
     }
 }

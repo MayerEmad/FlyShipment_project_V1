@@ -16,10 +16,11 @@ import com.example.flyshippment_project.Repository;
 
 import java.util.ArrayList;
 
+import adapters_and_items.ApiTripSearch;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.TripItem;
 
-public class CreateTripItemActivity extends AppCompatActivity {
+public class EditTripItemActivity extends AppCompatActivity {
     private String fromCountry = "";
     private String toCountry = "";
     private String lastDate = "";
@@ -29,10 +30,10 @@ public class CreateTripItemActivity extends AppCompatActivity {
     private EditText toText;
     private EditText dateText;
     private EditText weightText;
-    private Button addTripBtn;
+    private Button editTripBtn;
 
     private void arrow_back_function() {
-        Intent intent = new Intent(CreateTripItemActivity.this, MainActivity.class);
+        Intent intent = new Intent(EditTripItemActivity.this, MainActivity.class);
         intent .putExtra("openTripNav",true);
         overridePendingTransition(0, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -44,26 +45,33 @@ public class CreateTripItemActivity extends AppCompatActivity {
         return true;
     }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_trip);
+        setContentView(R.layout.activity_edit_trip);
 
-        final ProfileItem USERINFO= Repository.TheProfileItem ;
+        Bundle extras = getIntent().getExtras();
+        int pos=extras.getInt("tripItemPosition");
+        final TripItem ITEM=MyViewModel.getTripLiveData().getValue().get(pos);
 
-        fromText = (EditText) findViewById(R.id.create_trip_from);
-        toText = (EditText) findViewById(R.id.create_trip_to);
-        weightText = (EditText) findViewById(R.id.create_trip_available_weight);
-        dateText = (EditText) findViewById(R.id.create_trip_last_date);
-        addTripBtn = (Button) findViewById(R.id.create_trip_add_button);
-        Button backArrowButton = (Button) findViewById(R.id.create_trip_back_button);
-       
+        fromText = (EditText) findViewById(R.id.edit_trip_from);
+         fromText.setText(ITEM.getCountry_from());
+        toText = (EditText) findViewById(R.id.edit_trip_to);
+         toText.setText(ITEM.getCountry_to());
+        weightText = (EditText) findViewById(R.id.edit_trip_available_weight);
+         weightText.setText(String.valueOf(ITEM.getAvailable_weight()));
+        dateText = (EditText) findViewById(R.id.edit_trip_last_date);
+         dateText.setText(ITEM.getMeeting_date());
+        editTripBtn = (Button) findViewById(R.id.edit_trip_add_button);
+        Button backArrowButton = (Button) findViewById(R.id.edit_trip_back_button);
+
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 arrow_back_function();
             }
         });
-        addTripBtn.setOnClickListener(new View.OnClickListener() {
+        editTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fromCountry = fromText.getText().toString();
@@ -73,29 +81,22 @@ public class CreateTripItemActivity extends AppCompatActivity {
 
                 if (noEmptyField())
                 {
+                    ITEM.setCountry_from(fromCountry);
+                    ITEM.setCountry_to(toCountry);
+                    ITEM.setMeeting_date(lastDate);
+                    ITEM.setAvailable_weight(Double.parseDouble(freeWeight));
 
-                    TripItem item =new TripItem(
-                            -1, fromCountry, toCountry, lastDate, Double.parseDouble(freeWeight),USERINFO.getUser_image_url(),
-                            USERINFO.getUser_name(), USERINFO.getUser_rate());
+                    // updating...
+                    Repository.updateTripItem(ITEM);
 
-                    //uploading...
-                    Repository.uploadTripItem(item);
-
-                    ArrayList<TripItem> list= Repository.getUserTripsFromApi();
-                    if(list==null) {
-                        MyViewModel.setUserTripLiveData(new ArrayList<TripItem>());
-                        list=Repository.getUserTripsFromApi();
-                    }
-                    list.add(item);
-
-                    Toast.makeText(CreateTripItemActivity.this, "trip saved :)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTripItemActivity.this, "trip edited :)", Toast.LENGTH_SHORT).show();
                     // Go back TripNavFragment
                     arrow_back_function();
                 } else {
-                    Toast.makeText(CreateTripItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTripItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-    
+
 }

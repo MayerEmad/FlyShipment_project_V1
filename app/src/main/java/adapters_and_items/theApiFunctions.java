@@ -16,14 +16,14 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface theApiFunctions {
+
+    //-------------------- profile ----------------------------
+    @GET("user_info/{id}")
+    Call<ProfileItem> get_api_userInfo(@Path("id") int id) ;
+
+    //-------------------- Shipment ----------------------------
     @GET("ship_info")
     Call<List<ShipmentItem>> get_api_shipments();
-
-    @GET("traveller_info")
-    Call<List<TripItem>> get_api_trips();
-
-    @GET("user_info/{id}")
-     Call<ProfileItem> get_api_userInfo(@Path("id") int id) ;
 
     @Multipart
     @POST("ship_store")
@@ -40,6 +40,31 @@ public interface theApiFunctions {
             @Part("count") RequestBody count
     );
 
+    @Multipart
+    @POST("ship_update/{ship_info_id}")
+    Call<ShipmentItem> updateShipmentItem(
+            @Path("ship_info_id") int itemId,
+            @Part MultipartBody.Part image,
+            @Part("itemName") RequestBody itemName,
+            @Part("from_country") RequestBody from_country,
+            @Part("to_country") RequestBody to_country,
+            @Part("user_info_id") RequestBody user_info_id,
+            @Part("deadline") RequestBody deadline,
+            @Part("url") RequestBody productUrl,
+            @Part("price") RequestBody price,
+            @Part("weight") RequestBody weight,
+            @Part("count") RequestBody count
+    );
+
+    //-------------------- Trip ----------------------------
+
+    @GET("traveller_info")
+    Call<List<TripItem>> get_api_trips();
+
     @POST("traveller_store")
     Call<TripItem> uploadTripItem(@Body TripItem tripItem);
+
+    @POST("traveller_update/{traveller_info_id}")
+    Call<TripItem> updateTripItem(@Path("traveller_info_id") int itemId,@Body TripItem tripItem);
+
 }

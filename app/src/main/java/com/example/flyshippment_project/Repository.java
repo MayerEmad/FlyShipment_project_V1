@@ -1,5 +1,7 @@
 package com.example.flyshippment_project;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 import adapters_and_items.ApiShipmentSearch;
@@ -15,22 +17,46 @@ public class Repository
         // TODO : Background [sync] Task to get userInfo
     }
 
+    //--------------------shipments-------------------------
     // return LiveData from MyModelView
     public static ArrayList<ShipmentItem> getShipmentsFromApi()
     {
-        // TODO : Background async Task to get Shipments
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.DoTaskInBack(); //  Log.i("Repository getShips", "------> getting data from server...");
         return MyViewModel.getShipmentLiveData().getValue();
     }
+    public static void uploadShipmentItem(ShipmentItem item, Context CreateShipmentItemActivityContext)
+    {
+        ApiShipmentSearch task=new ApiShipmentSearch();
+        task.UploadInBack(item,CreateShipmentItemActivityContext);
+    }
+    public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext)
+    {
+        ApiShipmentSearch task=new ApiShipmentSearch();
+        task.UpdateShipmentItem(item,EditShipmentItemActivityContext);
+    }
 
+    //--------------------------Trips-----------------------
     public static ArrayList<TripItem> getTripsFromApi()
     {
-        // TODO : Background async Task to get Trips
         ApiTripSearch task=new ApiTripSearch();
         task.DoTaskInBack();
         return MyViewModel.getTripLiveData().getValue();
     }
+
+    public static void uploadTripItem(TripItem item)
+    {
+        ApiTripSearch task=new ApiTripSearch();
+        task.UploadInBack(item);
+    }
+
+    public static void updateTripItem(TripItem item)
+    {
+        ApiTripSearch task=new ApiTripSearch();
+        task.UpdateTripItem(item);
+    }
+
+//---------------------------------------
 
     public static ArrayList<ShipmentItem> getUserShipmentsFromApi()
     {

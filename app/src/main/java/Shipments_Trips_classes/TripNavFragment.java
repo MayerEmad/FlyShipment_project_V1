@@ -53,7 +53,7 @@ public class TripNavFragment extends Fragment {
         if(userList!=null)
         {
             noTripText.setVisibility(View.INVISIBLE);
-            RecyclerView.Adapter mAdapter = new AdapterRecyclerTrip(userList, getContext());
+            RecyclerView.Adapter mAdapter = new AdapterRecyclerTrip(userList, getContext(),"trip_freg");
             recyclerView.setAdapter(mAdapter);
         }
         else
@@ -73,7 +73,7 @@ public class TripNavFragment extends Fragment {
         MyViewModel.getUserTripLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<TripItem>>() {
             @Override
             public void onChanged(ArrayList<TripItem> tripItems) {
-                recyclerView.setAdapter(new AdapterRecyclerTrip(tripItems,getContext()));
+                recyclerView.setAdapter(new AdapterRecyclerTrip(tripItems,getContext(),"trip_freg"));
                 noTripText.setVisibility(View.INVISIBLE);
             }
         });
