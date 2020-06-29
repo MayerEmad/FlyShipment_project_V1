@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -17,7 +19,6 @@ import java.util.Objects;
 
 import Shipments_Trips_classes.ShipmentNavFragment;
 import Shipments_Trips_classes.TripNavFragment;
-import adapters_and_items.ApiUserInfo;
 import more_classes.MoreNavFragment;
 import search_classes.SearchNavFragment;
 
@@ -71,7 +72,11 @@ public class MainActivity extends AppCompatActivity
         }
 
         // FIXME Temporary------------
-        ApiUserInfo task=new ApiUserInfo(); task.DoTaskInBack();
+        SharedPreferences PREF_USER_ID = getSharedPreferences("userid" , MODE_PRIVATE);
+        if(Repository.TheProfileItem==null){
+            Log.i("aaa", "profile item called ");
+            Repository.getUserInfo(PREF_USER_ID);
+        }
 
         //* Bottom Navigation Bar Listener
         BottomNavigationView bottomNav=findViewById(R.id.bottom_nav);

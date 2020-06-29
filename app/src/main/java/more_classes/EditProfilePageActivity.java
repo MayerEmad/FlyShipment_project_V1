@@ -56,6 +56,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
         if(resultCode ==RESULT_OK && requestCode==GALLERY_REQUEST)
         {
              changedImageUri = data.getData();
+             USERINFO.setUser_image_url(changedImageUri.toString());
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), changedImageUri);
                 userImage.setImageBitmap(bitmap);
@@ -151,7 +152,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-              if(changedImageUri!=null)
+              //if(changedImageUri!=null)
                   USERINFO.setUser_image_url(changedImageUri.toString());
               if(!userEmailEditText.getText().toString().isEmpty())
                   USERINFO.setUser_mail(userEmailEditText.getText().toString());
@@ -165,6 +166,8 @@ public class EditProfilePageActivity  extends AppCompatActivity
               if(userLastNameText!=null)
                   name+=userLastNameText.getText().toString();
               if(!name.equals(""))USERINFO.setUser_name(name);
+
+              Repository.updateUserInfo(USERINFO.getUser_id(),EditProfilePageActivity.this);
             }
         });
     }

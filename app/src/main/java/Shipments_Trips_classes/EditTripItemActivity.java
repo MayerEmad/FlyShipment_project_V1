@@ -14,10 +14,6 @@ import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
 
-import java.util.ArrayList;
-
-import adapters_and_items.ApiTripSearch;
-import adapters_and_items.ProfileItem;
 import adapters_and_items.TripItem;
 
 public class EditTripItemActivity extends AppCompatActivity {

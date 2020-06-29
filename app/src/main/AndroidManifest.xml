@@ -26,7 +26,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="adapters_and_items.ApiTripSearch">
+        <activity android:name="APIs.ApiTripSearch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

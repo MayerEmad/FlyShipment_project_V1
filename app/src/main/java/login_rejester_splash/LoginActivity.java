@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    public SharedPreferences prefs , idpref;
+    public SharedPreferences prefs , PREF_USER_ID;
     Button login;
     EditText email, pass;
 
@@ -70,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                                 et.putBoolean("isLogin", true);
                                 et.commit();
 
-                                idpref = getSharedPreferences("userid" , MODE_PRIVATE);
-                                SharedPreferences.Editor idet = idpref.edit();
+                                PREF_USER_ID = getSharedPreferences("userid" , MODE_PRIVATE);
+                                SharedPreferences.Editor idet = PREF_USER_ID.edit();
                                 idet.putInt("userid", msg.getData().getUserInfoId());
                                 idet.commit();
 

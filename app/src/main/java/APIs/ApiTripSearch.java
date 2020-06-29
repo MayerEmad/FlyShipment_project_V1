@@ -1,8 +1,7 @@
-package adapters_and_items;
+package APIs;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +13,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import adapters_and_items.TripItem;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,7 +69,7 @@ public class ApiTripSearch extends AppCompatActivity {
                 .build();
         theApiFunctions service = retrofit.create(theApiFunctions.class);
 
-        String userId = "1";  //FIXME HardCoded userID
+        String userId = String.valueOf(Repository.TheProfileItem.getUser_id());
         String from_country = item.getCountry_from();
         String to_country = item.getCountry_to();
         Double weight = item.getAvailable_weight();
@@ -104,7 +104,7 @@ public class ApiTripSearch extends AppCompatActivity {
                 .build();
         theApiFunctions service = retrofit.create(theApiFunctions.class);
 
-        String userId = "1";  //FIXME HardCoded userID
+        String userId = String.valueOf(Repository.TheProfileItem.getUser_id());
         String from_country = item.getCountry_from();
         String to_country = item.getCountry_to();
         Double weight = item.getAvailable_weight();

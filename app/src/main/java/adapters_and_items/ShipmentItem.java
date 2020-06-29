@@ -29,7 +29,7 @@ public class ShipmentItem {
                         double money, String profImg, String profName, double rate, String productUrl)
     {
         this.shipment_id = shipment_id;
-        product_image=prodImg;
+        this.product_image=prodImg;
         weight=prodWeight;
         items_number=itemsNum;
         product_name=name;
@@ -44,7 +44,7 @@ public class ShipmentItem {
     }
 
 
-    public String getProduct_image() { return product_image; }
+    public String getProduct_image() { return this.product_image; }
     public double getWeight(){ return weight*items_number; }
     public String getStrWeight(){
         return  Double.toString(weight*items_number)+"Kg";

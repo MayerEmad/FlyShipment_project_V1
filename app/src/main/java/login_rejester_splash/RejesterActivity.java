@@ -9,10 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.R;
 
-import adapters_and_items.ApiTripSearch;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

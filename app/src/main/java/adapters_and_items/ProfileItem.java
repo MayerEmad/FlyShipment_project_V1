@@ -1,5 +1,7 @@
 package adapters_and_items;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.Expose;
@@ -59,12 +61,13 @@ public class ProfileItem
         this.user_name = user_name;
     }
 
-    public String getUser_image_url() { return user_image_url; }
+    public String getUser_image_url() { return this.user_image_url; }
 
-    public void setUser_image_url(String user_image_url) { this.user_image_url = user_image_url; }
+    public void setUser_image_url(String user_image_url) { this.user_image_url=user_image_url;
+        Log.i("aaaSet", "setUser_image_url: ="+user_image_url);}
 
     public String getUser_mail() {
-        return user_mail;
+        return this.user_mail;
     }
 
     public void setUser_mail(String user_mail) {
@@ -72,7 +75,7 @@ public class ProfileItem
     }
 
     public String getUser_phone() {
-        return user_phone;
+        return this.user_phone;
     }
 
     public void setUser_phone(String user_phone) {
@@ -80,7 +83,7 @@ public class ProfileItem
     }
 
     public String getUser_passport() {
-     return user_passport;
+     return this.user_passport;
     }
 
     public void setUser_passport(String user_passport) {
@@ -88,7 +91,7 @@ public class ProfileItem
     }
 
     public double getUser_rate() {
-        return user_rate;
+        return this.user_rate;
     }
 
     public void setUser_rate(double user_rate) {
@@ -96,7 +99,7 @@ public class ProfileItem
     }
 
     public int getUser_deals() {
-        return user_deals;
+        return this.user_deals;
     }
 
     public void setUser_deals(int user_deals) {
@@ -104,7 +107,7 @@ public class ProfileItem
     }
 
     public int getUser_trips() {
-        return user_trips;
+        return this.user_trips;
     }
 
     public void setUser_trips(int user_trips) {
@@ -112,7 +115,7 @@ public class ProfileItem
     }
 
     public int getUser_shipments() {
-        return user_shipments;
+        return this.user_shipments;
     }
 
     public void setUser_shipments(int user_shipments) {

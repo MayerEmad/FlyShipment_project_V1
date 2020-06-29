@@ -1,7 +1,10 @@
-package adapters_and_items;
+package APIs;
 
 import java.util.List;
 
+import adapters_and_items.ProfileItem;
+import adapters_and_items.ShipmentItem;
+import adapters_and_items.TripItem;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -20,6 +23,17 @@ public interface theApiFunctions {
     //-------------------- profile ----------------------------
     @GET("user_info/{id}")
     Call<ProfileItem> get_api_userInfo(@Path("id") int id) ;
+
+    @Multipart
+    @POST("user_update/{user_info_id}")
+    Call<ProfileItem> updateUserInfoItem(
+            @Path("user_info_id") int itemId,
+            @Part MultipartBody.Part image,
+            @Part("email") RequestBody email,
+            @Part("phone") RequestBody phone,
+            @Part("identification") RequestBody identification,
+            @Part("fullName") RequestBody fullName
+    );
 
     //-------------------- Shipment ----------------------------
     @GET("ship_info")

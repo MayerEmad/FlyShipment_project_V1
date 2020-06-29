@@ -1,20 +1,31 @@
 package com.example.flyshippment_project;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 
-import adapters_and_items.ApiShipmentSearch;
-import adapters_and_items.ApiTripSearch;
+import APIs.ApiShipmentSearch;
+import APIs.ApiTripSearch;
+import APIs.ApiUserInfo;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.TripItem;
 
 public class Repository
 {
-    public static ProfileItem TheProfileItem;
-    public static void getFoOnceUserInfo(){
-        // TODO : Background [sync] Task to get userInfo
+    //--------------------UserInfo-------------------------
+
+    public static ProfileItem TheProfileItem=null;
+
+    public static void getUserInfo(SharedPreferences id){
+        ApiUserInfo task=new ApiUserInfo();
+        task.DoTaskInBack(id.getInt("userid",4));
+    }
+
+    public static void updateUserInfo(int id,Context EditProfilePageContext) {
+        ApiUserInfo task=new ApiUserInfo();
+        task.UpdateUserInfoApi(id,EditProfilePageContext);
     }
 
     //--------------------shipments-------------------------
@@ -67,5 +78,6 @@ public class Repository
     {
         return  MyViewModel.getUserTripLiveData().getValue();
     }
+
 }
 

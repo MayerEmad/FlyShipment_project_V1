@@ -144,8 +144,6 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
         addShipmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //FIXME
-                      int itemId = -1;
                 fromCountry = fromText.getText().toString();
                 toCountry = toText.getText().toString();
                 lastDate = dateText.getText().toString();
@@ -158,7 +156,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                 if (noEmptyField() )
                 {
                     ShipmentItem item =new ShipmentItem(
-                            itemId, itemImageUrl,Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
+                            -1, itemImageUrl,Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
                             USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl);
 

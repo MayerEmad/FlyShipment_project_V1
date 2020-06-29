@@ -1,6 +1,5 @@
-package adapters_and_items;
+package APIs;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,14 +15,12 @@ import com.example.flyshippment_project.Repository;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import Shipments_Trips_classes.CreateShipmentItemActivity;
+import adapters_and_items.ShipmentItem;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -89,7 +86,7 @@ public class ApiShipmentSearch extends AppCompatActivity
         RequestBody itemName = RequestBody.create(MediaType.parse("text/plain"), item.getProduct_name());
         RequestBody from_country = RequestBody.create(MediaType.parse("text/plain"), item.getCountry_from());
         RequestBody to_country = RequestBody.create(MediaType.parse("text/plain"), item.getCountry_to());
-        RequestBody user_info_id = RequestBody.create(MediaType.parse("text/plain"), "1");  //FixMe hardcoded
+        RequestBody user_info_id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(Repository.TheProfileItem.getUser_id()));
         RequestBody deadline = RequestBody.create(MediaType.parse("text/plain"), item.getLast_date());
         RequestBody productUrl = RequestBody.create(MediaType.parse("text/plain"), item.getProduct_url());
         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getReward()));
@@ -142,7 +139,7 @@ public class ApiShipmentSearch extends AppCompatActivity
         RequestBody itemName = RequestBody.create(MediaType.parse("text/plain"), item.getProduct_name());
         RequestBody from_country = RequestBody.create(MediaType.parse("text/plain"), item.getCountry_from());
         RequestBody to_country = RequestBody.create(MediaType.parse("text/plain"), item.getCountry_to());
-        RequestBody user_info_id = RequestBody.create(MediaType.parse("text/plain"), "1");  //FixMe hardcoded
+        RequestBody user_info_id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(Repository.TheProfileItem.getUser_id()));
         RequestBody deadline = RequestBody.create(MediaType.parse("text/plain"), item.getLast_date());
         RequestBody productUrl = RequestBody.create(MediaType.parse("text/plain"), item.getProduct_url());
         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getReward()));

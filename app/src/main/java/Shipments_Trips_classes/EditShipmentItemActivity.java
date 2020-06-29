@@ -15,17 +15,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.flyshippment_project.FileUtil;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
-import adapters_and_items.ApiShipmentSearch;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
 
