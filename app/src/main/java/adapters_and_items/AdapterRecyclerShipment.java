@@ -2,6 +2,7 @@ package adapters_and_items;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.R;
 
 import java.util.ArrayList;
 
 import Shipments_Trips_classes.CreateShipmentItemActivity;
+import Shipments_Trips_classes.CreateTripItemActivity;
 import Shipments_Trips_classes.EditShipmentItemActivity;
+import Shipments_Trips_classes.TripNavFragment;
 import more_classes.EditProfilePageActivity;
 import search_classes.Shipment_Shower_Freg;
 
@@ -78,7 +82,7 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
     // ok Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        ShipmentItem item = ShipmentsList.get(position);
+        final ShipmentItem item = ShipmentsList.get(position);
 
         Glide.with(mContext).load(item.getProduct_image()).into(holder.product_image);
         holder.weight_text.setText(item.getStrWeight());
@@ -95,6 +99,14 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         holder.request_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("this", "onClick: clicked"+ item.getCountry_from());
+
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent .putExtra("openTripNav",true);
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.putExtra("shipid",item.getShipment_id());
+                mContext.startActivity(intent);
             }
         });
         holder.profile_image.setOnClickListener(new View.OnClickListener() {

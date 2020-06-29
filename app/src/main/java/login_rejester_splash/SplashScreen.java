@@ -22,13 +22,13 @@ public class SplashScreen extends AppCompatActivity {
         int secondsDelayed = 1;
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                sp = getSharedPreferences("checkbox", 0);
-                boolean cb1 = sp.getBoolean("isLogin", true);
+               sp = getSharedPreferences("checkbox", 0);
+                boolean cb1 = sp.getBoolean("isLogin", false);
                 if (cb1){
                    startActivity(new Intent(SplashScreen.this, MainActivity.class));
                 }
                 else {
-                    startActivity(new Intent(SplashScreen.this, WelcomeActivity.class));
+                   startActivity(new Intent(SplashScreen.this, WelcomeActivity.class));
                 }
                 finish();
             }

@@ -88,6 +88,7 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         holder.request_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             }
         });
         holder.profile_image.setOnClickListener(new View.OnClickListener() {
