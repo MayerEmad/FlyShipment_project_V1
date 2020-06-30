@@ -86,6 +86,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
           userPassportEditText=(TextView)findViewById(R.id.edit_profile_passport_edit_text);
 
          //-----------------  filling first names ,last name  ---------------------------
+
          if(USERINFO.getUser_name()!=null){
              String[] namesArr = USERINFO.getUser_name().split(" ");
              userFirstNameText.setText(namesArr[0]);
@@ -127,6 +128,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
             passportCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
             userPassportEditText.setText(USERINFO.getUser_passport());
         }
+
         Button saveChangesBtn=(Button)findViewById(R.id.edit_profile_save_button);
 
         //----------------- button actions ----------------------
@@ -167,7 +169,6 @@ public class EditProfilePageActivity  extends AppCompatActivity
               if(userLastNameText!=null)
                   name+=userLastNameText.getText().toString().trim();
               if(!name.equals(""))USERINFO.setUser_name(name);
-                Log.i("ProfileNaming", "onClick_Editprofile:----------> name="+name);
 
               Repository.updateUserInfo(USERINFO.getUser_id(),EditProfilePageActivity.this);
             }

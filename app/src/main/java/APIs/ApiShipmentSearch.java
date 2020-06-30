@@ -79,7 +79,6 @@ public class ApiShipmentSearch extends AppCompatActivity
         Retrofit retrofit= new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
-                //.client(okHttpClient)
                 .build();
         theApiFunctions service=retrofit.create(theApiFunctions.class);
 

@@ -45,7 +45,6 @@ public class ProfileItem
 
     public String getUser_name() {
         String formattedName="";
-        Log.i("ProfileNaming", "onClick_ProfileItem:_get----------> name="+this.user_name);
         String[] arr=this.user_name.split(" ");
         formattedName=arr[0]+" "+arr[1];
         return formattedName;
@@ -53,7 +52,6 @@ public class ProfileItem
 
     public void setUser_name(String user_name) {
         this.user_name = user_name;
-        Log.i("ProfileNaming", "onClick_ProfileItem_set:----------> name="+this.user_name);
     }
 
     public String getUser_image_url() { return this.user_image_url; }

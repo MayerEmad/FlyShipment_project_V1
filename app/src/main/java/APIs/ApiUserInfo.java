@@ -93,9 +93,7 @@ public class ApiUserInfo extends AppCompatActivity {
             public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
                 if (!response.isSuccessful()) {
                     Log.i("ApiUserInfo badresponse", "Update has error X(");
-                    return;
                 }
-                Repository.TheProfileItem = response.body();
                 Log.i("ApiUserInfo GoodRespons", "Update Done ----------> ="+response.body()+response.message());
             }
 
