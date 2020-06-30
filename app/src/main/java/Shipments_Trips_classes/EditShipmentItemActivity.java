@@ -47,10 +47,6 @@ public class EditShipmentItemActivity extends AppCompatActivity {
     private EditText weightText;
     private TextView totalPriceText;
     private TextView totalWeightText;
-    private Button plusBtn;
-    private Button minusBtn;
-    private Button takeImageBtn;
-    private Button editShipmentBtn;
     private ImageView theImageView;
 
     private ShipmentItem ITEM;
@@ -120,11 +116,20 @@ public class EditShipmentItemActivity extends AppCompatActivity {
         totalWeightText = (TextView) findViewById(R.id.edit_shipment_item_total_weight);
         update(ITEM.getItemsNumber());
 
-        plusBtn = (Button) findViewById(R.id.edit_shipment_plus_item);
-        minusBtn = (Button) findViewById(R.id.edit_shipment_minus_item);
-        takeImageBtn = (Button) findViewById(R.id.edit_shipment_get_image_button);
-        editShipmentBtn = (Button) findViewById(R.id.edit_shipment_edit_button);
+        Button plusBtn = (Button) findViewById(R.id.edit_shipment_plus_item);
+        Button minusBtn = (Button) findViewById(R.id.edit_shipment_minus_item);
+        Button takeImageBtn = (Button) findViewById(R.id.edit_shipment_get_image_button);
+        Button editShipmentBtn = (Button) findViewById(R.id.edit_shipment_edit_button);
         Button backArrowButton = (Button) findViewById(R.id.edit_shipment_back_button);
+        Button deleteItemButton = (Button) findViewById(R.id.edit_shipment_delete_button);
+
+        deleteItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Repository.deleteShipmentItem(ITEM.getShipment_id());
+            }
+        });
+
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

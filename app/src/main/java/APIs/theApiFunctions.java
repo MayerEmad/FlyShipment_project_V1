@@ -32,7 +32,8 @@ public interface theApiFunctions {
             @Part("email") RequestBody email,
             @Part("phone") RequestBody phone,
             @Part("identification") RequestBody identification,
-            @Part("fullName") RequestBody fullName
+            @Part("fullName") RequestBody fullName,
+            @Part("userName") RequestBody Name
     );
 
     //-------------------- Shipment ----------------------------
@@ -70,6 +71,10 @@ public interface theApiFunctions {
             @Part("count") RequestBody count
     );
 
+    @POST("ship_del/{ship_info_id}")
+    Call<ShipmentItem> deleteShipmentItem(@Path("ship_info_id") int itemId);
+
+
     //-------------------- Trip ----------------------------
 
     @GET("traveller_info")
@@ -81,4 +86,6 @@ public interface theApiFunctions {
     @POST("traveller_update/{traveller_info_id}")
     Call<TripItem> updateTripItem(@Path("traveller_info_id") int itemId,@Body TripItem tripItem);
 
+    @POST("traveller_del/{traveller_info_id}")
+    Call<TripItem> deleteTripItem(@Path("traveller_info_id") int itemId);
 }

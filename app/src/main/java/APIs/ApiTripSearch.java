@@ -29,7 +29,7 @@ public class ApiTripSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public void DoTaskInBack() {
+    public void GetTripItemsFromServer() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -62,7 +62,7 @@ public class ApiTripSearch extends AppCompatActivity {
         });
     }
 
-    public void UploadInBack(TripItem item) {
+    public void UploadTripItem(TripItem item) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -127,6 +127,31 @@ public class ApiTripSearch extends AppCompatActivity {
             @Override
             public void onFailure(Call<TripItem> call, Throwable t) {
                 Log.i("APITripSearch Uploading", "onFailure:----------------->  failed to update " +
+                        "  " + t.getLocalizedMessage() + "\n --------" + t.getCause());
+            }
+        });
+    }
+
+    public void DeleteTripItem(Integer id)
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions service = retrofit.create(theApiFunctions.class);
+        Call<TripItem> call = service.deleteTripItem(id);
+        call.enqueue(new Callback<TripItem>()
+        {
+            @Override
+            public void onResponse(Call<TripItem> call, Response<TripItem> response) {
+                if (!response.isSuccessful()) {
+                    Log.i("APITripSearch Deleting",  " BadResponse -------------> " + response.errorBody());
+                }
+                Log.i("APITripSearch Deleting", "onResponse:--------->  succeed on deleting " + response.message());
+            }
+            @Override
+            public void onFailure(Call<TripItem> call, Throwable t) {
+                Log.i("APITripSearch Deleting", "onFailure:----------------->  failed to Delete " +
                         "  " + t.getLocalizedMessage() + "\n --------" + t.getCause());
             }
         });

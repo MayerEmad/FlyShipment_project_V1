@@ -11,6 +11,7 @@
     <string name="save_word">save</string>
     <string name="save_changes_word">save changes</string>
     <string name="update_word">update</string>
+    <string name="delete_word">delete</string>
 
     <string name="from_word">from</string>
     <string name="to_word">to</string>

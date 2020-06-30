@@ -49,7 +49,7 @@ public class TripItem {
         user_rate=rate;
     }
 
-    public int getTrip_id() { return trip_id; }
+    public int getTrip_id() { return this.trip_id; }
 
     public String getCountry_from() {
         return country_from;

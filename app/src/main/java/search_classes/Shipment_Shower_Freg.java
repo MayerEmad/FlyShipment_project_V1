@@ -59,8 +59,6 @@ public class Shipment_Shower_Freg extends Fragment
             @Override
             public void onChanged(ArrayList<ShipmentItem> shipmentItems)
             {
-               // Log.d("TEST", "[onChanged]: " + hashCode());
-              //  Log.i("ship observer arr", " change has happen : -------> ");
                 loadingIndicator.setVisibility(View.INVISIBLE);
                 userList=MyViewModel.getShipmentLiveData().getValue();
                 mAdapter=new AdapterRecyclerShipment(userList,getContext(),"shipment_shower_freg");

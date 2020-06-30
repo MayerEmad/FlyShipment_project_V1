@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -162,10 +163,11 @@ public class EditProfilePageActivity  extends AppCompatActivity
                   USERINFO.setUser_passport(userPassportEditText.getText().toString());
               String name="";
               if(userFirstNameText!=null)
-                  name+=userFirstNameText.getText().toString();name+=" ";
+                  name+=userFirstNameText.getText().toString().trim();name+=" ";
               if(userLastNameText!=null)
-                  name+=userLastNameText.getText().toString();
+                  name+=userLastNameText.getText().toString().trim();
               if(!name.equals(""))USERINFO.setUser_name(name);
+                Log.i("ProfileNaming", "onClick_Editprofile:----------> name="+name);
 
               Repository.updateUserInfo(USERINFO.getUser_id(),EditProfilePageActivity.this);
             }

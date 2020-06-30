@@ -47,7 +47,7 @@ public class EditTripItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_trip);
 
         Bundle extras = getIntent().getExtras();
-        int pos=extras.getInt("tripItemPosition");
+        int pos=extras.getInt("TripItemPosition");
         final TripItem ITEM=MyViewModel.getTripLiveData().getValue().get(pos);
 
         fromText = (EditText) findViewById(R.id.edit_trip_from);
@@ -59,7 +59,17 @@ public class EditTripItemActivity extends AppCompatActivity {
         dateText = (EditText) findViewById(R.id.edit_trip_last_date);
          dateText.setText(ITEM.getMeeting_date());
         editTripBtn = (Button) findViewById(R.id.edit_trip_add_button);
+
         Button backArrowButton = (Button) findViewById(R.id.edit_trip_back_button);
+        Button deleteItemButton = (Button) findViewById(R.id.edit_trip_delete_button);
+
+        deleteItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Repository.deleteTripItem(ITEM.getTrip_id());
+            }
+        });
+
 
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
