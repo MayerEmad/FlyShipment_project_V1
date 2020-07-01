@@ -80,10 +80,10 @@ public class ApiUserInfo extends AppCompatActivity {
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), user.getUser_mail());
         RequestBody identification = RequestBody.create(MediaType.parse("text/plain"), user.getUser_passport());
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), user.getUser_nick_name());
-        String filePath= user.getUser_image_url();
 
-        Log.i("aaa", "UpdateUserInfoApi:---------> "+filePath);
-        File userImageFile = new File(FileUtil.getPath(Uri.parse(filePath),mContext));
+        String filePath= user.getUser_image_url();
+        Log.i("ApiUserInfo", "image path:---------> "+filePath);
+        File userImageFile = new File(filePath);//FileUtil.getPath(Uri.parse(filePath),mContext));
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), userImageFile);
         MultipartBody.Part image = MultipartBody.Part.createFormData("image", userImageFile.getName(), fileReqBody);
 

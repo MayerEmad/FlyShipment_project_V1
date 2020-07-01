@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.flyshippment_project.R;
 
 import java.util.ArrayList;
@@ -80,7 +81,10 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         holder.meeting_date.setText(item.getMeeting_date());
         holder.available_weight_text.setText(item.getStrAvailable_weight());
         holder.consumed_weight_text.setText(item.getConsumed_weight());
-        Glide.with(mContext).load(item.getProfile_image_url()).into(holder.profile_image);
+        Glide.with(mContext).load(item.getProfile_image_url())
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(holder.profile_image);
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUser_rate());
 

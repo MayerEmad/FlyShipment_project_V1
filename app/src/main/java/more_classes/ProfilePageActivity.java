@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
@@ -80,12 +81,13 @@ public class ProfilePageActivity extends AppCompatActivity {
         userNameText.setText(user.getUser_name());
         userRate.setRating((float) user.getUser_rate());
 
-        if(user.getUser_image_url()!=null){
             userImage.setForeground(null);
-            Glide.with(this).load(user.getUser_image_url()).into(userImage);
-        }else{
-            Glide.with(this).load(R.drawable.round_error_black_18dp).into(userImage);
-        }
+            Glide.with(this).load(user.getUser_image_url())
+                    .placeholder(R.drawable.round_error_black_18dp)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(userImage);
+
 
         userDeals.setText(String.valueOf(user.getUser_deals()));
         userTrips.setText(String.valueOf(user.getUser_trips()));

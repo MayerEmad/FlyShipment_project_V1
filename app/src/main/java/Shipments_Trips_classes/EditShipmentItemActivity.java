@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
@@ -103,7 +104,10 @@ public class EditShipmentItemActivity extends AppCompatActivity {
         urlText = (EditText) findViewById(R.id.edit_shipment_item_urll);
          urlText.setText(ITEM.getProduct_url());
         theImageView=(ImageView)findViewById(R.id.edit_shipment_the_image);
-         Glide.with(this).load(ITEM.getProduct_image()).into(theImageView);
+         Glide.with(this).load(ITEM.getProduct_image())
+                 .skipMemoryCache(true)
+                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                 .into(theImageView);
         numberText = (EditText) findViewById(R.id.edit_shipment_item_number);
          numberText.setText(String.valueOf(((int) ITEM.getItemsNumber())));
         priceText = (EditText) findViewById(R.id.edit_shipment_item_price);

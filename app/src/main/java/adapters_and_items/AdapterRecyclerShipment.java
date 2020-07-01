@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.flyshippment_project.R;
 
 import java.util.ArrayList;
@@ -80,14 +81,20 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         ShipmentItem item = ShipmentsList.get(position);
 
-        Glide.with(mContext).load(item.getProduct_image()).into(holder.product_image);
+        Glide.with(mContext).load(item.getProduct_image())
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(holder.product_image);
         holder.weight_text.setText(item.getStrWeight());
         holder.product_name.setText(item.getProduct_name());
         holder.country_from.setText(item.getCountry_from());
         holder.country_to.setText(item.getCountry_to());
         holder.last_date.setText(item.getLast_date());
         holder.reward_text.setText(String.valueOf(item.getReward()));
-        Glide.with(mContext).load(item.getProfile_image()).into(holder.profile_image);
+        Glide.with(mContext).load(item.getProfile_image())
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(holder.profile_image);
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUserRate());
 
