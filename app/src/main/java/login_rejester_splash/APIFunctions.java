@@ -16,4 +16,10 @@ public interface APIFunctions {
     public Call<LoginResponsemodel> login(@Query("email") String email,
                                           @Query("password") String pass
     ) ;
+    @POST("request?")
+    public Call<RespnseModel> request(@Query("traveller_id") int traveller_id, @Query("ship_id") int ship_id
+
+
+
+    ) ;
 }

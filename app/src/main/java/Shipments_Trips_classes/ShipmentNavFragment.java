@@ -30,6 +30,15 @@ import adapters_and_items.ShipmentItem;
 
 public class ShipmentNavFragment extends Fragment {
 
+    public void setId(int id){
+        this.tripid = id;
+    }
+
+    public int getdata(){
+        return tripid;
+    }
+    static int tripid;
+
     private RecyclerView recyclerView;
     public ShipmentNavFragment() {
         // Required empty public constructor

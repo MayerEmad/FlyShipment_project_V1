@@ -2,6 +2,7 @@ package adapters_and_items;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.R;
 
 import java.util.ArrayList;
 
 import Shipments_Trips_classes.CreateTripItemActivity;
 import Shipments_Trips_classes.EditTripItemActivity;
+import Shipments_Trips_classes.TripNavFragment;
 
 public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTrip.MyViewHolder>
 {
@@ -28,12 +31,14 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
     private Context mContext;
     private String parent;
 
+
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AdapterRecyclerTrip(ArrayList<TripItem> DataList,Context con,String dad)
+    public AdapterRecyclerTrip(ArrayList<TripItem> DataList,Context con,String dad )
     {
         TripList = DataList;
         mContext=con;
         parent=dad;
+
     }
 
     //ok
@@ -74,7 +79,7 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
     // ok Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        TripItem item = TripList.get(position);
+        final TripItem item = TripList.get(position);
 
         holder.country_from.setText(item.getCountry_from());
         holder.country_to.setText(item.getCountry_to());
@@ -92,6 +97,17 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         holder.request_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                TripNavFragment fragobj = new TripNavFragment();
+                fragobj.setId(item.getTrip_id());
+
+                Log.i("adapttrip", "onClick: id" + fragobj.getdata());
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent .putExtra("openShipmentNav",true);
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                // intent.putExtra("shipid",item.getShipment_id());
+                mContext.startActivity(intent);
 
             }
         });
