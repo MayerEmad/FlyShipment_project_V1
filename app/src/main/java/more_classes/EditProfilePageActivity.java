@@ -6,7 +6,9 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -20,10 +22,15 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.flyshippment_project.FileUtil;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.util.concurrent.ExecutionException;
 
 import Shipments_Trips_classes.CreateShipmentItemActivity;
 import adapters_and_items.ProfileItem;
@@ -32,7 +39,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
 {
     private static int GALLERY_REQUEST = 1;
     private ProfileItem USERINFO= Repository.TheProfileItem;
-    private Uri changedImageUri;
+    private Uri changedImageUri;//= Uri.parse(USERINFO.getUser_image_url());
 
     private ImageView userImage;
     private TextView userEmailEditText;
@@ -84,21 +91,36 @@ public class EditProfilePageActivity  extends AppCompatActivity
           userPhoneEditText=(TextView)findViewById(R.id.edit_profile_phone_edit_text);
           userPassportEditText=(TextView)findViewById(R.id.edit_profile_passport_edit_text);
 
-         //-----------------  filling first names ,last name  ---------------------------
-         if(USERINFO.getUser_name()!=null){
-             String[] namesArr = USERINFO.getUser_name().split(" ");
-             userFirstNameText.setText(namesArr[0]);
-             if(namesArr.length>1)userLastNameText.setText(namesArr[1]);
-         }
+
+        //----------------- filling Image ----------------------
+
+            userImage.setForeground(null);
+            Glide.with(this).load(USERINFO.getUser_image_url())
+                    .placeholder(R.drawable.round_error_black_18dp)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(userImage);
+
+            /* try {
+                 File file=Glide.with(this).asFile().load(USERINFO.getUser_image_url()).submit().get();
+                 Log.i("ApiUserInfo Edit", "image path:---------> "+file.getPath());
+                 changedImageUri= Uri.parse(file.getPath());
+             } catch (ExecutionException e) {
+                 e.printStackTrace();
+             } catch (InterruptedException e) {
+                 e.printStackTrace();
+             }*/
+
+
+        //-----------------  filling first names ,last name  ---------------------------
+
+        if(USERINFO.getUser_name()!=null){
+            String[] namesArr = USERINFO.getUser_name().split(" ");
+            userFirstNameText.setText(namesArr[0]);
+            if(namesArr.length>1)userLastNameText.setText(namesArr[1]);
+        }
 
         //----------------- filling Image , Email , phone , passport ----------------------
-         if(USERINFO.getUser_image_url()!=null){
-            userImage.setForeground(null);
-            Glide.with(this).load(USERINFO.getUser_image_url()).into(userImage);
-        }
-         else{
-            Glide.with(this).load(R.drawable.round_error_black_18dp).into(userImage);
-        }
 
         if(USERINFO.getUser_phone()==null) {
             phoneCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
@@ -126,6 +148,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
             passportCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
             userPassportEditText.setText(USERINFO.getUser_passport());
         }
+
         Button saveChangesBtn=(Button)findViewById(R.id.edit_profile_save_button);
 
         //----------------- button actions ----------------------
@@ -153,6 +176,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
             public void onClick(View v)
             {
               //if(changedImageUri!=null)
+
                   USERINFO.setUser_image_url(changedImageUri.toString());
               if(!userEmailEditText.getText().toString().isEmpty())
                   USERINFO.setUser_mail(userEmailEditText.getText().toString());
@@ -162,9 +186,9 @@ public class EditProfilePageActivity  extends AppCompatActivity
                   USERINFO.setUser_passport(userPassportEditText.getText().toString());
               String name="";
               if(userFirstNameText!=null)
-                  name+=userFirstNameText.getText().toString();name+=" ";
+                  name+=userFirstNameText.getText().toString().trim();name+=" ";
               if(userLastNameText!=null)
-                  name+=userLastNameText.getText().toString();
+                  name+=userLastNameText.getText().toString().trim();
               if(!name.equals(""))USERINFO.setUser_name(name);
 
               Repository.updateUserInfo(USERINFO.getUser_id(),EditProfilePageActivity.this);

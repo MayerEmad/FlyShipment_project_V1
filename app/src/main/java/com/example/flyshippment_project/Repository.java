@@ -22,53 +22,62 @@ public class Repository
         ApiUserInfo task=new ApiUserInfo();
         task.DoTaskInBack(id.getInt("userid",4));
     }
-
     public static void updateUserInfo(int id,Context EditProfilePageContext) {
         ApiUserInfo task=new ApiUserInfo();
         task.UpdateUserInfoApi(id,EditProfilePageContext);
     }
 
-    //--------------------shipments-------------------------
+    //------------------------shipments-------------------------
     // return LiveData from MyModelView
+
     public static ArrayList<ShipmentItem> getShipmentsFromApi()
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
-        task.DoTaskInBack(); //  Log.i("Repository getShips", "------> getting data from server...");
+        task.GetShipmentItemsFromServer(); //  Log.i("Repository getShips", "------> getting data from server...");
         return MyViewModel.getShipmentLiveData().getValue();
     }
     public static void uploadShipmentItem(ShipmentItem item, Context CreateShipmentItemActivityContext)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
-        task.UploadInBack(item,CreateShipmentItemActivityContext);
+        task.UploadShipmentItem(item,CreateShipmentItemActivityContext);
     }
     public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.UpdateShipmentItem(item,EditShipmentItemActivityContext);
     }
+    public static void deleteShipmentItem(Integer id)
+    {
+        ApiShipmentSearch task=new ApiShipmentSearch();
+        task.DeleteShipmentItem(id);
+    }
 
-    //--------------------------Trips-----------------------
+    //-------------------------Trips-----------------------
+
     public static ArrayList<TripItem> getTripsFromApi()
     {
         ApiTripSearch task=new ApiTripSearch();
-        task.DoTaskInBack();
+        task.GetTripItemsFromServer();
         return MyViewModel.getTripLiveData().getValue();
     }
-
     public static void uploadTripItem(TripItem item)
     {
         ApiTripSearch task=new ApiTripSearch();
-        task.UploadInBack(item);
+        task.UploadTripItem(item);
     }
-
     public static void updateTripItem(TripItem item)
     {
         ApiTripSearch task=new ApiTripSearch();
         task.UpdateTripItem(item);
     }
+    public static void deleteTripItem(Integer id)
+    {
+        ApiTripSearch task=new ApiTripSearch();
+        task.DeleteTripItem(id);
+    }
 
-//---------------------------------------
 
+    //---------------------------------------
     public static ArrayList<ShipmentItem> getUserShipmentsFromApi()
     {
         return MyViewModel.getUserShipmentLiveData().getValue();

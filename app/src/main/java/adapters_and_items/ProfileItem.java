@@ -2,8 +2,6 @@ package adapters_and_items;
 
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,6 +9,7 @@ public class ProfileItem
 {
     @SerializedName("user_info_id") @Expose  private int user_id;
     @SerializedName("fullName") @Expose private String user_name;
+    @SerializedName("userName") @Expose private String user_nick_name;
     @SerializedName("image") @Expose private String user_image_url;
     @SerializedName("email") @Expose  private String user_mail;
     @SerializedName("phone") @Expose private String user_phone;
@@ -21,10 +20,11 @@ public class ProfileItem
     @SerializedName("ship") @Expose private int user_shipments;
 
 
-    public ProfileItem(int user_id, String user_name, String user_image_url, String user_mail, String user_phone,
+    public ProfileItem(int user_id, String user_name, String user_nick_name, String user_image_url, String user_mail, String user_phone,
                        String user_passport, double user_rate, int user_deals, int user_trips, int user_shipments) {
         this.user_id = user_id;
         this.user_name = user_name;
+        this.user_nick_name = user_nick_name;
         this.user_image_url = user_image_url;
         this.user_mail = user_mail;
         this.user_phone = user_phone;
@@ -45,15 +45,8 @@ public class ProfileItem
 
     public String getUser_name() {
         String formattedName="";
-        boolean space=false;
-        for(int i=0;i<user_name.length();i++) {
-            if(user_name.charAt(i)!=' ')
-                formattedName+=user_name.charAt(i);
-            else if(!space){
-                formattedName+=user_name.charAt(i);
-                space=true;
-            }
-        }
+        String[] arr=this.user_name.split(" ");
+        formattedName=arr[0]+" "+arr[1];
         return formattedName;
     }
 
@@ -63,8 +56,7 @@ public class ProfileItem
 
     public String getUser_image_url() { return this.user_image_url; }
 
-    public void setUser_image_url(String user_image_url) { this.user_image_url=user_image_url;
-        Log.i("aaaSet", "setUser_image_url: ="+user_image_url);}
+    public void setUser_image_url(String user_image_url) { this.user_image_url=user_image_url;}
 
     public String getUser_mail() {
         return this.user_mail;
@@ -121,4 +113,8 @@ public class ProfileItem
     public void setUser_shipments(int user_shipments) {
         this.user_shipments = user_shipments;
     }
+
+    public String getUser_nick_name() { return this.user_nick_name; }
+
+    public void setUser_nick_name(String user_nick_name) { this.user_nick_name = user_nick_name; }
 }

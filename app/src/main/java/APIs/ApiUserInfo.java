@@ -13,6 +13,7 @@ import com.example.flyshippment_project.FileUtil;
 import com.example.flyshippment_project.Repository;
 
 import java.io.File;
+import java.util.Arrays;
 
 import adapters_and_items.ProfileItem;
 import okhttp3.MediaType;
@@ -78,28 +79,28 @@ public class ApiUserInfo extends AppCompatActivity {
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), user.getUser_phone());
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), user.getUser_mail());
         RequestBody identification = RequestBody.create(MediaType.parse("text/plain"), user.getUser_passport());
-        String filePath= user.getUser_image_url();
+        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), user.getUser_nick_name());
 
-        Log.i("aaa", "UpdateUserInfoApi:---------> "+filePath);
-        File userImageFile = new File(FileUtil.getPath(Uri.parse(filePath),mContext));
+        String filePath= user.getUser_image_url();
+        Log.i("ApiUserInfo", "image path:---------> "+filePath);
+        File userImageFile = new File(filePath);//FileUtil.getPath(Uri.parse(filePath),mContext));
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), userImageFile);
         MultipartBody.Part image = MultipartBody.Part.createFormData("image", userImageFile.getName(), fileReqBody);
 
-        Call<ProfileItem> call = client.updateUserInfoItem(id,image,email,phone,identification,fullName);
+        Call<ProfileItem> call = client.updateUserInfoItem(id,image,email,phone,identification,fullName,name);
         call.enqueue(new Callback<ProfileItem>() {
             @Override
             public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
                 if (!response.isSuccessful()) {
                     Log.i("ApiUserInfo badresponse", "Update has error X(");
-                    return;
                 }
-                Repository.TheProfileItem = response.body();
-                Log.i("ApiUserInfo GoodRespons", "Update Done ----------> ="+response.body());
+                Log.i("ApiUserInfo GoodRespons", "Update Done ----------> ="+response.body()+response.message());
             }
 
             @Override
             public void onFailure(Call<ProfileItem> call, Throwable t) {
-                Log.i("ApiUserInfo failed", "Update_Response ----------> ="+t.getStackTrace());
+                Log.i("ApiUserInfo failed", "Update_Response ----------> ="+ Arrays.toString(t.getStackTrace())+"\n\n"
+                        +t.getCause()+"\n\n"+t.getMessage()+"\n\n"+t.getLocalizedMessage() );
             }
         });
 

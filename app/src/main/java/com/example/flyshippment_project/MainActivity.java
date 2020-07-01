@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity
         // FIXME Temporary------------
         SharedPreferences PREF_USER_ID = getSharedPreferences("userid" , MODE_PRIVATE);
         if(Repository.TheProfileItem==null){
-            Log.i("aaa", "profile item called ");
             Repository.getUserInfo(PREF_USER_ID);
         }
 

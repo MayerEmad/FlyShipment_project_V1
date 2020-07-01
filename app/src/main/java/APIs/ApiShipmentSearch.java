@@ -39,7 +39,7 @@ public class ApiShipmentSearch extends AppCompatActivity
         super.onCreate(savedInstanceState);
     }
 
-    public void DoTaskInBack()
+    public void GetShipmentItemsFromServer()
     {
         Retrofit retrofit= new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
@@ -74,12 +74,11 @@ public class ApiShipmentSearch extends AppCompatActivity
         });
     }
 
-    public void UploadInBack(ShipmentItem item, Context mContext)
+    public void UploadShipmentItem(ShipmentItem item, Context mContext)
     {
         Retrofit retrofit= new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
-                //.client(okHttpClient)
                 .build();
         theApiFunctions service=retrofit.create(theApiFunctions.class);
 
@@ -170,6 +169,33 @@ public class ApiShipmentSearch extends AppCompatActivity
             @Override
             public void onFailure(Call<ShipmentItem> call, Throwable t) {
                 Log.i("APIShipmem update", "onFailure:-------->  failed to update cause "+
+                        t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
+            }
+        });
+    }
+
+    public void DeleteShipmentItem(Integer id)
+    {
+        Retrofit retrofit= new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions service=retrofit.create(theApiFunctions.class);
+        Call<ShipmentItem> call=service.deleteShipmentItem(id);
+        call.enqueue(new Callback<ShipmentItem>() {
+            @Override
+            public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
+            {
+                if (!response.isSuccessful()) {
+                    Log.i("APIShipment Deleting", "Response has error--------------- = "+response.body());
+                }
+                else {
+                    Log.i("APIShipment Deleting", "onResponse:------------------->  succeed on deleting "+response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<ShipmentItem> call, Throwable t) {
+                Log.i("APIShipment Deleting", "onFailure:-------->  failed to delete "+
                         t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
             }
         });
