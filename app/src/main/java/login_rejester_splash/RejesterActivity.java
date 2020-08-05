@@ -89,10 +89,15 @@ public class RejesterActivity extends AppCompatActivity {
 
 
                             RespnseModel msg = response.body();
-
+                            String res = msg.getMessage();
                             Toast.makeText(getApplicationContext(),msg.getMessage(), Toast.LENGTH_LONG).show();
+                            if(res.equals("Registration Done")){
                             Intent i = new Intent(RejesterActivity.this, LoginActivity.class);
                             startActivity(i);
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(),msg.getMessage(), Toast.LENGTH_LONG).show();
+                            }
 
                         }
                     }

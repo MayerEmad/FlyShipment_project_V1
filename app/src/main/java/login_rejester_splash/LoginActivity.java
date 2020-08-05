@@ -62,8 +62,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<RespnseModel> call, Response<RespnseModel> response) {
                 if (response.isSuccessful()) {
                     RespnseModel msg = response.body();
+                    String res = msg.getMessage();
 
-
+                    if(res.equals("Login Done")){
                         prefs = getSharedPreferences("checkbox", MODE_PRIVATE);
                         SharedPreferences.Editor et = prefs.edit();
                         et.putBoolean("isLogin", true);
@@ -73,7 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), msg.getMessage(),
                                 Toast.LENGTH_LONG).show();
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(i);
+                        startActivity(i);}
+                    else {
+                        Toast.makeText(getApplicationContext(), msg.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
                     }}
 
             @Override
