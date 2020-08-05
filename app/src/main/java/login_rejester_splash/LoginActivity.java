@@ -56,7 +56,33 @@ public class LoginActivity extends AppCompatActivity {
     }
 
         private void calloginApi() {
-            APIManager.getInstance().getAPI().login(email.getText().toString(), pass.getText().toString())
+
+        APIManager.getInstance().getAPI().login(email.getText().toString(),pass.getText().toString()).enqueue(new Callback<RespnseModel>() {
+            @Override
+            public void onResponse(Call<RespnseModel> call, Response<RespnseModel> response) {
+                if (response.isSuccessful()) {
+                    RespnseModel msg = response.body();
+
+
+                        prefs = getSharedPreferences("checkbox", MODE_PRIVATE);
+                        SharedPreferences.Editor et = prefs.edit();
+                        et.putBoolean("isLogin", true);
+                        et.commit();
+
+
+                        Toast.makeText(getApplicationContext(), msg.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(i);
+                    }}
+
+            @Override
+            public void onFailure(Call<RespnseModel> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "Failed",
+                                Toast.LENGTH_LONG).show();
+            }
+        });
+           /* APIManager.getInstance().getAPI().login(email.getText().toString(), pass.getText().toString())
                     .enqueue(new Callback<LoginResponsemodel>() {
                         @Override
                         public void onResponse(Call<LoginResponsemodel> call, Response<LoginResponsemodel> response) {
@@ -91,6 +117,6 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
 
                         }
-                    });
+                    });*/
         }
 }

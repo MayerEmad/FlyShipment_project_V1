@@ -13,7 +13,7 @@ public interface APIFunctions {
     ) ;
 
     @POST("login?")
-    public Call<LoginResponsemodel> login(@Query("email") String email,
+    public Call<RespnseModel> login(@Query("email") String email,
                                           @Query("password") String pass
     ) ;
     @POST("request?")
