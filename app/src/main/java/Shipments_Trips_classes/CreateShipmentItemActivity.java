@@ -1,4 +1,5 @@
 package Shipments_Trips_classes;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -7,13 +8,16 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import com.example.flyshippment_project.DatePickerFragmentForA;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
@@ -25,7 +29,7 @@ import java.util.ArrayList;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
 
-public class CreateShipmentItemActivity extends AppCompatActivity {
+public class CreateShipmentItemActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private String fromCountry = "";
     private String toCountry = "";
     private String lastDate = "";
@@ -92,7 +96,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
 
         fromText = (EditText) findViewById(R.id.create_shipment_from);
         toText = (EditText) findViewById(R.id.create_shipment_to);
-        dateText = (EditText) findViewById(R.id.create_shipment_date);
+        dateText = (EditText) findViewById(R.id.create_shipment_date); dateText.setFocusable(false);
         nameText = (EditText) findViewById(R.id.create_shipment_item_name);
         urlText = (EditText) findViewById(R.id.create_shipment_item_url);
         plusBtn = (Button) findViewById(R.id.create_shipment_plus_item);
@@ -105,8 +109,15 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
         weightText = (EditText) findViewById(R.id.create_shipment_item_weight);
         totalPriceText = (TextView) findViewById(R.id.create_shipment_item_total_price);
         totalWeightText = (TextView) findViewById(R.id.create_shipment_item_total_weight);
-
         Button backArrowButton = (Button) findViewById(R.id.create_shipment_back_button);
+
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker= new DatePickerFragmentForA();
+                datePicker.show(getSupportFragmentManager(),"date picker");
+            }
+        });
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,5 +211,12 @@ public class CreateShipmentItemActivity extends AppCompatActivity {
                     Toast.makeText(CreateShipmentItemActivity.this,"Error" , Toast.LENGTH_SHORT).show();
                 }
             }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month++;
+        String CurrentDateString=month+"-"+dayOfMonth+"-"+year;
+        dateText.setText(CurrentDateString);
     }
 }

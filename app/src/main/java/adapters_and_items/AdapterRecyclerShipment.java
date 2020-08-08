@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,23 +16,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.flyshippment_project.MainActivity;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.flyshippment_project.R;
 
 import java.util.ArrayList;
 
 import Shipments_Trips_classes.CreateShipmentItemActivity;
-import Shipments_Trips_classes.CreateTripItemActivity;
 import Shipments_Trips_classes.EditShipmentItemActivity;
-import Shipments_Trips_classes.ShipmentNavFragment;
 import Shipments_Trips_classes.TripNavFragment;
 import login_rejester_splash.APIManager;
 import login_rejester_splash.RespnseModel;
-import more_classes.EditProfilePageActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import search_classes.Shipment_Shower_Freg;
 
 public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecyclerShipment.MyViewHolder>
 {
@@ -90,13 +85,16 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final ShipmentItem item = ShipmentsList.get(position);
 
-        Glide.with(mContext).load(item.getProduct_image()).into(holder.product_image);
-        holder.weight_text.setText(item.getStrWeight());
+        Glide.with(mContext).load(item.getProduct_image())
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(holder.product_image);
+        holder.weight_text.setText(item.getStrTotalWeight());
         holder.product_name.setText(item.getProduct_name());
         holder.country_from.setText(item.getCountry_from());
         holder.country_to.setText(item.getCountry_to());
         holder.last_date.setText(item.getLast_date());
-        holder.reward_text.setText(String.valueOf(item.getReward()));
+        holder.reward_text.setText(String.valueOf(item.getItemPrice()));
         Glide.with(mContext).load(item.getProfile_image()).into(holder.profile_image);
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUserRate());

@@ -88,8 +88,8 @@ public class ApiShipmentSearch extends AppCompatActivity
         RequestBody user_info_id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(Repository.TheProfileItem.getUser_id()));
         RequestBody deadline = RequestBody.create(MediaType.parse("text/plain"), item.getLast_date());
         RequestBody productUrl = RequestBody.create(MediaType.parse("text/plain"), item.getProduct_url());
-        RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getReward()));
-        RequestBody weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getWeight()));
+        RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemPrice()));
+        RequestBody weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemWeight()));
         RequestBody count = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemsNumber()));
 
         String filePath= item.getProduct_image();
@@ -119,6 +119,49 @@ public class ApiShipmentSearch extends AppCompatActivity
         });
     }
 
+    public void UpdateShipmentItemNoImage(ShipmentItem item, Context mContext)
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions service = retrofit.create(theApiFunctions.class);
+
+        int itemId=item.getShipment_id();
+        String from_country = item.getCountry_from();
+        String to_country = item.getCountry_to();
+        double weight = item.getItemWeight();
+        double items_number= item.getItemsNumber();
+        double item_price=item.getItemPrice();
+        String date = item.getLast_date();
+        String item_name=item.getProduct_name();
+        String item_url=item.getProduct_url();
+
+
+        ShipmentItem uploadingShipmentItem = new ShipmentItem(itemId,item_name,from_country,to_country,date,
+                items_number, weight, item_price, item_url);
+
+        Call<ShipmentItem> call = service.updateShipmentItemNoImage(itemId,uploadingShipmentItem);
+
+        call.enqueue(new Callback<ShipmentItem>() {
+            @Override
+            public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
+            {
+                if (!response.isSuccessful()) {
+                    Log.i("APIShipment update", "Response has error--------------- = "+response.body());
+                }
+                else {
+                    Log.i("APIShipment update", "onResponse:------------------->  succeed on updating without image "+response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<ShipmentItem> call, Throwable t) {
+                Log.i("APIShipment update", "onFailure:-------->  failed to update cause "+
+                        t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
+            }
+        });
+    }
+
     public void UpdateShipmentItem(ShipmentItem item, Context mContext)
     {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -141,8 +184,8 @@ public class ApiShipmentSearch extends AppCompatActivity
         RequestBody user_info_id = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(Repository.TheProfileItem.getUser_id()));
         RequestBody deadline = RequestBody.create(MediaType.parse("text/plain"), item.getLast_date());
         RequestBody productUrl = RequestBody.create(MediaType.parse("text/plain"), item.getProduct_url());
-        RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getReward()));
-        RequestBody weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getWeight()));
+        RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemPrice()));
+        RequestBody weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemWeight()));
         RequestBody count = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemsNumber()));
 
         String filePath= item.getProduct_image();

@@ -1,4 +1,5 @@
 package Shipments_Trips_classes;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -7,15 +8,18 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.flyshippment_project.DatePickerFragmentForA;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
@@ -27,7 +31,7 @@ import java.util.ArrayList;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
 
-public class EditShipmentItemActivity extends AppCompatActivity {
+public class EditShipmentItemActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     private String fromCountry = "";
     private String toCountry = "";
     private String lastDate = "";
@@ -37,6 +41,7 @@ public class EditShipmentItemActivity extends AppCompatActivity {
     private String itemNumber = "";
     private String itemUrl = "";
     private String itemImageUrl = null;
+    private boolean imageEdited=false;
 
     private EditText fromText;
     private EditText toText;
@@ -99,6 +104,7 @@ public class EditShipmentItemActivity extends AppCompatActivity {
          toText.setText(ITEM.getCountry_to());
         dateText = (EditText) findViewById(R.id.edit_shipment_date);
          dateText.setText(ITEM.getLast_date());
+         dateText.setFocusable(false);
         nameText = (EditText) findViewById(R.id.edit_shipment_item_name);
          nameText.setText(ITEM.getProduct_name());
         urlText = (EditText) findViewById(R.id.edit_shipment_item_urll);
@@ -111,9 +117,9 @@ public class EditShipmentItemActivity extends AppCompatActivity {
         numberText = (EditText) findViewById(R.id.edit_shipment_item_number);
          numberText.setText(String.valueOf(((int) ITEM.getItemsNumber())));
         priceText = (EditText) findViewById(R.id.edit_shipment_item_price);
-         priceText.setText(String.valueOf(ITEM.getReward()));
+         priceText.setText(String.valueOf(ITEM.getItemPrice()));
         weightText = (EditText) findViewById(R.id.edit_shipment_item_weight);
-         weightText.setText(String.valueOf(ITEM.getWeight()));
+         weightText.setText(String.valueOf(ITEM.getItemWeight()));
        itemImageUrl=ITEM.getProduct_image();
 
         totalPriceText = (TextView) findViewById(R.id.edit_shipment_item_total_price);
@@ -127,6 +133,13 @@ public class EditShipmentItemActivity extends AppCompatActivity {
         Button backArrowButton = (Button) findViewById(R.id.edit_shipment_back_button);
         Button deleteItemButton = (Button) findViewById(R.id.edit_shipment_delete_button);
 
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker= new DatePickerFragmentForA();
+                datePicker.show(getSupportFragmentManager(),"date picker");
+            }
+        });
         deleteItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,21 +196,20 @@ public class EditShipmentItemActivity extends AppCompatActivity {
 
                 if (noEmptyField())
                 {
-
                     ITEM.setCountry_from(fromCountry);
                     ITEM.setCountry_to(toCountry);
                     ITEM.setLast_date(lastDate);
                     ITEM.setProduct_name(itemName);
                     ITEM.setProduct_url(itemUrl);
-                    ITEM.setReward(Double.parseDouble(itemPrice));
-                    ITEM.setWeight(Double.parseDouble(itemWeight));
+                    ITEM.setItemPrice(Double.parseDouble(itemPrice));
+                    ITEM.setItemWeight(Double.parseDouble(itemWeight));
                     ITEM.setItems_number(Integer.parseInt(itemNumber));
                     ITEM.setProduct_image(itemImageUrl);
                     ITEM.setProfile_name(USERINFO.getUser_name());
                     ITEM.setProfile_image(USERINFO.getUser_image_url());
                     ITEM.setUser_rate(USERINFO.getUser_rate());
 
-                   Repository.updateShipmentItem(ITEM,EditShipmentItemActivity.this);
+                   Repository.updateShipmentItem(ITEM,EditShipmentItemActivity.this,imageEdited);
 
                     ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
                     if(list==null) {
@@ -227,8 +239,9 @@ public class EditShipmentItemActivity extends AppCompatActivity {
             Log.i("onActivityResult", "------------------->\n "+itemImageUrl);
             itemImageUrl =selectedImage.toString();
            // itemImageUrl= FileUtil.getPath(selectedImage,EditShipmentItemActivity.this);
-             Log.i("onActivityResult", "------------------->\n "+itemImageUrl);
+            // Log.i("onActivityResult", "------------------->\n "+itemImageUrl);
              ITEM.setProduct_image(itemImageUrl);
+             imageEdited=true;
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
                 theImageView = (ImageView) findViewById(R.id.edit_shipment_the_image);
@@ -237,6 +250,13 @@ public class EditShipmentItemActivity extends AppCompatActivity {
                 Toast.makeText(EditShipmentItemActivity.this,"Error" , Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month++;
+        String CurrentDateString=month+"-"+dayOfMonth+"-"+year;
+        dateText.setText(CurrentDateString);
     }
 }
 

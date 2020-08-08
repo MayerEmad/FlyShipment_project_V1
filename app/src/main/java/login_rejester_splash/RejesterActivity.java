@@ -84,10 +84,8 @@ public class RejesterActivity extends AppCompatActivity {
                     public void onResponse(Call<RespnseModel> call, Response<RespnseModel> response) {
 
 
-                        if (response.isSuccessful()) {
-
-
-
+                        if (response.isSuccessful())
+                        {    //FIXME  error
                             RespnseModel msg = response.body();
                             String res = msg.getMessage();
                             Toast.makeText(getApplicationContext(),msg.getMessage(), Toast.LENGTH_LONG).show();

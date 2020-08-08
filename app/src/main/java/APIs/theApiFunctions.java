@@ -28,14 +28,14 @@ public interface theApiFunctions {
     @Multipart
     @POST("user_update/{user_info_id}")
     Call<ProfileItem> updateUserInfoItem(
-            @Path("user_info_id") int itemId,
             @Part MultipartBody.Part image,
-            @Part("email") RequestBody email,
             @Part("phone") RequestBody phone,
             @Part("identification") RequestBody identification,
-            @Part("fullName") RequestBody fullName,
-            @Part("userName") RequestBody Name
+            @Part("fullName") RequestBody fullName
     );
+
+    @POST("user_update/{user_info_id}")
+    Call<ProfileItem> updateUserInfoNoImage(@Path("user_info_id") int itemId,@Body ProfileItem profileItem);
 
     //-------------------- Shipment ----------------------------
     @GET("ship_info")
@@ -71,6 +71,8 @@ public interface theApiFunctions {
             @Part("weight") RequestBody weight,
             @Part("count") RequestBody count
     );
+    @POST("ship_update/{ship_info_id}")
+    Call<ShipmentItem> updateShipmentItemNoImage(@Path("ship_info_id") int itemId,@Body ShipmentItem shipmentItem);
 
     @POST("ship_del/{ship_info_id}")
     Call<ShipmentItem> deleteShipmentItem(@Path("ship_info_id") int itemId);

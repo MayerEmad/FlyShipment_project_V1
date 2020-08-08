@@ -20,11 +20,14 @@ public class Repository
 
     public static void getUserInfo(SharedPreferences id){
         ApiUserInfo task=new ApiUserInfo();
-        task.DoTaskInBack(id.getInt("userid",4));
+        task.DoTaskInBack(id.getInt("userid",2));
     }
-    public static void updateUserInfo(int id,Context EditProfilePageContext) {
+    public static void updateUserInfo(Context EditProfilePageContext,boolean imageEdited) {
         ApiUserInfo task=new ApiUserInfo();
-        task.UpdateUserInfoApi(id,EditProfilePageContext);
+        if(imageEdited)
+            task.UpdateUserInfoApi(EditProfilePageContext);
+        else
+            task.UpdateUserInfoApiNoImage(EditProfilePageContext);
     }
 
     //------------------------shipments-------------------------
@@ -41,10 +44,13 @@ public class Repository
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.UploadShipmentItem(item,CreateShipmentItemActivityContext);
     }
-    public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext)
+    public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext,boolean imageEdited)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
-        task.UpdateShipmentItem(item,EditShipmentItemActivityContext);
+        if(imageEdited)
+            task.UpdateShipmentItem(item,EditShipmentItemActivityContext);
+        else
+            task.UpdateShipmentItemNoImage(item,EditShipmentItemActivityContext);//update but not the image
     }
     public static void deleteShipmentItem(Integer id)
     {

@@ -66,35 +66,74 @@ public class ApiUserInfo extends AppCompatActivity {
         });
     }
 
-    public void UpdateUserInfoApi(Integer id , Context mContext) {
+    public void UpdateUserInfoApi( Context mContext) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         theApiFunctions client = retrofit.create(theApiFunctions.class);
 
-        //FIXME
         ProfileItem user=Repository.TheProfileItem;
         RequestBody fullName = RequestBody.create(MediaType.parse("text/plain"), user.getUser_name());
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), user.getUser_phone());
-        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), user.getUser_mail());
         RequestBody identification = RequestBody.create(MediaType.parse("text/plain"), user.getUser_passport());
-        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), user.getUser_nick_name());
-
         String filePath= user.getUser_image_url();
-        Log.i("ApiUserInfo", "image path:---------> "+filePath);
-        File userImageFile = new File(filePath);//FileUtil.getPath(Uri.parse(filePath),mContext));
+        File userImageFile = new File(FileUtil.getPath(Uri.parse(filePath),mContext));
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), userImageFile);
         MultipartBody.Part image = MultipartBody.Part.createFormData("image", userImageFile.getName(), fileReqBody);
 
-        Call<ProfileItem> call = client.updateUserInfoItem(id,image,email,phone,identification,fullName,name);
+        Log.i("ApiUserInfo", "image path:---------> "+FileUtil.getPath(Uri.parse(filePath),mContext));
+        Log.i("ApiUserInfo", "user name:---------> "+ user.getUser_name());
+        Log.i("ApiUserInfo", "user phone:---------> "+ user.getUser_phone());
+        Log.i("ApiUserInfo", "user passport:---------> "+ user.getUser_passport());
+
+        Call<ProfileItem> call = client.updateUserInfoItem(image,phone,identification,fullName);
         call.enqueue(new Callback<ProfileItem>() {
             @Override
             public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("ApiUserInfo badresponse", "Update has error X(");
+                    Log.i("ApiUserInfo badresponse", "Update has error X("+
+                            "\n"+response.message()+
+                            "\n"+response.errorBody()+
+                            "\n"+response.body() +
+                            "\n"+response.code()+
+                            "\n"+response.raw());
                 }
-                Log.i("ApiUserInfo GoodRespons", "Update Done ----------> ="+response.body()+response.message());
+                else Log.i("ApiUserInfo GoodRespons", "Update Done ----------> ="+response.body()+response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ProfileItem> call, Throwable t) {
+                Log.i("ApiUserInfo failed", "Update_Response ----------> ="+ Arrays.toString(t.getStackTrace())+"\n\n"
+                        +t.getCause()+"\n\n"+t.getMessage()+"\n\n"+t.getLocalizedMessage() );
+            }
+        });
+
+    }
+
+    public void UpdateUserInfoApiNoImage( Context mContext) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions client = retrofit.create(theApiFunctions.class);
+
+        ProfileItem user=Repository.TheProfileItem;
+        ProfileItem uploadedProfileItem=new ProfileItem(user.getUser_name(),user.getUser_phone(),user.getUser_passport());
+
+        Call<ProfileItem> call = client.updateUserInfoNoImage(user.getUser_id(),uploadedProfileItem);
+        call.enqueue(new Callback<ProfileItem>() {
+            @Override
+            public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
+                if (!response.isSuccessful()) {
+                    Log.i("ApiUserInfo badresponse", "Update has error X("+
+                            "\n"+response.message()+
+                            "\n"+response.errorBody()+
+                            "\n"+response.body() +
+                            "\n"+response.code()+
+                            "\n"+response.raw());
+                }
+                else Log.i("ApiUserInfo GoodRespons", "Update Done ----------> ="+response.body()+response.message());
             }
 
             @Override

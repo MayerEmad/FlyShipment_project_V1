@@ -1,14 +1,18 @@
 package Shipments_Trips_classes;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import com.example.flyshippment_project.DatePickerFragmentForA;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
@@ -19,7 +23,7 @@ import java.util.ArrayList;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.TripItem;
 
-public class CreateTripItemActivity extends AppCompatActivity {
+public class CreateTripItemActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
     private String fromCountry = "";
     private String toCountry = "";
     private String lastDate = "";
@@ -54,9 +58,18 @@ public class CreateTripItemActivity extends AppCompatActivity {
         toText = (EditText) findViewById(R.id.create_trip_to);
         weightText = (EditText) findViewById(R.id.create_trip_available_weight);
         dateText = (EditText) findViewById(R.id.create_trip_last_date);
+        dateText.setFocusable(false);
+
         addTripBtn = (Button) findViewById(R.id.create_trip_add_button);
         Button backArrowButton = (Button) findViewById(R.id.create_trip_back_button);
-       
+
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker= new DatePickerFragmentForA();
+                datePicker.show(getSupportFragmentManager(),"date picker");
+            }
+        });
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,5 +110,11 @@ public class CreateTripItemActivity extends AppCompatActivity {
             }
         });
     }
-    
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month++;
+        String CurrentDateString=month+"-"+dayOfMonth+"-"+year;
+        dateText.setText(CurrentDateString);
+    }
 }

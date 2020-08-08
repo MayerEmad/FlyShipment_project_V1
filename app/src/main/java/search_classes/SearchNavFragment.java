@@ -1,9 +1,11 @@
 package search_classes;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -12,9 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import adapters_and_items.AdapterViewerSearch;
+
+import com.example.flyshippment_project.DatePickerFragment;
 import com.example.flyshippment_project.Repository;
 import com.example.flyshippment_project.MyViewModel;
 import adapters_and_items.ShipmentItem;
@@ -23,29 +28,43 @@ import adapters_and_items.TripItem;
 import com.example.flyshippment_project.R;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
-public class SearchNavFragment extends Fragment
+public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDateSetListener
 {
     public SearchNavFragment() {
         // Required empty public constructor
     }
-
+    static class mydate
+    {
+        int day,month,year;
+        mydate(int day, int month, int year) {
+            this.day = day;
+            this.month = month;
+            this.year = year;
+        }
+        private static mydate convertFromStringToMydate(String dateStr)
+        {
+            String[] numbersArr = dateStr.split("-");
+            return new mydate(Integer.parseInt(numbersArr[1]), Integer.parseInt(numbersArr[0]), Integer.parseInt(numbersArr[2]));
+        }
+        @NonNull
+        @Override
+        public String toString() {
+            return this.month+"-"+this.day+"-"+this.year;
+        }
+    }
     private String fromCountery="";
     private String toCountery="";
     private double weight=0;
-    private Date date;
+    private mydate date;
 
-    private Date StringToDate(String dob) throws ParseException
-    {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = formatter.parse(dob);
-        //System.out.println("Date object value: "+date);
-        return date;
-    }
+    private EditText et_date;
 
     private ArrayList<ShipmentItem> getFilteredShipments()
     {
@@ -65,7 +84,6 @@ public class SearchNavFragment extends Fragment
         Log.i("AfterSearch", "getFilteredShipments: --> size"+String.valueOf(filteredShipmentList.size()));
         return filteredShipmentList;
     }
-
     private ArrayList<TripItem> getFilteredTrips()
     {
         ArrayList<TripItem> TripList = Repository.getTripsFromApi();
@@ -102,7 +120,16 @@ public class SearchNavFragment extends Fragment
         final EditText et_to=(EditText)view.findViewById(R.id.to);
         final EditText et_from=(EditText)view.findViewById(R.id.from);
         final EditText et_weight=(EditText)view.findViewById(R.id.weight);
-        final EditText et_date=(EditText)view.findViewById(R.id.date);
+        et_date=(EditText)view.findViewById(R.id.date);
+        et_date.setFocusable(false);
+
+        et_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker= new DatePickerFragment();
+                datePicker.show(getChildFragmentManager(),"date picker");
+            }
+        });
 
         // on Searching..
         searchButton.setOnClickListener(new View.OnClickListener()
@@ -112,15 +139,9 @@ public class SearchNavFragment extends Fragment
             {
                 fromCountery=et_from.getText().toString();
                 toCountery=et_to.getText().toString();
-
-                String strwe=et_weight.getText().toString();
-                if(!strwe.isEmpty()) weight=Double.parseDouble(strwe);
-                try
-                {
-                    date = StringToDate(et_date.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                date = mydate.convertFromStringToMydate(et_date.getText().toString());
+                String weightStr=et_weight.getText().toString();
+                if(!weightStr.isEmpty()) weight=Double.parseDouble(weightStr);
 
                 //TODO apply filtering and store them in list
 
@@ -128,5 +149,12 @@ public class SearchNavFragment extends Fragment
                 MyViewModel.setTripLiveData(getFilteredTrips());
             }
         });
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month++;
+        String CurrentDateString=month+"-"+dayOfMonth+"-"+year;
+        et_date.setText(CurrentDateString);
     }
 }

@@ -20,6 +20,13 @@ public class ProfileItem
     @SerializedName("ship") @Expose private int user_shipments;
 
 
+    // update constructor
+    public ProfileItem(String user_name,String user_phone, String user_passport)
+    {
+        this.user_name = user_name;
+        this.user_phone = user_phone;
+        this.user_passport = user_passport;
+    }
     public ProfileItem(int user_id, String user_name, String user_nick_name, String user_image_url, String user_mail, String user_phone,
                        String user_passport, double user_rate, int user_deals, int user_trips, int user_shipments) {
         this.user_id = user_id;

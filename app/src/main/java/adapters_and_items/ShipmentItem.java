@@ -23,10 +23,24 @@ public class ShipmentItem {
     @SerializedName("url")  private String product_url;
 
 
+    // update constructor
+    public ShipmentItem( int shipment_id,String name,String from, String to, String date,
+                         double itemsNum, double prodWeight, double price, String productUrl)
+    {
+        this.shipment_id = shipment_id;
+        weight=prodWeight;
+        items_number=itemsNum;
+        product_name=name;
+        country_from =from;
+        country_to =to;
+        last_date=date;
+        reward=price;
+        product_url=productUrl;
+    }
 
     // constructor
     public ShipmentItem( int shipment_id, String prodImg, double prodWeight, double itemsNum, String name, String from, String to, String date,
-                        double money, String profImg, String profName, double rate, String productUrl)
+                        double price, String profImg, String profName, double rate, String productUrl)
     {
         this.shipment_id = shipment_id;
         this.product_image=prodImg;
@@ -36,7 +50,7 @@ public class ShipmentItem {
         country_from =from;
         country_to =to;
         last_date=date;
-        reward=money;
+        reward=price;
         profile_image=profImg;
         profile_name=profName;
         user_rate=rate;
@@ -45,10 +59,9 @@ public class ShipmentItem {
 
 
     public String getProduct_image() { return this.product_image; }
-    public double getWeight(){ return weight*items_number; }
-    public String getStrWeight(){
-        return  Double.toString(weight*items_number)+"Kg";
-    }
+    public double getItemWeight(){ return weight; }
+    public double getTotalWeight(){ return weight*items_number; }
+    public String getStrTotalWeight(){ return  Double.toString(weight*items_number)+"Kg"; }
     public String getProduct_name() {
         return product_name;
     }
@@ -67,6 +80,19 @@ public class ShipmentItem {
     public float getUserRate() {
         return (float)user_rate;
     }
+    public double getItemPrice() { return reward; }
+    public String getStrReward() {
+        return "reward $"+Double.toString(reward);
+    }
+    public String getProfile_image() { return profile_image; }
+    public double getItemsNumber() { return items_number; }
+    public String getProduct_url() {
+        return product_url;
+    }
+    public int getShipment_id() {
+        return shipment_id;
+    }
+
 
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
@@ -100,11 +126,11 @@ public class ShipmentItem {
         this.user_rate = user_rate;
     }
 
-    public void setReward(double reward) {
+    public void setItemPrice(double reward) {
         this.reward = reward;
     }
 
-    public void setWeight(double weight) {
+    public void setItemWeight(double weight) {
         this.weight = weight;
     }
 
@@ -114,20 +140,6 @@ public class ShipmentItem {
 
     public void setProduct_url(String product_url) {
         this.product_url = product_url;
-    }
-
-    public double getReward() { return reward; }
-    public String getStrReward() {
-        return "reward $"+Double.toString(reward);
-    }
-    public String getProfile_image() { return profile_image; }
-    public double getItemsNumber() { return items_number; }
-    public String getProduct_url() {
-        return product_url;
-    }
-
-    public int getShipment_id() {
-        return shipment_id;
     }
 
     public void setShipment_id(int shipment_id) {

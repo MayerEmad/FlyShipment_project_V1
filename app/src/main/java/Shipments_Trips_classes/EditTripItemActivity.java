@@ -1,14 +1,18 @@
 package Shipments_Trips_classes;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import com.example.flyshippment_project.DatePickerFragmentForA;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
@@ -16,7 +20,7 @@ import com.example.flyshippment_project.Repository;
 
 import adapters_and_items.TripItem;
 
-public class EditTripItemActivity extends AppCompatActivity {
+public class EditTripItemActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private String fromCountry = "";
     private String toCountry = "";
     private String lastDate = "";
@@ -58,10 +62,19 @@ public class EditTripItemActivity extends AppCompatActivity {
          weightText.setText(String.valueOf(ITEM.getAvailable_weight()));
         dateText = (EditText) findViewById(R.id.edit_trip_last_date);
          dateText.setText(ITEM.getMeeting_date());
+         dateText.setFocusable(false);
         editTripBtn = (Button) findViewById(R.id.edit_trip_add_button);
 
         Button backArrowButton = (Button) findViewById(R.id.edit_trip_back_button);
         Button deleteItemButton = (Button) findViewById(R.id.edit_trip_delete_button);
+
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker= new DatePickerFragmentForA();
+                datePicker.show(getSupportFragmentManager(),"date picker");
+            }
+        });
 
         deleteItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,4 +118,10 @@ public class EditTripItemActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month++;
+        String CurrentDateString=month+"-"+dayOfMonth+"-"+year;
+        dateText.setText(CurrentDateString);
+    }
 }
