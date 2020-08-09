@@ -39,6 +39,12 @@ public class Repository
         task.GetShipmentItemsFromServer(); //  Log.i("Repository getShips", "------> getting data from server...");
         return MyViewModel.getShipmentLiveData().getValue();
     }
+    public static ArrayList<ShipmentItem> getShipmentsFromApiNow()
+    {
+        ApiShipmentSearch task=new ApiShipmentSearch();
+        task.GetShipmentItemsFromServerNow();
+        return MyViewModel.getShipmentLiveData().getValue();
+    }
     public static void uploadShipmentItem(ShipmentItem item, Context CreateShipmentItemActivityContext)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();

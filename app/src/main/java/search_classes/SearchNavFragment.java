@@ -53,48 +53,56 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
             String[] numbersArr = dateStr.split("-");
             return new mydate(Integer.parseInt(numbersArr[1]), Integer.parseInt(numbersArr[0]), Integer.parseInt(numbersArr[2]));
         }
+
+        private boolean isBeforeMyDate(String dateStr)
+        {
+            mydate otherDate=convertFromStringToMydate(dateStr);
+        
+            if(otherDate.year<this.year) return true;
+            else if(otherDate.year==this.year && otherDate.month<this.month) return true;
+            else if(otherDate.year==this.year && otherDate.month==this.month && otherDate.day<this.day)return true;
+            else if(otherDate.year==this.year && otherDate.month==this.month && otherDate.day==this.day)return true;
+            else return false;
+        }
+       
         @NonNull
         @Override
         public String toString() {
             return this.month+"-"+this.day+"-"+this.year;
         }
     }
-    private String fromCountery="";
-    private String toCountery="";
+
+    private String fromCountry="";
+    private String toCountry="";
     private double weight=0;
     private mydate date;
-
     private EditText et_date;
 
     private ArrayList<ShipmentItem> getFilteredShipments()
     {
-        ArrayList<ShipmentItem> ShipmentList =MyViewModel.getShipmentLiveData().getValue();//Repository.getShipmentsFromApi();
+        ArrayList<ShipmentItem> ShipmentList =Repository.getShipmentsFromApiNow(); //MyViewModel.getShipmentLiveData().getValue();
         ArrayList<ShipmentItem> filteredShipmentList= new ArrayList<ShipmentItem>();
 
         for(int i=0;i<ShipmentList.size();i++)
         {
+            // I have a trip
             ShipmentItem item=ShipmentList.get(i);
-            //Log.i("SEARCH--->", item.getCountry_from()+" "+item.getCountry_to()+" "+item.getWeight());
-            //Log.i("copare--->", fromCountery+" "+toCountery+" "+weight);
-            if(fromCountery.equals(item.getCountry_from()) )//&& toCountery==item.getCountry_to() && weight>=item.getWeight())
-            {
-                filteredShipmentList.add(item);
-            }
+            if(fromCountry.equals(item.getCountry_from()) && toCountry.equals(item.getCountry_to()) &&
+               weight>=item.getItemWeight() && date.isBeforeMyDate(item.getLast_date()))   filteredShipmentList.add(item);
         }
-        Log.i("AfterSearch", "getFilteredShipments: --> size"+String.valueOf(filteredShipmentList.size()));
         return filteredShipmentList;
     }
+
     private ArrayList<TripItem> getFilteredTrips()
     {
         ArrayList<TripItem> TripList = Repository.getTripsFromApi();
         ArrayList<TripItem> filteredtripList= new ArrayList<TripItem>();
         for(int i=0;i<TripList.size();i++)
         {
+            // I have a shipment
             TripItem item=TripList.get(i);
-            if(fromCountery.equals(item.getCountry_from()) ||toCountery.equals(item.getCountry_to())  )  // && weight>=item.getWeight())
-            {
-                filteredtripList.add(item);
-            }
+            if(fromCountry.equals(item.getCountry_from()) && toCountry.equals(item.getCountry_to()) &&
+               weight<=item.getAvailable_weight() && date.isBeforeMyDate(item.getMeeting_date()))   filteredtripList.add(item);
         }
         return filteredtripList;
     }
@@ -137,14 +145,11 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v)
             {
-                fromCountery=et_from.getText().toString();
-                toCountery=et_to.getText().toString();
+                fromCountry=et_from.getText().toString();
+                toCountry=et_to.getText().toString();
                 date = mydate.convertFromStringToMydate(et_date.getText().toString());
                 String weightStr=et_weight.getText().toString();
                 if(!weightStr.isEmpty()) weight=Double.parseDouble(weightStr);
-
-                //TODO apply filtering and store them in list
-
                 MyViewModel.setShipmentLiveData(getFilteredShipments());
                 MyViewModel.setTripLiveData(getFilteredTrips());
             }
@@ -155,6 +160,7 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         month++;
         String CurrentDateString=month+"-"+dayOfMonth+"-"+year;
-        et_date.setText(CurrentDateString);
+        date=mydate.convertFromStringToMydate(CurrentDateString);
+        et_date.setText("before "+CurrentDateString);
     }
 }

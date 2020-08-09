@@ -40,7 +40,7 @@ public class ApiTripSearch extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<TripItem>> call, Response<List<TripItem>> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("APITripSearch get", "Response has error X(");
+                    Log.i("ApiTripSearch get", "Response has error X(");
                     //Toast.makeText(ApiTripSearch.this, "Response has error X(", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -56,7 +56,7 @@ public class ApiTripSearch extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<TripItem>> call, Throwable t) {
-                Log.i("APITripSearch get", "Response failed :(");
+                Log.i("ApiTripSearch get", "Response failed :(");
                 // Toast.makeText(ApiTripSearch.this, "Response failed :(", Toast.LENGTH_SHORT).show();
             }
         });
@@ -82,16 +82,16 @@ public class ApiTripSearch extends AppCompatActivity {
             @Override
             public void onResponse(Call<TripItem> call, Response<TripItem> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("APITripSearch post", response.message() + " ------- " + response.errorBody());
+                    Log.i("ApiTripSearch post", response.message() + " ------- " + response.errorBody());
                     //Toast.makeText(ApiTripSearch.this, "Response has error X(", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Log.i("APITripSearch Uploading", "onResponse:--------->  succeed on uploading " + response.body());
+                Log.i("ApiTripSearch Uploading", "onResponse:--------->  succeed on uploading " + response.body());
             }
 
             @Override
             public void onFailure(Call<TripItem> call, Throwable t) {
-                Log.i("APITripSearch Uploading", "onFailure:----------------->  failed to upload " +
+                Log.i("ApiTripSearch Uploading", "onFailure:----------------->  failed to upload " +
                         "  " + t.getLocalizedMessage() + "\n --------" + t.getCause());
             }
         });
@@ -117,16 +117,16 @@ public class ApiTripSearch extends AppCompatActivity {
             @Override
             public void onResponse(Call<TripItem> call, Response<TripItem> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("APITripSearch response",  " BadResponse -------------> " + response.errorBody());
+                    Log.i("ApiTripSearch response",  " BadResponse -------------> " + response.errorBody());
                     //Toast.makeText(ApiTripSearch.this, "Response has error X(", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Log.i("APITripSearch Uploading", "onResponse:--------->  succeed on updating " + response.body());
+                Log.i("ApiTripSearch Uploading", "onResponse:--------->  succeed on updating " + response.body());
             }
 
             @Override
             public void onFailure(Call<TripItem> call, Throwable t) {
-                Log.i("APITripSearch Uploading", "onFailure:----------------->  failed to update " +
+                Log.i("ApiTripSearch Uploading", "onFailure:----------------->  failed to update " +
                         "  " + t.getLocalizedMessage() + "\n --------" + t.getCause());
             }
         });
@@ -145,13 +145,13 @@ public class ApiTripSearch extends AppCompatActivity {
             @Override
             public void onResponse(Call<TripItem> call, Response<TripItem> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("APITripSearch Deleting",  " BadResponse -------------> " + response.errorBody());
+                    Log.i("ApiTripSearch Deleting",  " BadResponse -------------> " + response.errorBody());
                 }
-                Log.i("APITripSearch Deleting", "onResponse:--------->  succeed on deleting " + response.message());
+                Log.i("ApiTripSearch Deleting", "onResponse:--------->  succeed on deleting " + response.message());
             }
             @Override
             public void onFailure(Call<TripItem> call, Throwable t) {
-                Log.i("APITripSearch Deleting", "onFailure:----------------->  failed to Delete " +
+                Log.i("ApiTripSearch Deleting", "onFailure:----------------->  failed to Delete " +
                         "  " + t.getLocalizedMessage() + "\n --------" + t.getCause());
             }
         });

@@ -47,24 +47,16 @@ public class ApiShipmentSearch extends AppCompatActivity
                 .build();
         theApiFunctions client=retrofit.create(theApiFunctions.class);
         Call<List<ShipmentItem>> call = client.get_api_shipments();
-       // call.execute().body();
         call.enqueue(new Callback<List<ShipmentItem>>()
         {
             @Override
             public void onResponse(Call<List<ShipmentItem>> call, Response<List<ShipmentItem>> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("APIShipmemtSearch get", "Response has error = "+response.errorBody()
-                            +" code = "+response.code());
-                    return;
+                    Log.i("APIShipmemtSearch get", "Response has error = "+response.errorBody()+" code = "+response.code());
                 }
                 list = (ArrayList<ShipmentItem>) response.body();
                // Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
-
-                if(list==null){
-                   // Log.i("ApiShipment onResponse", "-----> ask for response again");
-                    Repository.getShipmentsFromApi();
-                }
-              //  Log.i("ApiShipment onResponse", "-----> go to ModelView set function");
+                if(list==null)Repository.getShipmentsFromApi();
                 MyViewModel.setShipmentLiveData(list);
             }
             @Override
@@ -72,6 +64,28 @@ public class ApiShipmentSearch extends AppCompatActivity
                 //Toast.makeText(ApiShipmentSearch.this, "Response failed :(", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void GetShipmentItemsFromServerNow()
+    {
+        Retrofit retrofit= new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions client=retrofit.create(theApiFunctions.class);
+        Call<List<ShipmentItem>> call = client.get_api_shipments();
+        try
+        {
+            Response<List<ShipmentItem>> response = call.execute();
+            List<ShipmentItem> apiResponse = response.body();
+            MyViewModel.setShipmentLiveData((ArrayList<ShipmentItem>) apiResponse);
+            System.out.println(apiResponse);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
     }
 
     public void UploadShipmentItem(ShipmentItem item, Context mContext)
@@ -105,15 +119,15 @@ public class ApiShipmentSearch extends AppCompatActivity
             public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
             {
                 if (!response.isSuccessful()) {
-                    Log.i("APIShipmemtSearch get", "Response has error--------------- = "+response.body());
+                    Log.i("ApiShipmemtSearch get", "Response has error--------------- = "+response.body());
                 }
                else {
-                    Log.i("APIShipmentSearch", "onResponse:------------------->  succeed on uploading "+response.body());
+                    Log.i("ApiShipmentSearch", "onResponse:------------------->  succeed on uploading "+response.body());
                 }
             }
             @Override
             public void onFailure(Call<ShipmentItem> call, Throwable t) {
-                Log.i("APIShipmentSearch", "onFailure:-------->  failed to upload cause "+
+                Log.i("ApiShipmentSearch", "onFailure:-------->  failed to upload cause "+
                         t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
             }
         });
@@ -148,15 +162,15 @@ public class ApiShipmentSearch extends AppCompatActivity
             public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
             {
                 if (!response.isSuccessful()) {
-                    Log.i("APIShipment update", "Response has error--------------- = "+response.body());
+                    Log.i("ApiShipment update", "Response has error--------------- = "+response.body());
                 }
                 else {
-                    Log.i("APIShipment update", "onResponse:------------------->  succeed on updating without image "+response.message());
+                    Log.i("ApiShipment update", "onResponse:------------------->  succeed on updating without image "+response.message());
                 }
             }
             @Override
             public void onFailure(Call<ShipmentItem> call, Throwable t) {
-                Log.i("APIShipment update", "onFailure:-------->  failed to update cause "+
+                Log.i("ApiShipment update", "onFailure:-------->  failed to update cause "+
                         t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
             }
         });
@@ -203,15 +217,15 @@ public class ApiShipmentSearch extends AppCompatActivity
             public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
             {
                 if (!response.isSuccessful()) {
-                    Log.i("APIShipmem update", "Response has error--------------- = "+response.body());
+                    Log.i("ApiShipmem update", "Response has error--------------- = "+response.body());
                 }
                 else {
-                    Log.i("APIShipmem update", "onResponse:------------------->  succeed on updating "+response.message());
+                    Log.i("ApiShipmem update", "onResponse:------------------->  succeed on updating "+response.message());
                 }
             }
             @Override
             public void onFailure(Call<ShipmentItem> call, Throwable t) {
-                Log.i("APIShipmem update", "onFailure:-------->  failed to update cause "+
+                Log.i("ApiShipmem update", "onFailure:-------->  failed to update cause "+
                         t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
             }
         });
@@ -230,15 +244,15 @@ public class ApiShipmentSearch extends AppCompatActivity
             public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
             {
                 if (!response.isSuccessful()) {
-                    Log.i("APIShipment Deleting", "Response has error--------------- = "+response.body());
+                    Log.i("ApiShipment Deleting", "Response has error--------------- = "+response.body());
                 }
                 else {
-                    Log.i("APIShipment Deleting", "onResponse:------------------->  succeed on deleting "+response.message());
+                    Log.i("ApiShipment Deleting", "onResponse:------------------->  succeed on deleting "+response.message());
                 }
             }
             @Override
             public void onFailure(Call<ShipmentItem> call, Throwable t) {
-                Log.i("APIShipment Deleting", "onFailure:-------->  failed to delete "+
+                Log.i("ApiShipment Deleting", "onFailure:-------->  failed to delete "+
                         t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
             }
         });
