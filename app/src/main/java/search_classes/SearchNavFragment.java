@@ -43,15 +43,15 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
     static class mydate
     {
         int day,month,year;
-        mydate(int day, int month, int year) {
-            this.day = day;
-            this.month = month;
+        mydate(int year, int month, int day) {
             this.year = year;
+            this.month = month;
+            this.day = day;
         }
         private static mydate convertFromStringToMydate(String dateStr)
         {
             String[] numbersArr = dateStr.split("-");
-            return new mydate(Integer.parseInt(numbersArr[1]), Integer.parseInt(numbersArr[0]), Integer.parseInt(numbersArr[2]));
+            return new mydate(Integer.parseInt(numbersArr[2]), Integer.parseInt(numbersArr[1]), Integer.parseInt(numbersArr[0]));
         }
 
         private boolean isBeforeMyDate(String dateStr)
@@ -68,7 +68,7 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
         @NonNull
         @Override
         public String toString() {
-            return this.month+"-"+this.day+"-"+this.year;
+            return this.year+"-"+this.month+"-"+this.day;
         }
     }
 
@@ -159,7 +159,7 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         month++;
-        String CurrentDateString=month+"-"+dayOfMonth+"-"+year;
+        String CurrentDateString=year+"-"+month+"-"+dayOfMonth;
         date=mydate.convertFromStringToMydate(CurrentDateString);
         et_date.setText("before "+CurrentDateString);
     }

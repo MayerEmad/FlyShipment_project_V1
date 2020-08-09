@@ -114,7 +114,7 @@ public class CreateTripItemActivity extends AppCompatActivity implements DatePic
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         month++;
-        String CurrentDateString=month+"-"+dayOfMonth+"-"+year;
+        String CurrentDateString=year+"-"+month+"-"+dayOfMonth;
         dateText.setText(CurrentDateString);
     }
 }

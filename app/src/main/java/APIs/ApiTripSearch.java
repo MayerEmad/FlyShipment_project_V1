@@ -82,11 +82,9 @@ public class ApiTripSearch extends AppCompatActivity {
             @Override
             public void onResponse(Call<TripItem> call, Response<TripItem> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("ApiTripSearch post", response.message() + " ------- " + response.errorBody());
-                    //Toast.makeText(ApiTripSearch.this, "Response has error X(", Toast.LENGTH_SHORT).show();
-                    return;
+                    Log.i("ApiTripSearch post", response.message() + " ------- " + response.body());
                 }
-                Log.i("ApiTripSearch Uploading", "onResponse:--------->  succeed on uploading " + response.body());
+               else  Log.i("ApiTripSearch Uploading", "onResponse:--------->  succeed on uploading " + response.message()+"\n");
             }
 
             @Override
