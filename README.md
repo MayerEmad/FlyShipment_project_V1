@@ -4,6 +4,7 @@ this is my graduation project I try to develope an Android app like HitchHiker f
 - used MVVM architecture
 - used APIs(retrofit2) to get data , edit , delete and upload data(including images).
 - send requests.
-- applies search.
-- work on adding notifications.
+- apply search.
+
+- work on adding notifications using firebase.
 
