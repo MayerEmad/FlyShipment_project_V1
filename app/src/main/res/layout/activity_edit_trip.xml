@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="#A35C5C">
 
+    <Button
+        android:id="@+id/edit_trip_uploade_button"
+        android:layout_width="230dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/upload_word"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_trip_warning_text" />
+
     <EditText
         android:id="@+id/edit_trip_last_date"
         android:layout_width="300dp"
@@ -97,6 +108,20 @@
         android:text="@string/save_changes_word"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_trip_last_date" />
+
+    <TextView
+        android:id="@+id/edit_trip_warning_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="@string/before_uploading_trip_text"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_trip_add_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

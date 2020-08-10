@@ -169,7 +169,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity implements Dat
                     ShipmentItem item =new ShipmentItem(
                             -1, itemImageUrl,Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
-                            USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl);
+                            USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl,1);
 
                     // uploading...
                     Repository.uploadShipmentItem(item,CreateShipmentItemActivity.this);

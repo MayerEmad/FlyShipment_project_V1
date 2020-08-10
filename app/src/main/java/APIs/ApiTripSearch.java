@@ -74,7 +74,8 @@ public class ApiTripSearch extends AppCompatActivity {
         String to_country = item.getCountry_to();
         Double weight = item.getAvailable_weight();
         String deadline = item.getMeeting_date();
-        TripItem uploadingTripItem = new TripItem(from_country, to_country, deadline, weight, userId);
+        int isEditable = item.getIsEditable(); // always will be 1
+        TripItem uploadingTripItem = new TripItem(from_country, to_country, deadline, weight, userId,isEditable);
 
         Call<TripItem> call = service.uploadTripItem(uploadingTripItem);
 
@@ -107,7 +108,8 @@ public class ApiTripSearch extends AppCompatActivity {
         String to_country = item.getCountry_to();
         Double weight = item.getAvailable_weight();
         String deadline = item.getMeeting_date();
-        TripItem uploadingTripItem = new TripItem(from_country, to_country, deadline, weight, userId);
+        final int isEditable = item.getIsEditable();
+        TripItem uploadingTripItem = new TripItem(from_country, to_country, deadline, weight, userId,isEditable);
 
         Call<TripItem> call = service.updateTripItem(item.getTrip_id(),uploadingTripItem);
 
@@ -116,10 +118,8 @@ public class ApiTripSearch extends AppCompatActivity {
             public void onResponse(Call<TripItem> call, Response<TripItem> response) {
                 if (!response.isSuccessful()) {
                     Log.i("ApiTripSearch response",  " BadResponse -------------> " + response.errorBody());
-                    //Toast.makeText(ApiTripSearch.this, "Response has error X(", Toast.LENGTH_SHORT).show();
-                    return;
                 }
-                Log.i("ApiTripSearch Uploading", "onResponse:--------->  succeed on updating " + response.body());
+                Log.i("ApiTripSearch Uploading", "onResponse:--------->  succeed on updating " + response.message());
             }
 
             @Override
@@ -130,8 +130,7 @@ public class ApiTripSearch extends AppCompatActivity {
         });
     }
 
-    public void DeleteTripItem(Integer id)
-    {
+    public void DeleteTripItem(Integer id) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -151,6 +150,32 @@ public class ApiTripSearch extends AppCompatActivity {
             public void onFailure(Call<TripItem> call, Throwable t) {
                 Log.i("ApiTripSearch Deleting", "onFailure:----------------->  failed to Delete " +
                         "  " + t.getLocalizedMessage() + "\n --------" + t.getCause());
+            }
+        });
+    }
+
+    public void GetUserTripItemsFromServer() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions client = retrofit.create(theApiFunctions.class);
+        Call<List<TripItem>> call = client.get_user_trips(Repository.TheProfileItem.getUser_id());
+        call.enqueue(new Callback<List<TripItem>>() {
+            @Override
+            public void onResponse(Call<List<TripItem>> call, Response<List<TripItem>> response) {
+                if (!response.isSuccessful()) {
+                    Log.i("ApiUserTrip get", "Response has error X(");
+                }
+                list = (ArrayList<TripItem>) response.body();
+                MyViewModel.setUserTripLiveData(list);
+                Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+
+            }
+
+            @Override
+            public void onFailure(Call<List<TripItem>> call, Throwable t) {
+                Log.i("ApiUserTrip get", "Response failed :(");
             }
         });
     }

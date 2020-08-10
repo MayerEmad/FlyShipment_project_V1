@@ -121,14 +121,14 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
             public void onClick(View v) {
                 if(parent.equals("trip_freg"))
                 {
-                    //go to show the ShipmentItem
-                    Intent intent =new Intent(mContext, CreateTripItemActivity.class);
+                    //go to Edit the tripItem
+                    Intent intent =new Intent(mContext, EditTripItemActivity.class);
+                    intent.putExtra("TripItemPosition",position);
                     mContext.startActivity(intent);
                 }
                 else if(parent.equals("trip_shower_freg")){
-                    //go to Edit the shipmentItem
-                    Intent intent =new Intent(mContext, EditTripItemActivity.class);
-                    intent.putExtra("TripItemPosition",position);
+                    //go to show the tripItem
+                    Intent intent =new Intent(mContext, CreateTripItemActivity.class);
                     mContext.startActivity(intent);
                 }
             }

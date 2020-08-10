@@ -23,20 +23,24 @@ public class TripItem {
     private double available_weight;
     @SerializedName("user_image")
     private String profile_image_url;
+    @SerializedName("editable")
+    private int isEditable;
 
     private int ImageId = NO_IMAGE_PROVIDED;
 
     //uploading constructor
-    public TripItem(String from, String to, String date, double availableWeight, String userId)
+    public TripItem(String from, String to, String date, double availableWeight, String userId,int isEditable)
     {
         country_from =from;
         country_to =to;
         meeting_date=date;
         available_weight=availableWeight;
         user_id=userId;
+        this.isEditable=isEditable;
     }
 
-    public TripItem(int trip_id, String from, String to, String date, double availableWeight, String profImgUrl, String profName, double rate)
+    public TripItem(int trip_id, String from, String to, String date, double availableWeight, String profImgUrl, String profName,
+                    double rate, int isEditable)
     {
         this.trip_id = trip_id;
         country_from =from;
@@ -47,6 +51,7 @@ public class TripItem {
         profile_image_url=profImgUrl;
         profile_name=profName;
         user_rate=rate;
+        this.isEditable=isEditable;
     }
 
     public int getTrip_id() { return this.trip_id; }
@@ -78,6 +83,10 @@ public class TripItem {
     public String getProfile_image_url() {
         return profile_image_url;
     }
+
+    public int getIsEditable() { return isEditable; }
+
+    public void setIsEditable(int isEditable) { this.isEditable = isEditable; }
 
     public void setCountry_from(String country_from) {
         this.country_from = country_from;

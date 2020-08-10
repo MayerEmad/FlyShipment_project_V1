@@ -88,6 +88,33 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
         return true;
     }
 
+    void setting(ProfileItem USERINFO) {
+        ITEM.setCountry_from(fromCountry);
+        ITEM.setCountry_to(toCountry);
+        ITEM.setLast_date(lastDate);
+        ITEM.setProduct_name(itemName);
+        ITEM.setProduct_url(itemUrl);
+        ITEM.setItemPrice(Double.parseDouble(itemPrice));
+        ITEM.setItemWeight(Double.parseDouble(itemWeight));
+        ITEM.setItems_number(Integer.parseInt(itemNumber));
+        ITEM.setProduct_image(itemImageUrl);
+        ITEM.setProfile_name(USERINFO.getUser_name());
+        ITEM.setProfile_image(USERINFO.getUser_image_url());
+        ITEM.setUser_rate(USERINFO.getUser_rate());
+    }
+
+    void getting() {
+        fromCountry = fromText.getText().toString();
+        toCountry = toText.getText().toString();
+        lastDate = dateText.getText().toString();
+        itemName = nameText.getText().toString();
+        itemUrl = urlText.getText().toString();
+        itemPrice = priceText.getText().toString();
+        itemWeight = weightText.getText().toString();
+        itemNumber = numberText.getText().toString();
+        itemImageUrl=ITEM.getProduct_image();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +123,7 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
         final ProfileItem USERINFO= Repository.TheProfileItem ;
         Bundle extras = getIntent().getExtras();
         int pos=extras.getInt("ShipmentItemPosition");
-        ITEM=MyViewModel.getShipmentLiveData().getValue().get(pos);
+        ITEM=MyViewModel.getUserShipmentLiveData().getValue().get(pos);
 
         fromText = (EditText) findViewById(R.id.edit_shipment_from);
          fromText.setText(ITEM.getCountry_from());
@@ -132,6 +159,7 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
         Button editShipmentBtn = (Button) findViewById(R.id.edit_shipment_edit_button);
         Button backArrowButton = (Button) findViewById(R.id.edit_shipment_back_button);
         Button deleteItemButton = (Button) findViewById(R.id.edit_shipment_delete_button);
+        Button uploadItemButton = (Button) findViewById(R.id.edit_shipment_upload_button);
 
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,45 +211,37 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
         });
         editShipmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                fromCountry = fromText.getText().toString();
-                toCountry = toText.getText().toString();
-                lastDate = dateText.getText().toString();
-                itemName = nameText.getText().toString();
-                itemUrl = urlText.getText().toString();
-                itemPrice = priceText.getText().toString();
-                itemWeight = weightText.getText().toString();
-                itemNumber = numberText.getText().toString();
-                itemImageUrl=ITEM.getProduct_image();
-
+            public void onClick(View view)
+            {
+                getting();
                 if (noEmptyField())
                 {
-                    ITEM.setCountry_from(fromCountry);
-                    ITEM.setCountry_to(toCountry);
-                    ITEM.setLast_date(lastDate);
-                    ITEM.setProduct_name(itemName);
-                    ITEM.setProduct_url(itemUrl);
-                    ITEM.setItemPrice(Double.parseDouble(itemPrice));
-                    ITEM.setItemWeight(Double.parseDouble(itemWeight));
-                    ITEM.setItems_number(Integer.parseInt(itemNumber));
-                    ITEM.setProduct_image(itemImageUrl);
-                    ITEM.setProfile_name(USERINFO.getUser_name());
-                    ITEM.setProfile_image(USERINFO.getUser_image_url());
-                    ITEM.setUser_rate(USERINFO.getUser_rate());
-
-                   Repository.updateShipmentItem(ITEM,EditShipmentItemActivity.this,imageEdited);
-
-                    ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
-                    if(list==null) {
-                        MyViewModel.setUserShipmentLiveData(new ArrayList<ShipmentItem>());
-                        list=Repository.getUserShipmentsFromApi();
-                    }
-                    list.add(ITEM);
-
+                    setting(USERINFO);
+                    Repository.updateShipmentItem(ITEM,EditShipmentItemActivity.this,imageEdited);
                     Toast.makeText(EditShipmentItemActivity.this, "Shipment Edited :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
                     arrow_back_function();
-                } else {
+                }
+                else {
+                    Toast.makeText(EditShipmentItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        uploadItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                getting();
+                if (noEmptyField())
+                {
+                    setting(USERINFO);
+                    ITEM.setIsEditable(0);
+                    Repository.updateShipmentItem(ITEM,EditShipmentItemActivity.this,imageEdited);
+                    Toast.makeText(EditShipmentItemActivity.this, "Shipment Edited :)", Toast.LENGTH_SHORT).show();
+                    // Go back ShipmentNavFragment
+                    arrow_back_function();
+                }
+                else {
                     Toast.makeText(EditShipmentItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -235,11 +255,9 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode ==RESULT_OK && requestCode==GALLERY_REQUEST)
         {
-            Uri selectedImage = data.getData();
-            Log.i("onActivityResult", "------------------->\n "+itemImageUrl);
-            itemImageUrl =selectedImage.toString();
-           // itemImageUrl= FileUtil.getPath(selectedImage,EditShipmentItemActivity.this);
+             Uri selectedImage = data.getData();
             // Log.i("onActivityResult", "------------------->\n "+itemImageUrl);
+             itemImageUrl =selectedImage.toString();
              ITEM.setProduct_image(itemImageUrl);
              imageEdited=true;
             try {

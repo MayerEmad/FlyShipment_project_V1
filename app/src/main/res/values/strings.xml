@@ -41,5 +41,7 @@
     <string name="shipments_word">Shipments</string>
     <string name="rate_word">Rate</string>
     <string name="user_name_word">User name</string>
+    <string name="upload_word">Upload</string>
+    <string name="before_uploading_trip_text">If you press uploade you will not be able to edit this trip</string>
 
 </resources>

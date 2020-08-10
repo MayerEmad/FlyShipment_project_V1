@@ -88,6 +88,8 @@ public class ApiShipmentSearch extends AppCompatActivity
 
     }
 
+
+
     public void UploadShipmentItem(ShipmentItem item, Context mContext)
     {
         Retrofit retrofit= new Retrofit.Builder()
@@ -105,6 +107,7 @@ public class ApiShipmentSearch extends AppCompatActivity
         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemPrice()));
         RequestBody weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemWeight()));
         RequestBody count = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemsNumber()));
+        RequestBody isEditable = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getIsEditable()));//always=1
 
         String filePath= item.getProduct_image();
         File productImageFile = new File(FileUtil.getPath(Uri.parse(filePath),mContext));
@@ -112,7 +115,7 @@ public class ApiShipmentSearch extends AppCompatActivity
         MultipartBody.Part image = MultipartBody.Part.createFormData("image", productImageFile.getName(), fileReqBody);
 
         Call<ShipmentItem> call=service.uploadShipmentItem(
-                image,itemName,from_country,to_country,user_info_id,deadline,productUrl,price,weight,count
+                image,itemName,from_country,to_country,user_info_id,deadline,productUrl,price,weight,count,isEditable
         );
         call.enqueue(new Callback<ShipmentItem>() {
             @Override
@@ -128,49 +131,6 @@ public class ApiShipmentSearch extends AppCompatActivity
             @Override
             public void onFailure(Call<ShipmentItem> call, Throwable t) {
                 Log.i("ApiShipmentSearch", "onFailure:-------->  failed to upload cause "+
-                        t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
-            }
-        });
-    }
-
-    public void UpdateShipmentItemNoImage(ShipmentItem item, Context mContext)
-    {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://originaliereny.com/shipping/public/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        theApiFunctions service = retrofit.create(theApiFunctions.class);
-
-        int itemId=item.getShipment_id();
-        String from_country = item.getCountry_from();
-        String to_country = item.getCountry_to();
-        double weight = item.getItemWeight();
-        double items_number= item.getItemsNumber();
-        double item_price=item.getItemPrice();
-        String date = item.getLast_date();
-        String item_name=item.getProduct_name();
-        String item_url=item.getProduct_url();
-
-
-        ShipmentItem uploadingShipmentItem = new ShipmentItem(itemId,item_name,from_country,to_country,date,
-                items_number, weight, item_price, item_url);
-
-        Call<ShipmentItem> call = service.updateShipmentItemNoImage(itemId,uploadingShipmentItem);
-
-        call.enqueue(new Callback<ShipmentItem>() {
-            @Override
-            public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
-            {
-                if (!response.isSuccessful()) {
-                    Log.i("ApiShipment update", "Response has error--------------- = "+response.body());
-                }
-                else {
-                    Log.i("ApiShipment update", "onResponse:------------------->  succeed on updating without image "+response.message());
-                }
-            }
-            @Override
-            public void onFailure(Call<ShipmentItem> call, Throwable t) {
-                Log.i("ApiShipment update", "onFailure:-------->  failed to update cause "+
                         t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
             }
         });
@@ -201,16 +161,17 @@ public class ApiShipmentSearch extends AppCompatActivity
         RequestBody price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemPrice()));
         RequestBody weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemWeight()));
         RequestBody count = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getItemsNumber()));
+        RequestBody isEditable = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(item.getIsEditable()));//always=1
+
 
         String filePath= item.getProduct_image();
         Log.i("---Test---", "filepath= -----------------------------"+filePath);
-        //Log.i("---Test---", "name= -----------------------------"+item.getProduct_name());
         File productImageFile = new File(FileUtil.getPath(Uri.parse(filePath),mContext));
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), productImageFile);
         MultipartBody.Part image = MultipartBody.Part.createFormData("image", productImageFile.getName(), fileReqBody);
 
         Call<ShipmentItem> call=service.updateShipmentItem(
-                itemId,image,itemName,from_country,to_country,user_info_id,deadline,productUrl,price,weight,count
+                itemId,image,itemName,from_country,to_country,user_info_id,deadline,productUrl,price,weight,count,isEditable
         );
         call.enqueue(new Callback<ShipmentItem>() {
             @Override
@@ -226,6 +187,49 @@ public class ApiShipmentSearch extends AppCompatActivity
             @Override
             public void onFailure(Call<ShipmentItem> call, Throwable t) {
                 Log.i("ApiShipmem update", "onFailure:-------->  failed to update cause "+
+                        t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
+            }
+        });
+    }
+
+    public void UpdateShipmentItemNoImage(ShipmentItem item, Context mContext)
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions service = retrofit.create(theApiFunctions.class);
+
+        int itemId=item.getShipment_id();
+        String from_country = item.getCountry_from();
+        String to_country = item.getCountry_to();
+        double weight = item.getItemWeight();
+        double items_number= item.getItemsNumber();
+        double item_price=item.getItemPrice();
+        String date = item.getLast_date();
+        String item_name=item.getProduct_name();
+        String item_url=item.getProduct_url();
+        final int isEditable=item.getIsEditable();
+
+        ShipmentItem updatedShipmentItem = new ShipmentItem(itemId,item_name,from_country,to_country,date,
+                items_number, weight, item_price, item_url,isEditable);
+
+        Call<ShipmentItem> call = service.updateShipmentItemNoImage(itemId,updatedShipmentItem);
+
+        call.enqueue(new Callback<ShipmentItem>() {
+            @Override
+            public void onResponse(Call<ShipmentItem> call, Response<ShipmentItem> response)
+            {
+                if (!response.isSuccessful()) {
+                    Log.i("ApiShipment update", "Response has error--------------- = "+response.message());
+                }
+                else {
+                    Log.i("ApiShipmentSer update", "onResponse:-------------->  succeed on updating without image "+response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<ShipmentItem> call, Throwable t) {
+                Log.i("ApiShipment update", "onFailure:-------->  failed to update cause "+
                         t.getLocalizedMessage()+"\n"+t.getStackTrace().toString()+"\n"+t.getCause());
             }
         });

@@ -41,6 +41,10 @@ public interface theApiFunctions {
     @GET("ship_info")
     Call<List<ShipmentItem>> get_api_shipments();
 
+    // userShipment
+    @GET("ship_user/{user_info_id}")
+    Call<List<ShipmentItem>> get_user_shipments(@Path("user_info_id") int id);
+
     @Multipart
     @POST("ship_store")
     Call<ShipmentItem> uploadShipmentItem(
@@ -53,7 +57,8 @@ public interface theApiFunctions {
             @Part("url") RequestBody productUrl,
             @Part("price") RequestBody price,
             @Part("weight") RequestBody weight,
-            @Part("count") RequestBody count
+            @Part("count") RequestBody count,
+            @Part("editable") RequestBody isEditable
     );
 
     @Multipart
@@ -69,7 +74,9 @@ public interface theApiFunctions {
             @Part("url") RequestBody productUrl,
             @Part("price") RequestBody price,
             @Part("weight") RequestBody weight,
-            @Part("count") RequestBody count
+            @Part("count") RequestBody count,
+            @Part("editable") RequestBody isEditable
+
     );
     @POST("ship_update/{ship_info_id}")
     Call<ShipmentItem> updateShipmentItemNoImage(@Path("ship_info_id") int itemId,@Body ShipmentItem shipmentItem);
@@ -77,11 +84,14 @@ public interface theApiFunctions {
     @POST("ship_del/{ship_info_id}")
     Call<ShipmentItem> deleteShipmentItem(@Path("ship_info_id") int itemId);
 
-
     //-------------------- Trip ----------------------------
 
     @GET("traveller_info")
     Call<List<TripItem>> get_api_trips();
+
+    // user trips
+    @GET("traveller_user/{user_id}")
+    Call<List<TripItem>> get_user_trips(@Path("user_id") int user_id);
 
     @POST("traveller_store")
     Call<TripItem> uploadTripItem(@Body TripItem tripItem);
@@ -91,4 +101,6 @@ public interface theApiFunctions {
 
     @POST("traveller_del/{traveller_info_id}")
     Call<TripItem> deleteTripItem(@Path("traveller_info_id") int itemId);
+
+
 }

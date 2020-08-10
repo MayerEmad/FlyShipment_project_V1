@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import APIs.ApiShipmentSearch;
 import APIs.ApiTripSearch;
 import APIs.ApiUserInfo;
+import APIs.ApiUserShipment;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.TripItem;
@@ -50,7 +51,8 @@ public class Repository
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.UploadShipmentItem(item,CreateShipmentItemActivityContext);
     }
-    public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext,boolean imageEdited)
+
+     public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext,boolean imageEdited)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
         if(imageEdited)
@@ -58,10 +60,18 @@ public class Repository
         else
             task.UpdateShipmentItemNoImage(item,EditShipmentItemActivityContext);//update but not the image
     }
+
     public static void deleteShipmentItem(Integer id)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.DeleteShipmentItem(id);
+    }
+
+    public static ArrayList<ShipmentItem> getUserShipmentsFromApi()
+    {
+        ApiUserShipment task=new ApiUserShipment();
+        task.GetUserShipmentFromServer(); //  Log.i("Repository getShips", "------> getting data from server...");
+        return MyViewModel.getUserShipmentLiveData().getValue();
     }
 
     //-------------------------Trips-----------------------
@@ -88,15 +98,10 @@ public class Repository
         task.DeleteTripItem(id);
     }
 
-
-    //---------------------------------------
-    public static ArrayList<ShipmentItem> getUserShipmentsFromApi()
-    {
-        return MyViewModel.getUserShipmentLiveData().getValue();
-    }
-
     public static ArrayList<TripItem> getUserTripsFromApi()
     {
+        ApiTripSearch task=new ApiTripSearch();
+        task.GetUserTripItemsFromServer();
         return  MyViewModel.getUserTripLiveData().getValue();
     }
 

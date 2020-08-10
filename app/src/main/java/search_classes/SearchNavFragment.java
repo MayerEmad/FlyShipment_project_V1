@@ -87,7 +87,7 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
         {
             // I have a trip
             ShipmentItem item=ShipmentList.get(i);
-            if(fromCountry.equals(item.getCountry_from()) && toCountry.equals(item.getCountry_to()) &&
+            if((fromCountry.equals(item.getCountry_from()) || toCountry.equals(item.getCountry_to())) &&
                weight>=item.getItemWeight() && date.isBeforeMyDate(item.getLast_date()))   filteredShipmentList.add(item);
         }
         return filteredShipmentList;
@@ -95,13 +95,13 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
 
     private ArrayList<TripItem> getFilteredTrips()
     {
-        ArrayList<TripItem> TripList = Repository.getTripsFromApi();
+        ArrayList<TripItem> TripList = MyViewModel.getTripLiveData().getValue();
         ArrayList<TripItem> filteredtripList= new ArrayList<TripItem>();
         for(int i=0;i<TripList.size();i++)
         {
             // I have a shipment
             TripItem item=TripList.get(i);
-            if(fromCountry.equals(item.getCountry_from()) && toCountry.equals(item.getCountry_to()) &&
+            if((fromCountry.equals(item.getCountry_from()) || toCountry.equals(item.getCountry_to())) &&
                weight<=item.getAvailable_weight() && date.isBeforeMyDate(item.getMeeting_date()))   filteredtripList.add(item);
         }
         return filteredtripList;
@@ -147,9 +147,11 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
             {
                 fromCountry=et_from.getText().toString();
                 toCountry=et_to.getText().toString();
-                date = mydate.convertFromStringToMydate(et_date.getText().toString());
+                if(et_date.getText().toString().isEmpty())date = mydate.convertFromStringToMydate("3000-32-32");
+                else date = mydate.convertFromStringToMydate(et_date.getText().toString().substring(7));
                 String weightStr=et_weight.getText().toString();
                 if(!weightStr.isEmpty()) weight=Double.parseDouble(weightStr);
+
                 MyViewModel.setShipmentLiveData(getFilteredShipments());
                 MyViewModel.setTripLiveData(getFilteredTrips());
             }

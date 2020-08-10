@@ -30,7 +30,6 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
     private EditText toText;
     private EditText dateText;
     private EditText weightText;
-    private Button editTripBtn;
 
     private void arrow_back_function() {
         Intent intent = new Intent(EditTripItemActivity.this, MainActivity.class);
@@ -52,7 +51,7 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
 
         Bundle extras = getIntent().getExtras();
         int pos=extras.getInt("TripItemPosition");
-        final TripItem ITEM=MyViewModel.getTripLiveData().getValue().get(pos);
+        final TripItem ITEM=MyViewModel.getUserTripLiveData().getValue().get(pos);
 
         fromText = (EditText) findViewById(R.id.edit_trip_from);
          fromText.setText(ITEM.getCountry_from());
@@ -63,10 +62,16 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
         dateText = (EditText) findViewById(R.id.edit_trip_last_date);
          dateText.setText(ITEM.getMeeting_date());
          dateText.setFocusable(false);
-        editTripBtn = (Button) findViewById(R.id.edit_trip_add_button);
 
+        Button editTripBtn = (Button) findViewById(R.id.edit_trip_add_button);
+        Button uploadTripBtn = (Button) findViewById(R.id.edit_trip_uploade_button);
         Button backArrowButton = (Button) findViewById(R.id.edit_trip_back_button);
         Button deleteItemButton = (Button) findViewById(R.id.edit_trip_delete_button);
+
+        if(ITEM.getIsEditable()==0){
+            uploadTripBtn.setEnabled(false);
+            editTripBtn.setEnabled(false);
+        }
 
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,13 +88,13 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
             }
         });
 
-
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 arrow_back_function();
             }
         });
+
         editTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +112,6 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
 
                     // updating...
                     Repository.updateTripItem(ITEM);
-
                     Toast.makeText(EditTripItemActivity.this, "trip edited :)", Toast.LENGTH_SHORT).show();
                     // Go back TripNavFragment
                     arrow_back_function();
@@ -116,7 +120,35 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
                 }
             }
         });
+
+        uploadTripBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fromCountry = fromText.getText().toString();
+                toCountry = toText.getText().toString();
+                lastDate = dateText.getText().toString();
+                freeWeight=weightText.getText().toString();
+
+                if (noEmptyField())
+                {
+                    ITEM.setCountry_from(fromCountry);
+                    ITEM.setCountry_to(toCountry);
+                    ITEM.setMeeting_date(lastDate);
+                    ITEM.setAvailable_weight(Double.parseDouble(freeWeight));
+                    ITEM.setIsEditable(0);
+                    // uploading...
+                    Repository.updateTripItem(ITEM);
+                    Toast.makeText(EditTripItemActivity.this, "trip uploaded :)", Toast.LENGTH_SHORT).show();
+                    // Go back TripNavFragment
+                    arrow_back_function();
+                } else {
+                    Toast.makeText(EditTripItemActivity.this, "Empty uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

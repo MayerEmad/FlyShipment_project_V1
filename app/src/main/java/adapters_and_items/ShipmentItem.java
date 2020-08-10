@@ -21,11 +21,12 @@ public class ShipmentItem {
     @SerializedName("weight")  private double weight;
     @SerializedName("count")  private double items_number;
     @SerializedName("url")  private String product_url;
+    @SerializedName("editable")  private int isEditable;
 
 
     // update constructor
-    public ShipmentItem( int shipment_id,String name,String from, String to, String date,
-                         double itemsNum, double prodWeight, double price, String productUrl)
+    public ShipmentItem( int shipment_id,String name,String from, String to, String date, double itemsNum,
+                         double prodWeight, double price, String productUrl ,int isEditable)
     {
         this.shipment_id = shipment_id;
         weight=prodWeight;
@@ -36,11 +37,12 @@ public class ShipmentItem {
         last_date=date;
         reward=price;
         product_url=productUrl;
+        this.isEditable=isEditable;
     }
 
     // constructor
-    public ShipmentItem( int shipment_id, String prodImg, double prodWeight, double itemsNum, String name, String from, String to, String date,
-                        double price, String profImg, String profName, double rate, String productUrl)
+    public ShipmentItem( int shipment_id, String prodImg, double prodWeight, double itemsNum, String name, String from, String to,
+                         String date, double price, String profImg, String profName, double rate, String productUrl,int isEditable)
     {
         this.shipment_id = shipment_id;
         this.product_image=prodImg;
@@ -55,6 +57,7 @@ public class ShipmentItem {
         profile_name=profName;
         user_rate=rate;
         product_url=productUrl;
+        this.isEditable=isEditable;
     }
 
 
@@ -92,7 +95,9 @@ public class ShipmentItem {
     public int getShipment_id() {
         return shipment_id;
     }
+    public int getIsEditable() { return isEditable; }
 
+    public void setIsEditable(int isEditable) { this.isEditable = isEditable; }
 
     public void setProduct_name(String product_name) {
         this.product_name = product_name;

@@ -113,17 +113,9 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
                         .enqueue(new Callback<RespnseModel>() {
                             @Override
                             public void onResponse(Call<RespnseModel> call, Response<RespnseModel> response) {
-
-
                                 if (response.isSuccessful()) {
-
-
-
                                     RespnseModel msg = response.body();
-
                                     Toast.makeText(mContext,"Done", Toast.LENGTH_LONG).show();
-
-
                                 }
                             }
 
@@ -158,21 +150,21 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
 
                 if(parent.equals("shipment_freg"))
                 {
-                    //go to show the ShipmentItem
-                    Intent intent =new Intent(mContext, CreateShipmentItemActivity.class);
-                    mContext.startActivity(intent);
-                }
-                else if(parent.equals("shipment_shower_freg")){
                     //go to Edit the shipmentItem
                     Intent intent =new Intent(mContext, EditShipmentItemActivity.class);
                     intent.putExtra("ShipmentItemPosition",position);
+                    mContext.startActivity(intent);
+                }
+                else if(parent.equals("shipment_shower_freg")){
+                    //go to show the ShipmentItem
+                    Intent intent =new Intent(mContext, CreateShipmentItemActivity.class);
                     mContext.startActivity(intent);
                 }
             }
         });
     }
 
-    // ok Return the size of your dataset (invoked by the layout manager)
+    // ok Return the size of your dataSet (invoked by the layout manager)
     @Override
     public int getItemCount() {
         if(ShipmentsList==null) return 0;
