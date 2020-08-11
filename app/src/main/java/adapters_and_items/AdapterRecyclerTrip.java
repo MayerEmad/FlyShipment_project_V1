@@ -58,11 +58,11 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
             meeting_date=(TextView)listItemView.findViewById(R.id.trip_item_date);
             available_weight_text=(TextView)listItemView.findViewById(R.id.trip_item_available_weight);
             consumed_weight_text=(TextView)listItemView.findViewById(R.id.trip_item_consumed_weight);
-
             profile_image=(ImageView)listItemView.findViewById(R.id.trip_item_profile_img);
             profile_name=(TextView)listItemView.findViewById(R.id.trip_item_profile_name);
             sender_rate_bar=(RatingBar)listItemView.findViewById(R.id.trip_item_rating_bar);
             request_btn=(Button)listItemView.findViewById(R.id.trip_item_request_btn);
+
             upper_info_part=(ConstraintLayout)listItemView.findViewById(R.id.trip_item_upper_part);
         }
     }
@@ -98,6 +98,7 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
             @Override
             public void onClick(View v) {
 
+                // bely this comment
                 TripNavFragment fragobj = new TripNavFragment();
                 fragobj.setId(item.getTrip_id());
 
@@ -113,20 +114,20 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         });
         holder.profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-            }
+            public void onClick(View v) { }
         });
+
         holder.upper_info_part.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(parent.equals("trip_freg"))
+                if(parent.equals("trip_nav_fragment"))
                 {
                     //go to Edit the tripItem
                     Intent intent =new Intent(mContext, EditTripItemActivity.class);
                     intent.putExtra("TripItemPosition",position);
                     mContext.startActivity(intent);
                 }
-                else if(parent.equals("trip_shower_freg")){
+                else if(parent.equals("trip_shower_fragment")){
                     //go to show the tripItem
                     Intent intent =new Intent(mContext, CreateTripItemActivity.class);
                     mContext.startActivity(intent);

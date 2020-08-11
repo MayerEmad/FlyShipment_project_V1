@@ -6,9 +6,10 @@ import android.content.SharedPreferences;
 import java.util.ArrayList;
 
 import APIs.ApiShipmentSearch;
+import APIs.ApiTripNav;
 import APIs.ApiTripSearch;
 import APIs.ApiUserInfo;
-import APIs.ApiUserShipment;
+import APIs.ApiShipmentNav;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.TripItem;
@@ -51,7 +52,6 @@ public class Repository
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.UploadShipmentItem(item,CreateShipmentItemActivityContext);
     }
-
      public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext,boolean imageEdited)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
@@ -60,16 +60,14 @@ public class Repository
         else
             task.UpdateShipmentItemNoImage(item,EditShipmentItemActivityContext);//update but not the image
     }
-
     public static void deleteShipmentItem(Integer id)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.DeleteShipmentItem(id);
     }
-
     public static ArrayList<ShipmentItem> getUserShipmentsFromApi()
     {
-        ApiUserShipment task=new ApiUserShipment();
+        ApiShipmentNav task=new ApiShipmentNav();
         task.GetUserShipmentFromServer(); //  Log.i("Repository getShips", "------> getting data from server...");
         return MyViewModel.getUserShipmentLiveData().getValue();
     }
@@ -97,10 +95,9 @@ public class Repository
         ApiTripSearch task=new ApiTripSearch();
         task.DeleteTripItem(id);
     }
-
     public static ArrayList<TripItem> getUserTripsFromApi()
     {
-        ApiTripSearch task=new ApiTripSearch();
+        ApiTripNav task=new ApiTripNav();
         task.GetUserTripItemsFromServer();
         return  MyViewModel.getUserTripLiveData().getValue();
     }

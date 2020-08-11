@@ -154,29 +154,4 @@ public class ApiTripSearch extends AppCompatActivity {
         });
     }
 
-    public void GetUserTripItemsFromServer() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://originaliereny.com/shipping/public/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        theApiFunctions client = retrofit.create(theApiFunctions.class);
-        Call<List<TripItem>> call = client.get_user_trips(Repository.TheProfileItem.getUser_id());
-        call.enqueue(new Callback<List<TripItem>>() {
-            @Override
-            public void onResponse(Call<List<TripItem>> call, Response<List<TripItem>> response) {
-                if (!response.isSuccessful()) {
-                    Log.i("ApiUserTrip get", "Response has error X(");
-                }
-                list = (ArrayList<TripItem>) response.body();
-                MyViewModel.setUserTripLiveData(list);
-                Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
-
-            }
-
-            @Override
-            public void onFailure(Call<List<TripItem>> call, Throwable t) {
-                Log.i("ApiUserTrip get", "Response failed :(");
-            }
-        });
-    }
 }

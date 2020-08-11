@@ -33,13 +33,13 @@ public class ShipmentNavFragment extends Fragment {
     public void setId(int id){
         this.tripid = id;
     }
-
     public int getdata(){
         return tripid;
     }
     static int tripid;
 
     private RecyclerView recyclerView;
+    private String parentCaller="shipment_freg";
     public ShipmentNavFragment() {
         // Required empty public constructor
     }
@@ -57,14 +57,14 @@ public class ShipmentNavFragment extends Fragment {
         final TextView noShipmentText=(TextView) view.findViewById(R.id.no_shipments_text);
         recyclerView = (RecyclerView) view.findViewById(R.id.user_shipments_recycler_view);
 
-        //Intialise the Recycler Viewer
+        //Intialize the Recycler Viewer
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         ArrayList<ShipmentItem>userList= Repository.getUserShipmentsFromApi();
         if(userList!=null)
         {
             noShipmentText.setVisibility(View.INVISIBLE);
-            RecyclerView.Adapter mAdapter = new AdapterRecyclerShipment(userList, getContext(),"shipment_freg");
+            RecyclerView.Adapter mAdapter = new AdapterRecyclerShipment(userList, getContext(),parentCaller);
             recyclerView.setAdapter(mAdapter);
         }
         else
@@ -84,7 +84,7 @@ public class ShipmentNavFragment extends Fragment {
         MyViewModel.getUserShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
             @Override
             public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
-                recyclerView.setAdapter(new AdapterRecyclerShipment(shipmentItems,getContext(),"shipment_freg"));
+                recyclerView.setAdapter(new AdapterRecyclerShipment(shipmentItems,getContext(),parentCaller));
                 noShipmentText.setVisibility(View.INVISIBLE);
             }
         });

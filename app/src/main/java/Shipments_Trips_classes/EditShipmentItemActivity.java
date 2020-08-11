@@ -161,6 +161,13 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
         Button deleteItemButton = (Button) findViewById(R.id.edit_shipment_delete_button);
         Button uploadItemButton = (Button) findViewById(R.id.edit_shipment_upload_button);
 
+        if(ITEM.getIsEditable()==0)
+        {
+            editShipmentBtn.setEnabled(false);
+            uploadItemButton.setEnabled(false);
+            deleteItemButton.setEnabled(false);
+        }
+
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -71,6 +71,7 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
         if(ITEM.getIsEditable()==0){
             uploadTripBtn.setEnabled(false);
             editTripBtn.setEnabled(false);
+            deleteItemButton.setEnabled(false);
         }
 
         dateText.setOnClickListener(new View.OnClickListener() {

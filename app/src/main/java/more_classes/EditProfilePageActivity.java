@@ -26,13 +26,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.flyshippment_project.FileUtil;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
-
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.util.concurrent.ExecutionException;
-
-import Shipments_Trips_classes.CreateShipmentItemActivity;
 import adapters_and_items.ProfileItem;
 
 public class EditProfilePageActivity  extends AppCompatActivity
@@ -102,15 +96,6 @@ public class EditProfilePageActivity  extends AppCompatActivity
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(userImage);
 
-            /* try {
-                 File file=Glide.with(this).asFile().load(USERINFO.getUser_image_url()).submit().get();
-                 Log.i("ApiUserInfo Edit", "image path:---------> "+file.getPath());
-                 changedImageUri= Uri.parse(file.getPath());
-             } catch (ExecutionException e) {
-                 e.printStackTrace();
-             } catch (InterruptedException e) {
-                 e.printStackTrace();
-             }*/
 
 
         //-----------------  filling first names ,last name  ---------------------------
@@ -177,6 +162,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
             public void onClick(View v)
             {
 
+                //FIXME validation && no empty
                   USERINFO.setUser_image_url(changedImageUri.toString());
               if(!userEmailEditText.getText().toString().isEmpty())
                   USERINFO.setUser_mail(userEmailEditText.getText().toString());
@@ -191,6 +177,9 @@ public class EditProfilePageActivity  extends AppCompatActivity
                   name+=userLastNameText.getText().toString().trim();
               if(!name.equals(""))USERINFO.setUser_name(name);
               Repository.updateUserInfo(EditProfilePageActivity.this,imageEdited);
+                Toast.makeText(EditProfilePageActivity.this, "profile updated :)", Toast.LENGTH_SHORT).show();
+                arrow_back_function();
+
             }
         });
     }

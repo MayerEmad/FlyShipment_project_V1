@@ -29,15 +29,16 @@ import adapters_and_items.TripItem;
 
 public class TripNavFragment extends Fragment {
 
-
+    //Bely this 3 lines
     public void setId(int id){
         this.id = id;
     }
-
     public int getdata(){
         return id;
     }
     static int id;
+
+    private String parentCaller="trip_nav_fragment";
     private RecyclerView recyclerView;
     public TripNavFragment() {
         // Required empty public constructor
@@ -57,14 +58,14 @@ public class TripNavFragment extends Fragment {
         final TextView noTripText=(TextView) view.findViewById(R.id.no_trips_text);
         recyclerView = (RecyclerView) view.findViewById(R.id.user_trips_recycler_view);
 
-        //Intialise the Recycler Viewer
+        //initialize the Recycler Viewer
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         ArrayList<TripItem> userList= Repository.getUserTripsFromApi();
         if(userList!=null)
         {
             noTripText.setVisibility(View.INVISIBLE);
-            RecyclerView.Adapter mAdapter = new AdapterRecyclerTrip(userList, getContext(),"trip_freg");
+            RecyclerView.Adapter mAdapter = new AdapterRecyclerTrip(userList, getContext(),parentCaller);
             recyclerView.setAdapter(mAdapter);
         }
         else
@@ -84,7 +85,7 @@ public class TripNavFragment extends Fragment {
         MyViewModel.getUserTripLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<TripItem>>() {
             @Override
             public void onChanged(ArrayList<TripItem> tripItems) {
-                recyclerView.setAdapter(new AdapterRecyclerTrip(tripItems,getContext(),"trip_freg"));
+                recyclerView.setAdapter(new AdapterRecyclerTrip(tripItems,getContext(),parentCaller));
                 noTripText.setVisibility(View.INVISIBLE);
             }
         });
