@@ -29,15 +29,6 @@ import adapters_and_items.TripItem;
 
 public class TripNavFragment extends Fragment {
 
-    //Bely this 3 lines
-    public void setId(int id){
-        this.id = id;
-    }
-    public int getdata(){
-        return id;
-    }
-    static int id;
-
     private String parentCaller="trip_nav_fragment";
     private RecyclerView recyclerView;
     public TripNavFragment() {
@@ -46,9 +37,7 @@ public class TripNavFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        id = getArguments().getFloat("shipid");
         return inflater.inflate(R.layout.fragment_trip_nav, container, false);
-
     }
 
     @Override

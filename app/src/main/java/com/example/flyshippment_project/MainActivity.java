@@ -85,7 +85,15 @@ public class MainActivity extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
         if(extras!=null && extras.containsKey("openShipmentNav") && extras.getBoolean("openShipmentNav")) {
             bottomNav.getMenu().getItem(1).setChecked(true);
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new ShipmentNavFragment()).commit();
+            ShipmentNavFragment shipmentNavFragment = new ShipmentNavFragment();
+            if(extras.containsKey("AdapterRecyclerTripParent") && extras.getBoolean("AdapterRecyclerTripParent")){
+                Bundle bundle = new Bundle();
+                bundle.putString("requestCaller", "AdapterRecyclerTripParent");
+                bundle.putInt("AdapterTripId", extras.getInt("AdapterTripId"));
+                shipmentNavFragment.setArguments(bundle);
+               // Log.i("requestTest", "MainActivity------->send data to ShipNavFreg ");
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,shipmentNavFragment).commit();
         }
         else if(extras!=null && extras.containsKey("openTripNav") && extras.getBoolean("openTripNav")) {
             bottomNav.getMenu().getItem(4).setChecked(true);

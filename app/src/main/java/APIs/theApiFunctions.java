@@ -3,6 +3,7 @@ package APIs;
 import java.util.List;
 
 import adapters_and_items.ProfileItem;
+import adapters_and_items.RequestItem;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.TripItem;
 import okhttp3.MultipartBody;
@@ -102,5 +103,7 @@ public interface theApiFunctions {
     @POST("traveller_del/{traveller_info_id}")
     Call<TripItem> deleteTripItem(@Path("traveller_info_id") int itemId);
 
-
+    //-------------------requests--------------------
+    @POST("request")
+    Call<RequestItem> sendRequestFormShipmentToTrip(@Body RequestItem r);
 }

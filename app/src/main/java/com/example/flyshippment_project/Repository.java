@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 
+import APIs.ApiRequests;
 import APIs.ApiShipmentSearch;
 import APIs.ApiTripNav;
 import APIs.ApiTripSearch;
@@ -102,5 +103,10 @@ public class Repository
         return  MyViewModel.getUserTripLiveData().getValue();
     }
 
+    //-----------------------requests----------------------------
+    public static void sendRequestForTrip(int shipment_id, int tripId) {
+        ApiRequests task=new ApiRequests();
+        task.ShipmentAskForTrip(shipment_id,tripId);
+    }
 }
 

@@ -96,19 +96,17 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         //Listeners..
         holder.request_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+                if(parent.equals("trip_shower_fragment")) {
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    intent.putExtra("openShipmentNav", true);
+                    intent.putExtra("AdapterRecyclerTripParent", true);
+                    intent.putExtra("AdapterTripId",item.getTrip_id());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    mContext.startActivity(intent);
 
-                // bely this comment
-                TripNavFragment fragobj = new TripNavFragment();
-                fragobj.setId(item.getTrip_id());
-
-                Log.i("adapttrip", "onClick: id" + fragobj.getdata());
-                Intent intent = new Intent(mContext, MainActivity.class);
-                intent .putExtra("openShipmentNav",true);
-
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                // intent.putExtra("shipid",item.getShipment_id());
-                mContext.startActivity(intent);
+                }
 
             }
         });

@@ -43,5 +43,7 @@
     <string name="user_name_word">User name</string>
     <string name="upload_word">Upload</string>
     <string name="before_uploading_trip_text">If you press uploade you will not be able to edit this trip</string>
+    <string name="add_to_trip_text">Add to trip</string>
+    <string name="request_sent_text">request sent</string>
 
 </resources>

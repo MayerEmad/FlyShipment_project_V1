@@ -61,7 +61,7 @@ public class Shipment_Shower_Freg extends Fragment
             {
                 loadingIndicator.setVisibility(View.INVISIBLE);
                 userList=MyViewModel.getShipmentLiveData().getValue();
-                mAdapter=new AdapterRecyclerShipment(userList,getContext(),"shipment_shower_freg");
+                mAdapter=new AdapterRecyclerShipment(userList,getContext(),"shipment_shower_freg",-1);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(mAdapter);

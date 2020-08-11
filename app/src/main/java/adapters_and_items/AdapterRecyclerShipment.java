@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.flyshippment_project.R;
+import com.example.flyshippment_project.Repository;
 
 import java.util.ArrayList;
 
@@ -35,12 +36,14 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
     private ArrayList<ShipmentItem> ShipmentsList;
     private Context mContext;
     private String parent;
+    private int tripId;
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AdapterRecyclerShipment(ArrayList<ShipmentItem> DataList,Context con,String dad)
+    public AdapterRecyclerShipment(ArrayList<ShipmentItem> DataList,Context con,String dad,int trip_id)
     {
         ShipmentsList = DataList;
         mContext=con;
         parent=dad;
+        tripId=trip_id;
     }
 
     //ok
@@ -82,7 +85,8 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
 
     // ok Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position)
+    {
         final ShipmentItem item = ShipmentsList.get(position);
 
         Glide.with(mContext).load(item.getProduct_image())
@@ -99,43 +103,28 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUserRate());
 
+        if(parent.equals("AdapterRecyclerTripParent")){
+            holder.request_btn.setText(R.string.add_to_trip_text);
+            if(item.getIsEditable()==0)
+            {
+                holder.request_btn.setText(R.string.request_sent_text);
+                holder.request_btn.setEnabled(false);
+            }
+        }
+
         //Listeners..
         holder.request_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("this", "onClick: clicked"+ item.getCountry_from());
-
-                TripNavFragment fragobj = new TripNavFragment();
-                int i = fragobj.getdata();
-                Log.i("TAG", "onClick: id" + fragobj.getdata());
-
-                APIManager.getInstance().getAPI().request(i,8 )
-                        .enqueue(new Callback<RespnseModel>() {
-                            @Override
-                            public void onResponse(Call<RespnseModel> call, Response<RespnseModel> response) {
-                                if (response.isSuccessful()) {
-                                    RespnseModel msg = response.body();
-                                    Toast.makeText(mContext,"Done", Toast.LENGTH_LONG).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<RespnseModel> call, Throwable t) {
-
-                                Toast.makeText(mContext, "Failed",
-                                        Toast.LENGTH_LONG).show();
-
-
-                            }
-                        });
-                /*Intent intent = new Intent(mContext, MainActivity.class);
-                intent .putExtra("openTripNav",true);
-
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-               // intent.putExtra("shipid",item.getShipment_id());
-                mContext.startActivity(intent);
-*/
-
+                if(parent.equals("AdapterRecyclerTripParent")){
+                    //FIXME validate shipment size and trip available weight
+                    Repository.sendRequestForTrip(item.getShipment_id(),tripId);
+                    item.setIsEditable(0);
+                    Repository.updateShipmentItem(item,mContext,false);
+                    holder.request_btn.setText(R.string.request_sent_text);
+                    holder.request_btn.setEnabled(false);
+                    // Log.i("requestTest", "onRequestButton-->AddToTrip----------> ship_id= " +item.getShipment_id()+"trip_id= "+tripId);
+                }
             }
         });
         holder.profile_image.setOnClickListener(new View.OnClickListener() {
@@ -148,14 +137,14 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
             @Override
             public void onClick(View v) {
 
-                if(parent.equals("shipment_freg"))
+                if(parent.equals("shipment_nav_fragment"))
                 {
                     //go to Edit the shipmentItem
                     Intent intent =new Intent(mContext, EditShipmentItemActivity.class);
                     intent.putExtra("ShipmentItemPosition",position);
                     mContext.startActivity(intent);
                 }
-                else if(parent.equals("shipment_shower_freg")){
+                else if(parent.equals("shipment_shower_freg") ||parent.equals("AdapterRecyclerTripParent")){
                     //go to show the ShipmentItem
                     Intent intent =new Intent(mContext, CreateShipmentItemActivity.class);
                     mContext.startActivity(intent);

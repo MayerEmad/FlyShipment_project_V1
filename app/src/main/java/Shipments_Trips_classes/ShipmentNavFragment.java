@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,23 +29,26 @@ import adapters_and_items.AdapterRecyclerShipment;
 import adapters_and_items.ShipmentItem;
 
 
-public class ShipmentNavFragment extends Fragment {
-
-    public void setId(int id){
-        this.tripid = id;
-    }
-    public int getdata(){
-        return tripid;
-    }
-    static int tripid;
-
+public class ShipmentNavFragment extends Fragment
+{
     private RecyclerView recyclerView;
-    private String parentCaller="shipment_freg";
+    private String parentCaller;
+    private int tripId;
     public ShipmentNavFragment() {
         // Required empty public constructor
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Bundle arguments = getArguments();
+        if(arguments!=null) {
+           // Log.i("requestTest", "ShipNavFreg------->data received ");
+            parentCaller = getArguments().getString("requestCaller");
+            tripId = getArguments().getInt("AdapterTripId");
+        }else {
+            parentCaller = "shipment_nav_fragment";
+            tripId=-1;
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_shipment_nav, container, false);
     }
@@ -64,7 +68,7 @@ public class ShipmentNavFragment extends Fragment {
         if(userList!=null)
         {
             noShipmentText.setVisibility(View.INVISIBLE);
-            RecyclerView.Adapter mAdapter = new AdapterRecyclerShipment(userList, getContext(),parentCaller);
+            RecyclerView.Adapter mAdapter = new AdapterRecyclerShipment(userList, getContext(),parentCaller,tripId);
             recyclerView.setAdapter(mAdapter);
         }
         else
@@ -84,7 +88,7 @@ public class ShipmentNavFragment extends Fragment {
         MyViewModel.getUserShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>() {
             @Override
             public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
-                recyclerView.setAdapter(new AdapterRecyclerShipment(shipmentItems,getContext(),parentCaller));
+                recyclerView.setAdapter(new AdapterRecyclerShipment(shipmentItems,getContext(),parentCaller,tripId));
                 noShipmentText.setVisibility(View.INVISIBLE);
             }
         });
