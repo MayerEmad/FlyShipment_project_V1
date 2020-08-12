@@ -5,14 +5,12 @@ import java.util.List;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.RequestItem;
 import adapters_and_items.ShipmentItem;
+import adapters_and_items.ShipmentRequestItem;
 import adapters_and_items.TripItem;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -106,4 +104,13 @@ public interface theApiFunctions {
     //-------------------requests--------------------
     @POST("request")
     Call<RequestItem> sendRequestFormShipmentToTrip(@Body RequestItem r);
+
+    @GET("request/{user_id}")
+    Call<List<ShipmentRequestItem>> get_shipments_requests(@Path("user_id") int user_id);
+
+    @POST("request/approved/{request_id}")
+    Call<ShipmentRequestItem> approve_shipments_request(@Path("request_id") int request_id);
+
+    @POST("request/not_approved/{request_id}")
+    Call<ShipmentRequestItem> reject_shipments_request(@Path("request_id") int request_id);
 }

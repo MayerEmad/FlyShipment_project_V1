@@ -1,15 +1,13 @@
 package com.example.flyshippment_project;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import adapters_and_items.ShipmentItem;
+import adapters_and_items.ShipmentRequestItem;
 import adapters_and_items.TripItem;
 
 public class MyViewModel extends ViewModel
@@ -59,5 +57,17 @@ public class MyViewModel extends ViewModel
         UserTripLiveData.setValue(data);
     }
 
+    //For Shipments requests
+    private static MutableLiveData<ArrayList<ShipmentRequestItem>> ShipmentRequestsListLiveData;
+
+    public static LiveData<ArrayList<ShipmentRequestItem>> getShipmentRequestsLiveData() {
+        if(ShipmentRequestsListLiveData==null)
+            ShipmentRequestsListLiveData= new MutableLiveData<>();
+        return ShipmentRequestsListLiveData;
+    }
+    public static void setShipmentRequestsLiveData(ArrayList<ShipmentRequestItem> data) {
+        //  Log.i("MyViewModel Set", "-----> before observer");
+        ShipmentRequestsListLiveData.setValue(data);
+    }
 }
 

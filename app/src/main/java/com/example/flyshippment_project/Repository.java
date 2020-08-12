@@ -13,6 +13,7 @@ import APIs.ApiUserInfo;
 import APIs.ApiShipmentNav;
 import adapters_and_items.ProfileItem;
 import adapters_and_items.ShipmentItem;
+import adapters_and_items.ShipmentRequestItem;
 import adapters_and_items.TripItem;
 
 public class Repository
@@ -107,6 +108,22 @@ public class Repository
     public static void sendRequestForTrip(int shipment_id, int tripId) {
         ApiRequests task=new ApiRequests();
         task.ShipmentAskForTrip(shipment_id,tripId);
+    }
+
+    public static ArrayList<ShipmentRequestItem> getShipmentRequestsFromApi() {
+        ApiRequests task=new ApiRequests();
+        task.GetShipmentsRequests();
+        return MyViewModel.getShipmentRequestsLiveData().getValue();
+    }
+
+    public static void approveShipmentRequest(int request_id) {
+        ApiRequests task=new ApiRequests();
+        task.ApproveShipmentRequest(request_id);
+    }
+
+    public static void rejectShipmentRequest(int request_id) {
+        ApiRequests task=new ApiRequests();
+        task.RejectShipmentRequest(request_id);
     }
 }
 

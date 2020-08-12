@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InboxNavFragment">
+    tools:context="inbox_classes.InboxNavFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/inbox_page_upper_tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Inbox"
-        android:textSize="50dp"/>
+        android:layout_height="80dp"
+        android:layout_gravity="start"
+        android:background="@color/gray1"
+        android:outlineSpotShadowColor="@color/cardview_dark_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/inbox_page_upper_tab_items" />
 
-</FrameLayout>
+    <!-- Container for Shipment_Inbox_Frag & Deal_Inbox_Frag-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/inbox_page_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/down"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inbox_page_upper_tab" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

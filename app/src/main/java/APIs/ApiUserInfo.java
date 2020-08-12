@@ -55,12 +55,13 @@ public class ApiUserInfo extends AppCompatActivity {
                     return;
                 }
                 Repository.TheProfileItem = response.body();
-                Log.i("ApiUserInfo GoodRespons", "Response ----------> ="+response.body());
+                Log.i("ApiUserInfo GoodRespons", "Response ----------> ="+response.message());
             }
 
             @Override
             public void onFailure(Call<ProfileItem> call, Throwable t) {
-                Log.i("ApiUserInfo failed", "Response ----------> ="+t.getStackTrace());
+                Log.i("ApiUserInfo failed", "Response ----------> ="+t.getStackTrace()+"\n"
+                +t.getCause()+"\n"+t.getLocalizedMessage());
 
             }
         });

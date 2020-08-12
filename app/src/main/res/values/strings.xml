@@ -45,5 +45,14 @@
     <string name="before_uploading_trip_text">If you press uploade you will not be able to edit this trip</string>
     <string name="add_to_trip_text">Add to trip</string>
     <string name="request_sent_text">request sent</string>
+    <string name="not_uoloaded_text">not uploaded yet</string>
+    <string name="current_deals">Current Deals</string>
+    <string name="ships_requests">Ships Requests</string>
+    <string name="send_request_question">send request ?</string>
+    <string name="pending_word">pending</string>
+    <string name="add_to_deals_text">Add To Deals</string>
+    <string name="remove_from_request_text">remove from request</string>
+    <string name="approve_word">approve</string>
+    <string name="reject_word">reject</string>
 
 </resources>

@@ -1,7 +1,5 @@
 package adapters_and_items;
 
-import androidx.annotation.Nullable;
-
 import com.google.gson.annotations.SerializedName;
 
 public class ShipmentItem {
@@ -23,7 +21,6 @@ public class ShipmentItem {
     @SerializedName("url")  private String product_url;
     @SerializedName("editable")  private int isEditable;
 
-
     // update constructor
     public ShipmentItem( int shipment_id,String name,String from, String to, String date, double itemsNum,
                          double prodWeight, double price, String productUrl ,int isEditable)
@@ -41,8 +38,8 @@ public class ShipmentItem {
     }
 
     // constructor
-    public ShipmentItem( int shipment_id, String prodImg, double prodWeight, double itemsNum, String name, String from, String to,
-                         String date, double price, String profImg, String profName, double rate, String productUrl,int isEditable)
+    public ShipmentItem(int shipment_id, String prodImg, double prodWeight, double itemsNum, String name, String from, String to,
+                        String date, double price, String profImg, String profName, double rate, String productUrl, int isEditable)
     {
         this.shipment_id = shipment_id;
         this.product_image=prodImg;

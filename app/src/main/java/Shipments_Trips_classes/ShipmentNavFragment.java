@@ -61,7 +61,7 @@ public class ShipmentNavFragment extends Fragment
         final TextView noShipmentText=(TextView) view.findViewById(R.id.no_shipments_text);
         recyclerView = (RecyclerView) view.findViewById(R.id.user_shipments_recycler_view);
 
-        //Intialize the Recycler Viewer
+        //Initialize the Recycler Viewer
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         ArrayList<ShipmentItem>userList= Repository.getUserShipmentsFromApi();

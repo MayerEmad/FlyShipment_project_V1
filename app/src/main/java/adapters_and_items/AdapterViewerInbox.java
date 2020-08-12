@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import search_classes.Shipment_Shower_Frag;
-import search_classes.Trip_Shower_Frag;
+import inbox_classes.Deals_Inbox_Frag;
+import inbox_classes.Shipments_Inbox_Frag;
 
-public class AdapterViewerSearch extends FragmentStatePagerAdapter
+public class AdapterViewerInbox extends FragmentStatePagerAdapter
 {
-    public AdapterViewerSearch(@NonNull FragmentManager fm, int behavior) {
+    public AdapterViewerInbox(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 
@@ -19,11 +19,10 @@ public class AdapterViewerSearch extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-           // Log.i("AdapterViewer", "----------Shipment_Shower_Freg is Created");
-            return new Shipment_Shower_Frag();
+            return new Shipments_Inbox_Frag();
         } else {
             //Log.i("AdapterViewer", "----------Trip_Shower_Freg is created");
-            return new Trip_Shower_Frag();
+            return new Deals_Inbox_Frag();
         }
     }
 
@@ -33,7 +32,8 @@ public class AdapterViewerSearch extends FragmentStatePagerAdapter
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position==0) return "Shipments";
-        else return "Trips";
+        if(position==0) return "Ships Requests";
+        else return "Deals";
     }
 }
+

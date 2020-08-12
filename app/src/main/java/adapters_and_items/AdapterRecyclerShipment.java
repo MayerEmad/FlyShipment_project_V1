@@ -24,12 +24,7 @@ import java.util.ArrayList;
 
 import Shipments_Trips_classes.CreateShipmentItemActivity;
 import Shipments_Trips_classes.EditShipmentItemActivity;
-import Shipments_Trips_classes.TripNavFragment;
-import login_rejester_splash.APIManager;
-import login_rejester_splash.RespnseModel;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecyclerShipment.MyViewHolder>
 {
@@ -46,7 +41,7 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         tripId=trip_id;
     }
 
-    //ok
+
     public static class MyViewHolder extends RecyclerView.ViewHolder
     {
         public TextView product_name, country_from, country_to,profile_name,last_date,reward_text,weight_text;
@@ -73,7 +68,6 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
             upper_info_part=(ConstraintLayout) listItemView.findViewById(R.id.shipment_item_upper_part);
         }
     }
-
     // ok Create new views (invoked by the layout manager)
     @Override
     public AdapterRecyclerShipment.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
@@ -105,9 +99,14 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
 
         if(parent.equals("AdapterRecyclerTripParent")){
             holder.request_btn.setText(R.string.add_to_trip_text);
-            if(item.getIsEditable()==0)
+            if(item.getIsEditable()==2)
             {
                 holder.request_btn.setText(R.string.request_sent_text);
+                holder.request_btn.setEnabled(false);
+            }
+            if(item.getIsEditable()==1)
+            {
+                holder.request_btn.setText(R.string.not_uoloaded_text);
                 holder.request_btn.setEnabled(false);
             }
         }
@@ -119,7 +118,7 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
                 if(parent.equals("AdapterRecyclerTripParent")){
                     //FIXME validate shipment size and trip available weight
                     Repository.sendRequestForTrip(item.getShipment_id(),tripId);
-                    item.setIsEditable(0);
+                   // item.setIsEditable(2);
                     Repository.updateShipmentItem(item,mContext,false);
                     holder.request_btn.setText(R.string.request_sent_text);
                     holder.request_btn.setEnabled(false);

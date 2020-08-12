@@ -40,10 +40,14 @@ public class ApiTripNav extends AppCompatActivity {
             public void onResponse(Call<List<TripItem>> call, Response<List<TripItem>> response) {
                 if (!response.isSuccessful()) {
                     Log.i("ApiUserTrip get", "Response has error X(");
+                    // retry
                 }
-                list = (ArrayList<TripItem>) response.body();
-                MyViewModel.setUserTripLiveData(list);
-                Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                else
+                {
+                    list = (ArrayList<TripItem>) response.body();
+                    MyViewModel.setUserTripLiveData(list);
+                    //Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                }
 
             }
 

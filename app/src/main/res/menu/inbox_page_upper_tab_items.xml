@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/shipment_requests_upper_tab"
+        android:title="@string/ships_requests"
+        android:icon="@drawable/ic_launcher_background" />
+
+    <item android:id="@+id/deals_upper_tab"
+        android:title="@string/current_deals"
+        android:icon="@drawable/ic_launcher_background" />
+</menu>

@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -19,6 +18,7 @@ import java.util.Objects;
 
 import Shipments_Trips_classes.ShipmentNavFragment;
 import Shipments_Trips_classes.TripNavFragment;
+import inbox_classes.InboxNavFragment;
 import more_classes.MoreNavFragment;
 import search_classes.SearchNavFragment;
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "there is no internet access :(", Toast.LENGTH_SHORT).show();
         }
 
-        // FIXME Temporary------------
+        // FIXME Temporary ------------
         SharedPreferences PREF_USER_ID = getSharedPreferences("userid" , MODE_PRIVATE);
         if(Repository.TheProfileItem==null){
             Repository.getUserInfo(PREF_USER_ID);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         BottomNavigationView bottomNav=findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        //*choose the Fragment to go
+        //choose the Fragment to go
         Bundle extras = getIntent().getExtras();
         if(extras!=null && extras.containsKey("openShipmentNav") && extras.getBoolean("openShipmentNav")) {
             bottomNav.getMenu().getItem(1).setChecked(true);

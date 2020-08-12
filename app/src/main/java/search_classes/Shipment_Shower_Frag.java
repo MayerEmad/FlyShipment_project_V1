@@ -22,9 +22,9 @@ import adapters_and_items.ShipmentItem;
 
 import java.util.ArrayList;
 
-public class Shipment_Shower_Freg extends Fragment
+public class Shipment_Shower_Frag extends Fragment
 {
-    public Shipment_Shower_Freg() { }
+    public Shipment_Shower_Frag() { }
 
     private RecyclerView recyclerView;
     private ArrayList<ShipmentItem>userList;
