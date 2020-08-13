@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.jar.Attributes;
 
+import adapters_and_items.ShipmentDealItem;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.ShipmentRequestItem;
 import adapters_and_items.TripItem;
@@ -66,8 +68,18 @@ public class MyViewModel extends ViewModel
         return ShipmentRequestsListLiveData;
     }
     public static void setShipmentRequestsLiveData(ArrayList<ShipmentRequestItem> data) {
-        //  Log.i("MyViewModel Set", "-----> before observer");
         ShipmentRequestsListLiveData.setValue(data);
+    }
+    // For shipments deals
+    private static MutableLiveData<ArrayList<ShipmentDealItem>> ShipmentDealsListLiveData;
+
+    public static LiveData<ArrayList<ShipmentDealItem>> getShipmentDealsLiveData() {
+        if(ShipmentDealsListLiveData==null)
+            ShipmentDealsListLiveData= new MutableLiveData<>();
+        return ShipmentDealsListLiveData;
+    }
+    public static void setShipmentDealsLiveData(ArrayList<ShipmentDealItem> data) {
+        ShipmentDealsListLiveData.setValue(data);
     }
 }
 

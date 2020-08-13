@@ -49,7 +49,6 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         public Button request_btn;
         public RatingBar sender_rate_bar;
         public ConstraintLayout upper_info_part;
-
         public MyViewHolder(View listItemView)
         {
             super(listItemView);
@@ -99,7 +98,8 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
 
         if(parent.equals("AdapterRecyclerTripParent")){
             holder.request_btn.setText(R.string.add_to_trip_text);
-            if(item.getIsEditable()==2)
+
+            if(item.getIsEditable()==-1)
             {
                 holder.request_btn.setText(R.string.request_sent_text);
                 holder.request_btn.setEnabled(false);
@@ -118,8 +118,8 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
                 if(parent.equals("AdapterRecyclerTripParent")){
                     //FIXME validate shipment size and trip available weight
                     Repository.sendRequestForTrip(item.getShipment_id(),tripId);
-                   // item.setIsEditable(2);
-                    Repository.updateShipmentItem(item,mContext,false);
+                    item.setIsEditable(-1);
+                    Repository.getUserShipmentsFromApi();
                     holder.request_btn.setText(R.string.request_sent_text);
                     holder.request_btn.setEnabled(false);
                     // Log.i("requestTest", "onRequestButton-->AddToTrip----------> ship_id= " +item.getShipment_id()+"trip_id= "+tripId);

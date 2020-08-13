@@ -2,6 +2,7 @@ package adapters_and_items;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +15,20 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
 
 import java.util.ArrayList;
+
+import inbox_classes.Deals_Inbox_Frag;
 
 public class AdapterRecyclerShipmentRequests extends RecyclerView.Adapter<AdapterRecyclerShipmentRequests.MyViewHolder>
 {
@@ -110,7 +117,7 @@ public class AdapterRecyclerShipmentRequests extends RecyclerView.Adapter<Adapte
 
         if(parent.equals("shipment_inbox_fragment")){
             if(item.getApproving_state()==1){
-                holder.status_btn.setText(R.string.add_to_deals_text);
+                holder.status_btn.setText(R.string.go_to_deals_text);
                 holder.status_btn.setBackgroundColor(R.color.green);
             }
             else if(item.getApproving_state()==-1){
@@ -128,22 +135,31 @@ public class AdapterRecyclerShipmentRequests extends RecyclerView.Adapter<Adapte
             @Override
             public void onClick(View v) {
                 Repository.approveShipmentRequest(item.getRequest_id());
+                Repository.getShipmentRequestsFromApi();
             }});
         holder.reject_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Repository.rejectShipmentRequest(item.getRequest_id());
+                Repository.getShipmentRequestsFromApi();
             }});
         holder.status_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               if(item.getApproving_state()==0){
                   Log.i("testApprove", "onClick: ---------------->do no thing");
+                  /*Fragment fragment = new Deals_Inbox_Frag();
+                  FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                  FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                  fragmentTransaction.replace(R.id.content_frame, fragment);
+                  fragmentTransaction.addToBackStack(null);
+                  fragmentTransaction.commit();*/
               }
               else if(item.getApproving_state()==1){
-
+                 //FIXME got to Deals
               }
               else if(item.getApproving_state()==-1){
+                  Repository.afterRejectShipmentRequest(item.getRequest_id());
               }
             }});
     }

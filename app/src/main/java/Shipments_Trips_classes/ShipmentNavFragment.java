@@ -1,5 +1,6 @@
 package Shipments_Trips_classes;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -53,6 +54,7 @@ public class ShipmentNavFragment extends Fragment
         return inflater.inflate(R.layout.fragment_shipment_nav, container, false);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
@@ -65,6 +67,7 @@ public class ShipmentNavFragment extends Fragment
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         ArrayList<ShipmentItem>userList= Repository.getUserShipmentsFromApi();
+        if(parentCaller.equals("requestCaller"))fab.setVisibility(View.INVISIBLE);
         if(userList!=null)
         {
             noShipmentText.setVisibility(View.INVISIBLE);

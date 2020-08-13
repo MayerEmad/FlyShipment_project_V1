@@ -4,6 +4,7 @@ import java.util.List;
 
 import adapters_and_items.ProfileItem;
 import adapters_and_items.RequestItem;
+import adapters_and_items.ShipmentDealItem;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.ShipmentRequestItem;
 import adapters_and_items.TripItem;
@@ -114,4 +115,10 @@ public interface theApiFunctions {
     @POST("request/not_approved/{request_id}")
     Call<ShipmentRequestItem> reject_shipments_request(@Path("request_id") int request_id);
 
+    @GET("request/del/{request_id}")
+    Call<ShipmentRequestItem> remove_rejected_shipment_from_request(@Path("request_id") int request_id);
+
+    //-------------------deals--------------------
+    @GET("deal/{user_id}")
+    Call<List<ShipmentDealItem>> get_shipments_deals(@Path("user_id")  int user_id);
 }

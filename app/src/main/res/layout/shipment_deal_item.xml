@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="185dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shipment_deal_item_upper_part"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="#0097A7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/shipment_deal_item_arrow_image"
+            android:layout_width="40dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="14dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toStartOf="@+id/shipment_deal_item_countery_to"
+            app:layout_constraintStart_toEndOf="@+id/shipment_deal_item_countery_from"
+            app:layout_constraintTop_toBottomOf="@+id/shipment_deal_item_name" />
+
+        <ImageView
+            android:id="@+id/shipment_deal_item_product_image"
+            android:layout_width="110dp"
+            android:layout_height="90dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/shipment_deal_item_product_weight"
+            android:layout_width="110sp"
+            android:layout_height="20dp"
+            android:background="#90A19B9B"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="italic|bold"
+            app:layout_constraintBottom_toBottomOf="@+id/shipment_deal_item_product_image"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="50 Kg" />
+
+        <TextView
+            android:id="@+id/shipment_deal_item_reward"
+            android:layout_width="110dp"
+            android:layout_height="20dp"
+            android:background="#FF0"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shipment_deal_item_product_image"
+            tools:text="$10.00" />
+
+        <TextView
+            android:id="@+id/shipment_deal_item_name"
+            android:layout_width="280dp"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toEndOf="@+id/shipment_deal_item_product_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="shipment name" />
+
+        <TextView
+            android:id="@+id/shipment_deal_item_countery_from"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/shipment_deal_item_product_image"
+            app:layout_constraintTop_toBottomOf="@+id/shipment_deal_item_name"
+            tools:text="countery from" />
+
+        <TextView
+            android:id="@+id/shipment_deal_item_countery_to"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/shipment_deal_item_arrow_image"
+            app:layout_constraintTop_toBottomOf="@+id/shipment_deal_item_name"
+            tools:text="countery to" />
+
+        <TextView
+            android:id="@+id/shipment_deal_item_date"
+            android:layout_width="280dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@+id/shipment_deal_item_product_image"
+            app:layout_constraintTop_toBottomOf="@+id/shipment_deal_item_countery_from"
+            tools:text="Shipment date" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#00796B"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shipment_deal_item_upper_part">
+
+        <ImageView
+            android:id="@+id/shipment_deal_item_profile_img"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/shipment_deal_item_rating_bar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_below="@+id/shipment_deal_item_profile_name"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@+id/shipment_deal_item_profile_img"
+            android:numStars="5"
+            android:rating="4.3"
+            android:stepSize="0.1"
+            app:layout_constraintStart_toEndOf="@+id/shipment_deal_item_profile_img"
+            app:layout_constraintTop_toBottomOf="@+id/shipment_deal_item_profile_name" />
+
+        <TextView
+            android:id="@+id/shipment_deal_item_profile_name"
+            android:layout_width="110dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/shipment_deal_item_profile_img"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Mayer Emad" />
+
+        <Button
+            android:id="@+id/shipment_deal_item_status_btn"
+            android:layout_width="189dp"
+            android:layout_height="57dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FBC82D"
+            android:text="@string/show_step"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

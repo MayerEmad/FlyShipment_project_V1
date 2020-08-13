@@ -50,9 +50,15 @@
     <string name="ships_requests">Ships Requests</string>
     <string name="send_request_question">send request ?</string>
     <string name="pending_word">pending</string>
-    <string name="add_to_deals_text">Add To Deals</string>
+    <string name="go_to_deals_text">Go To Deals</string>
     <string name="remove_from_request_text">remove from request</string>
     <string name="approve_word">approve</string>
     <string name="reject_word">reject</string>
+    <string name="show_step">Show Step</string>
+    <string name="shipper_confirmation_text">Shipper confirmation</string>
+    <string name="meet_shipper_text">Meet Shipper</string>
+    <string name="reach_destination_text">Reach destination</string>
+    <string name="fly_from_home_text">Fly from home</string>
+    <string name="receive_shipment_text">Receive shipment</string>
 
 </resources>

@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.Repository;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import adapters_and_items.RequestItem;
+import adapters_and_items.ShipmentDealItem;
 import adapters_and_items.ShipmentRequestItem;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,8 +29,7 @@ public class ApiRequests extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public void ShipmentAskForTrip(int shipment_id, int tripId)
-    {
+    public void ShipmentAskForTrip(int shipment_id, int tripId) {
         Retrofit retrofit= new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -54,8 +55,9 @@ public class ApiRequests extends AppCompatActivity {
         });
     }
 
-    public void GetShipmentsRequests()
-    {
+    // ------------------- Requests -------------------------
+
+    public void GetShipmentsRequests() {
         Retrofit retrofit= new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -85,8 +87,7 @@ public class ApiRequests extends AppCompatActivity {
         });
     }
 
-    public void ApproveShipmentRequest(int request_id)
-    {
+    public void ApproveShipmentRequest(int request_id) {
         Retrofit retrofit= new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -110,8 +111,7 @@ public class ApiRequests extends AppCompatActivity {
         });
     }
 
-    public void RejectShipmentRequest(int request_id)
-    {
+    public void RejectShipmentRequest(int request_id) {
         Retrofit retrofit= new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -130,6 +130,60 @@ public class ApiRequests extends AppCompatActivity {
             @Override
             public void onFailure(Call<ShipmentRequestItem> call, Throwable t) {
                 Log.i("ApiShipmentRequest", "failed to reject shipment request\n"+
+                        t.getLocalizedMessage()+"\n"+ t.getCause()+"\n"+ t.getCause());
+            }
+        });
+    }
+
+    public void AfterRejectShipmentRequest(int request_id) {
+        Retrofit retrofit= new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions client=retrofit.create(theApiFunctions.class);
+        Call<ShipmentRequestItem> call = client.remove_rejected_shipment_from_request(request_id);
+        call.enqueue(new Callback<ShipmentRequestItem>() {
+            @Override
+            public void onResponse(Call<ShipmentRequestItem> call, Response<ShipmentRequestItem> response) {
+                if (!response.isSuccessful())
+                    Log.i("ApiShipmentRequest", "Response has error = "+response.message()+" code = "+response.code());
+                else{
+                    Log.i("ApiShipmentRequest", "rejected shipment removed from requests= "+response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<ShipmentRequestItem> call, Throwable t) {
+                Log.i("ApiShipmentRequest", "failed remove rejected shipment from requests \n"+
+                        t.getLocalizedMessage()+"\n"+ t.getCause()+"\n"+ t.getCause());
+            }
+        });
+    }
+
+    // ------------------ Deals -------------------------
+
+    public void GetShipmentDeals() {
+        Retrofit retrofit= new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions client=retrofit.create(theApiFunctions.class);
+
+        Call<List<ShipmentDealItem>> call = client.get_shipments_deals(Repository.TheProfileItem.getUser_id());
+        call.enqueue(new Callback<List<ShipmentDealItem>>() {
+            @Override
+            public void onResponse(Call<List<ShipmentDealItem>> call, Response<List<ShipmentDealItem>> response) {
+                if (!response.isSuccessful())
+                    Log.i("ApiShipmentRequest", "Response has error = "+response.message()+" code = "+response.code());
+                else{
+                    Log.i("ApiShipmentRequest", "shipments deals received = "+response.message());
+                    ArrayList<ShipmentDealItem> list = (ArrayList<ShipmentDealItem>) response.body();
+                    MyViewModel.setShipmentDealsLiveData(list);
+                     //Log.i("ApiShipmentRequest",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                }
+            }
+            @Override
+            public void onFailure(Call<List<ShipmentDealItem>> call, Throwable t) {
+                Log.i("ApiShipmentRequest", "failed to receive shipment deals\n"+
                         t.getLocalizedMessage()+"\n"+ t.getCause()+"\n"+ t.getCause());
             }
         });

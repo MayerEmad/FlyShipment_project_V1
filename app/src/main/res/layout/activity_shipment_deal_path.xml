@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioButton
+        android:id="@+id/shipment_deal_path_step_5"
+        android:layout_width="121dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="32dp"
+        android:scaleX="3"
+        android:scaleY="3"
+        android:text="@string/shipper_confirmation_text"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shipment_deal_path_step_4" />
+
+    <RadioButton
+        android:id="@+id/shipment_deal_path_step_4"
+        android:layout_width="121dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="32dp"
+        android:scaleX="3"
+        android:scaleY="3"
+        android:text="@string/meet_shipper_text"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shipment_deal_path_step_3" />
+
+    <RadioButton
+        android:id="@+id/shipment_deal_path_step_3"
+        android:layout_width="121dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="32dp"
+        android:scaleX="3"
+        android:scaleY="3"
+        android:text="@string/reach_destination_text"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shipment_deal_path_step_2" />
+
+    <RadioButton
+        android:id="@+id/shipment_deal_path_step_2"
+        android:layout_width="121dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="32dp"
+        android:scaleX="3"
+        android:scaleY="3"
+        android:text="@string/fly_from_home_text"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shipment_deal_path_step_1" />
+
+    <RadioButton
+        android:id="@+id/shipment_deal_path_step_1"
+        android:layout_width="121dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="64dp"
+        android:checked="true"
+        android:scaleX="3"
+        android:scaleY="3"
+        android:buttonTint="@color/red"
+        android:text="@string/receive_shipment_text"
+        android:textColorHighlight="@color/red"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
