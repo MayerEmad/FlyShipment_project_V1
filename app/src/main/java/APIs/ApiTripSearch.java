@@ -50,7 +50,7 @@ public class ApiTripSearch extends AppCompatActivity {
                    // Repository.getTripsFromApi();
                 }
                 MyViewModel.setTripLiveData(list);
-                 Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
+                 //Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
 
             }
 

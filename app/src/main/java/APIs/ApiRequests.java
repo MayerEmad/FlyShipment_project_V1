@@ -1,7 +1,10 @@
 package APIs;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +19,7 @@ import java.util.List;
 import adapters_and_items.RequestItem;
 import adapters_and_items.ShipmentDealItem;
 import adapters_and_items.ShipmentRequestItem;
+import inbox_classes.ShipmentDealPathActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -188,4 +192,68 @@ public class ApiRequests extends AppCompatActivity {
             }
         });
     }
+
+    public void MoveStepShipmentDealPath(final int deal_id, final Context appCon) {
+        Retrofit retrofit= new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions client=retrofit.create(theApiFunctions.class);
+
+        Call<ShipmentDealItem> call = client.move_step_shipment_deal_path(deal_id);
+        call.enqueue(new Callback<ShipmentDealItem>() {
+            @Override
+            public void onResponse(Call<ShipmentDealItem> call, Response<ShipmentDealItem> response) {
+                if (!response.isSuccessful())
+                    Log.i("ApiShipmentRequest", "Response has error = "+response.message()+" code = "+response.code());
+                else {
+                    Log.i("ApiShipmentRequest", "shipments deal path moved = " + response.message());
+
+                    //FIXME --------------- not the best way -------------------
+                    ArrayList<ShipmentDealItem> deals = MyViewModel.getShipmentDealsLiveData().getValue();
+                    for(ShipmentDealItem deal : deals) {
+                        if (deal.getDeal_id() == deal_id)
+                        { deal.setStatus_state(deal.getStatus_state() + 1);break; }
+                    }
+                    Intent intent = new Intent(appCon, ShipmentDealPathActivity.class);
+                    intent.putExtra("DEAL_ID",deal_id);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    appCon.startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ShipmentDealItem> call, Throwable t) {
+                Log.i("ApiShipmentRequest", "failed to move shipment deal path\n"+
+                        t.getLocalizedMessage()+"\n"+ t.getCause()+"\n"+ t.getCause());
+            }
+        });
+    }
+
+    public void SendShipmentDealRate(float rate, int user_id) {
+        Retrofit retrofit= new Retrofit.Builder()
+                .baseUrl("https://originaliereny.com/shipping/public/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        theApiFunctions client=retrofit.create(theApiFunctions.class);
+
+        Call<ShipmentDealItem> call = client.send_shipment_deal_rate(user_id,rate);
+        call.enqueue(new Callback<ShipmentDealItem>() {
+            @Override
+            public void onResponse(Call<ShipmentDealItem> call, Response<ShipmentDealItem> response) {
+                if (!response.isSuccessful())
+                    Log.i("ApiShipmentRequest", "Response has error = "+response.message()+" code = "+response.code());
+                else {
+                    Log.i("ApiShipmentRequest", "shipments deal rate send= " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ShipmentDealItem> call, Throwable t) {
+                Log.i("ApiShipmentRequest", "failed to send shipment deal rate\n"+
+                        t.getLocalizedMessage()+"\n"+ t.getCause()+"\n"+ t.getCause());
+            }
+        });
+    }
+
 }

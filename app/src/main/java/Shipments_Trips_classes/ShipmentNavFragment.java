@@ -67,7 +67,7 @@ public class ShipmentNavFragment extends Fragment
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         ArrayList<ShipmentItem>userList= Repository.getUserShipmentsFromApi();
-        if(parentCaller.equals("requestCaller"))fab.setVisibility(View.INVISIBLE);
+        if(parentCaller.equals("AdapterRecyclerTripParent"))fab.setVisibility(View.INVISIBLE);
         if(userList!=null)
         {
             noShipmentText.setVisibility(View.INVISIBLE);

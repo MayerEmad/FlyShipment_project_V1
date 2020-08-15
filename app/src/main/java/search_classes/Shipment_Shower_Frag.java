@@ -43,7 +43,7 @@ public class Shipment_Shower_Frag extends Fragment
        // Log.i("onViewCreated: ","1----------->is here");
         loadingIndicator = view.findViewById(R.id.loading_indicator);
         recyclerView = (RecyclerView) view.findViewById(R.id.rc1);
-        userList=Repository.getShipmentsFromApi();
+        userList=Repository.getShipmentsFromApi(getActivity().getApplicationContext());
 
         // For the first time API will take time to get Shipments from doInBackground
         loadingIndicator.setVisibility(View.VISIBLE);

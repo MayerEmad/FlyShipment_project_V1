@@ -136,4 +136,8 @@ public class ShipmentDealItem {
     }
 
     public String getStrTotalWeight(){ return  Double.toString(item_weight*items_number)+"Kg"; }
+
+    public void setStatus_state(int status_state) {
+        this.status_state = status_state;
+    }
 }

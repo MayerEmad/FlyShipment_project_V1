@@ -3,8 +3,6 @@ package adapters_and_items;
 import com.google.gson.annotations.SerializedName;
 
 public class TripItem {
-    private static final int NO_IMAGE_PROVIDED = -1;  //TODO (Edit) put a customn photo
-
     @SerializedName("traveller_info_id")
     private int trip_id;
     @SerializedName("user_info_id")
@@ -13,7 +11,7 @@ public class TripItem {
     private String country_from;
     @SerializedName("to_country")
     private String country_to;
-    @SerializedName("user_name")
+    @SerializedName("full_name")
     private String profile_name;
     @SerializedName("date")
     private String meeting_date;
@@ -26,7 +24,6 @@ public class TripItem {
     @SerializedName("editable")
     private int isEditable;
 
-    private int ImageId = NO_IMAGE_PROVIDED;
 
     //uploading constructor
     public TripItem(String from, String to, String date, double availableWeight, String userId,int isEditable)

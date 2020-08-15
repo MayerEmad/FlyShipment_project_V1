@@ -50,10 +50,7 @@ public class AdapterRecyclerShipmentDeals extends RecyclerView.Adapter<AdapterRe
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final ShipmentDealItem item = ShipmentsDealList.get(position);
 
-        Glide.with(mContext).load(item.getProduct_image())
-               // .skipMemoryCache(true)
-                //.diskCacheStrategy(DiskCacheStrategy.NONE)
-                .into(holder.product_image);
+        Glide.with(mContext).load(item.getProduct_image()).into(holder.product_image);
         holder.weight_text.setText(item.getStrTotalWeight());
         holder.product_name.setText(item.getProduct_name());
         holder.country_from.setText(item.getCountry_from());
@@ -82,11 +79,9 @@ public class AdapterRecyclerShipmentDeals extends RecyclerView.Adapter<AdapterRe
         holder.status_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(item.getStatus_state()==0){
-                    Log.i("ShowDeal", "onClick: ---------------->Show Deal state");
                     Intent intent = new Intent(mContext, ShipmentDealPathActivity.class);
+                    intent.putExtra("DEAL_ID",item.getDeal_id());
                     mContext.startActivity(intent);
-                }
             }});
     }
 

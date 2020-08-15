@@ -38,18 +38,13 @@ public class Repository
     //------------------------shipments-------------------------
     // return LiveData from MyModelView
 
-    public static ArrayList<ShipmentItem> getShipmentsFromApi()
+    public static ArrayList<ShipmentItem> getShipmentsFromApi(Context appCon)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
-        task.GetShipmentItemsFromServer(); //  Log.i("Repository getShips", "------> getting data from server...");
+        task.GetShipmentItemsFromServer(appCon); //  Log.i("Repository getShips", "------> getting data from server...");
         return MyViewModel.getShipmentLiveData().getValue();
     }
-    public static ArrayList<ShipmentItem> getShipmentsFromApiNow()
-    {
-        ApiShipmentSearch task=new ApiShipmentSearch();
-        task.GetShipmentItemsFromServerNow();
-        return MyViewModel.getShipmentLiveData().getValue();
-    }
+
     public static void uploadShipmentItem(ShipmentItem item, Context CreateShipmentItemActivityContext)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
@@ -136,6 +131,16 @@ public class Repository
         ApiRequests task=new ApiRequests();
         task.GetShipmentDeals();
         return MyViewModel.getShipmentDealsLiveData().getValue();
+    }
+
+    public static void moveStepShipmentDealPath(int deal_id,Context appCon) {
+        ApiRequests task=new ApiRequests();
+        task.MoveStepShipmentDealPath(deal_id,appCon);
+    }
+
+    public static void sendShipmentDealRate(float rate, int user_id) {
+        ApiRequests task=new ApiRequests();
+        task.SendShipmentDealRate(rate,user_id);
     }
 }
 

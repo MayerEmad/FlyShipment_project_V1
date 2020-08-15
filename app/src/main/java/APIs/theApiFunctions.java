@@ -12,6 +12,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -121,4 +123,11 @@ public interface theApiFunctions {
     //-------------------deals--------------------
     @GET("deal/{user_id}")
     Call<List<ShipmentDealItem>> get_shipments_deals(@Path("user_id")  int user_id);
+
+    @POST("status/{deal_id}")
+    Call<ShipmentDealItem> move_step_shipment_deal_path(@Path("deal_id")  int deal_id);
+
+    @POST("rate/{user_id}")
+    @FormUrlEncoded
+    Call<ShipmentDealItem> send_shipment_deal_rate(@Path("user_id") int user_id , @Field("rate") float rate);
 }

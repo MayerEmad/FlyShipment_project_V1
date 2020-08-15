@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -40,8 +41,7 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
     public SearchNavFragment() {
         // Required empty public constructor
     }
-    static class mydate
-    {
+    static class mydate {
         int day,month,year;
         mydate(int year, int month, int day) {
             this.year = year;
@@ -51,13 +51,12 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
         private static mydate convertFromStringToMydate(String dateStr)
         {
             String[] numbersArr = dateStr.split("-");
-            return new mydate(Integer.parseInt(numbersArr[2]), Integer.parseInt(numbersArr[1]), Integer.parseInt(numbersArr[0]));
+            return new mydate(Integer.parseInt(numbersArr[0]), Integer.parseInt(numbersArr[1]), Integer.parseInt(numbersArr[2]));
         }
 
         private boolean isBeforeMyDate(String dateStr)
         {
             mydate otherDate=convertFromStringToMydate(dateStr);
-        
             if(otherDate.year<this.year) return true;
             else if(otherDate.year==this.year && otherDate.month<this.month) return true;
             else if(otherDate.year==this.year && otherDate.month==this.month && otherDate.day<this.day)return true;
@@ -71,41 +70,56 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
             return this.year+"-"+this.month+"-"+this.day;
         }
     }
-
     private String fromCountry="";
     private String toCountry="";
-    private double weight=0;
+    private double weight;
     private mydate date;
     private EditText et_date;
 
-    private ArrayList<ShipmentItem> getFilteredShipments()
-    {
-        ArrayList<ShipmentItem> ShipmentList =Repository.getShipmentsFromApiNow(); //MyViewModel.getShipmentLiveData().getValue();
+    private boolean countryComp(String a, String b){
+        return a.equalsIgnoreCase(b) ||  a.isEmpty();
+    }
+
+    private String digitsOnly(String weightStr) {
+        String d="";
+        for(int i=0;i<weightStr.length();i++)
+            if(weightStr.charAt(i)>='0'&&weightStr.charAt(i)<='9') d+=weightStr.charAt(i);
+        return d;
+    }
+
+    //FIXME bad way
+    private ArrayList<ShipmentItem> ShipmentsLocalStorage=MyViewModel.getShipmentLiveData().getValue();
+    private ArrayList<TripItem> TripsLocalStorage=MyViewModel.getTripLiveData().getValue();
+
+    private ArrayList<ShipmentItem> getFilteredShipments() {
+        ArrayList<ShipmentItem> ShipmentList = ShipmentsLocalStorage;
         ArrayList<ShipmentItem> filteredShipmentList= new ArrayList<ShipmentItem>();
 
         for(int i=0;i<ShipmentList.size();i++)
         {
             // I have a trip
             ShipmentItem item=ShipmentList.get(i);
-            if((fromCountry.equals(item.getCountry_from()) || toCountry.equals(item.getCountry_to())) &&
+            if(countryComp(fromCountry,item.getCountry_from()) &&countryComp(toCountry,item.getCountry_to()) &&
                weight>=item.getItemWeight() && date.isBeforeMyDate(item.getLast_date()))   filteredShipmentList.add(item);
         }
+
         return filteredShipmentList;
     }
 
-    private ArrayList<TripItem> getFilteredTrips()
-    {
-        ArrayList<TripItem> TripList = MyViewModel.getTripLiveData().getValue();
-        ArrayList<TripItem> filteredtripList= new ArrayList<TripItem>();
+    private ArrayList<TripItem> getFilteredTrips() {
+        ArrayList<TripItem> TripList = TripsLocalStorage;
+        ArrayList<TripItem> filteredTripList= new ArrayList<TripItem>();
+        if(weight==1000000000)weight=0;
         for(int i=0;i<TripList.size();i++)
         {
             // I have a shipment
             TripItem item=TripList.get(i);
-            if((fromCountry.equals(item.getCountry_from()) || toCountry.equals(item.getCountry_to())) &&
-               weight<=item.getAvailable_weight() && date.isBeforeMyDate(item.getMeeting_date()))   filteredtripList.add(item);
+            if(countryComp(fromCountry,item.getCountry_from()) &&countryComp(toCountry,item.getCountry_to()) &&
+               weight<=item.getAvailable_weight() && date.isBeforeMyDate(item.getMeeting_date()))   filteredTripList.add(item);
         }
-        return filteredtripList;
+        return filteredTripList;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -131,6 +145,8 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
         et_date=(EditText)view.findViewById(R.id.date);
         et_date.setFocusable(false);
 
+        //-------------------------Click listeners------------------------
+
         et_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +155,6 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
             }
         });
 
-        // on Searching..
         searchButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -147,16 +162,40 @@ public class SearchNavFragment extends Fragment implements DatePickerDialog.OnDa
             {
                 fromCountry=et_from.getText().toString();
                 toCountry=et_to.getText().toString();
+
                 if(et_date.getText().toString().isEmpty())date = mydate.convertFromStringToMydate("3000-32-32");
                 else date = mydate.convertFromStringToMydate(et_date.getText().toString().substring(7));
+
                 String weightStr=et_weight.getText().toString();
+                weightStr=digitsOnly(weightStr);
                 if(!weightStr.isEmpty()) weight=Double.parseDouble(weightStr);
+                else weight=1000000000;
 
                 MyViewModel.setShipmentLiveData(getFilteredShipments());
                 MyViewModel.setTripLiveData(getFilteredTrips());
             }
         });
+
+        //-------------------------Observers------------------------
+        // update local storage just for once  FIXME not good way
+        MyViewModel.getShipmentLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShipmentItem>>()
+        {
+            @Override
+            public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
+                if(ShipmentsLocalStorage==null)
+                     ShipmentsLocalStorage = MyViewModel.getShipmentLiveData().getValue();
+            }
+        });
+        MyViewModel.getTripLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<TripItem>>()
+        {
+            @Override
+            public void onChanged(ArrayList<TripItem> tripItems) {
+                if(TripsLocalStorage==null)
+                    TripsLocalStorage = MyViewModel.getTripLiveData().getValue();
+            }
+        });
     }
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

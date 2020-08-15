@@ -96,9 +96,9 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUserRate());
 
-        if(parent.equals("AdapterRecyclerTripParent")){
+        if(parent.equals("AdapterRecyclerTripParent"))
+        {
             holder.request_btn.setText(R.string.add_to_trip_text);
-
             if(item.getIsEditable()==-1)
             {
                 holder.request_btn.setText(R.string.request_sent_text);
@@ -110,6 +110,11 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
                 holder.request_btn.setEnabled(false);
             }
         }
+        else if(parent.equals("shipment_shower_freg")){
+            holder.request_btn.setText("next version");
+            holder.request_btn.setEnabled(false);
+        }
+        else holder.request_btn.setVisibility(View.INVISIBLE);
 
         //Listeners..
         holder.request_btn.setOnClickListener(new View.OnClickListener() {

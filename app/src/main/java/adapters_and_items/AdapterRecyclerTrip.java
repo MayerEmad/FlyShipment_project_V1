@@ -92,6 +92,8 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
                 .into(holder.profile_image);
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUser_rate());
+        if(!parent.equals("trip_shower_fragment"))holder.request_btn.setVisibility(View.INVISIBLE);
+
 
         //Listeners..
         holder.request_btn.setOnClickListener(new View.OnClickListener() {

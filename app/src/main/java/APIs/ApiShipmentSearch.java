@@ -4,13 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flyshippment_project.FileUtil;
+import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.Repository;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,7 +42,7 @@ public class ApiShipmentSearch extends AppCompatActivity
         super.onCreate(savedInstanceState);
     }
 
-    public void GetShipmentItemsFromServer()
+    public void GetShipmentItemsFromServer(final Context appCon)
     {
         Retrofit retrofit= new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
@@ -55,8 +58,8 @@ public class ApiShipmentSearch extends AppCompatActivity
                     Log.i("APIShipmemtSearch get", "Response has error = "+response.errorBody()+" code = "+response.code());
                 }
                 list = (ArrayList<ShipmentItem>) response.body();
+                Toast.makeText(appCon, "we received shipments", Toast.LENGTH_SHORT).show();
                // Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
-                if(list==null)Repository.getShipmentsFromApi();
                 MyViewModel.setShipmentLiveData(list);
             }
             @Override
@@ -66,27 +69,7 @@ public class ApiShipmentSearch extends AppCompatActivity
         });
     }
 
-    public void GetShipmentItemsFromServerNow()
-    {
-        Retrofit retrofit= new Retrofit.Builder()
-                .baseUrl("https://originaliereny.com/shipping/public/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        theApiFunctions client=retrofit.create(theApiFunctions.class);
-        Call<List<ShipmentItem>> call = client.get_api_shipments();
-        try
-        {
-            Response<List<ShipmentItem>> response = call.execute();
-            List<ShipmentItem> apiResponse = response.body();
-            MyViewModel.setShipmentLiveData((ArrayList<ShipmentItem>) apiResponse);
-            System.out.println(apiResponse);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
 
-    }
 
 
 

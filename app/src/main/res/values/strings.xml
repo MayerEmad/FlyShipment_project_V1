@@ -60,5 +60,7 @@
     <string name="reach_destination_text">Reach destination</string>
     <string name="fly_from_home_text">Fly from home</string>
     <string name="receive_shipment_text">Receive shipment</string>
+    <string name="confirm_word">Confirm</string>
+    <string name="next_step_word">next step</string>
 
 </resources>

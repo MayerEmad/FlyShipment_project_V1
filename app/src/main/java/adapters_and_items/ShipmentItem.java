@@ -10,7 +10,7 @@ public class ShipmentItem {
     @SerializedName("itemName") private String product_name;
     @SerializedName("from_country") private String country_from;
     @SerializedName("to_country")  private String country_to;
-    @SerializedName("user_name")  private String profile_name;
+    @SerializedName("full_name")  private String profile_name;
     @SerializedName("deadline")  private String last_date;
     @SerializedName("image")  private String product_image;
     @SerializedName("user_image")  private String profile_image;
