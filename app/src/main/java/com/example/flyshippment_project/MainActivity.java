@@ -25,8 +25,6 @@ import search_classes.SearchNavFragment;
 public class MainActivity extends AppCompatActivity
 {
     private static final String TAG = "MainActivity";
-    private static boolean goToSplash=true;
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener=
             new BottomNavigationView.OnNavigationItemSelectedListener()
@@ -71,11 +69,9 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "there is no internet access :(", Toast.LENGTH_SHORT).show();
         }
 
-        // FIXME Temporary ------------
-        SharedPreferences PREF_USER_ID = getSharedPreferences("userid" , MODE_PRIVATE);
-        if(Repository.TheProfileItem==null){
-            Repository.getUserInfo(PREF_USER_ID);
-        }
+        // Starting point ------------
+        if(Repository.TheProfileItem==null)getProfileItemForTheFirstTime();
+
 
         //* Bottom Navigation Bar Listener
         BottomNavigationView bottomNav=findViewById(R.id.bottom_nav);
@@ -106,6 +102,12 @@ public class MainActivity extends AppCompatActivity
         else {
           getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new SearchNavFragment()).commit(); //Default
         }
+    }
+
+    public void getProfileItemForTheFirstTime() {
+        SharedPreferences PREF_USER_ID = getSharedPreferences("userid" , MODE_PRIVATE);
+        int id=PREF_USER_ID.getInt("userid",2);
+        Repository.getUserInfo(id,getApplicationContext());
     }
 
 }

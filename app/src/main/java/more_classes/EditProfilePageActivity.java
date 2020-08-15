@@ -177,9 +177,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
                   name+=userLastNameText.getText().toString().trim();
               if(!name.equals(""))USERINFO.setUser_name(name);
 
-              Repository.updateUserInfo(EditProfilePageActivity.this,imageEdited);
-
-              Toast.makeText(EditProfilePageActivity.this, "profile updated :)", Toast.LENGTH_SHORT).show();
+              Repository.updateUserInfo(EditProfilePageActivity.this,imageEdited, getApplicationContext());
 
                 arrow_back_function();
 

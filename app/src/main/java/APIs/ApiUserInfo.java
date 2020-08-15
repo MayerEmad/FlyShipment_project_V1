@@ -1,6 +1,7 @@
 package APIs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,12 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flyshippment_project.FileUtil;
+import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.Repository;
 
 import java.io.File;
 import java.util.Arrays;
 
 import adapters_and_items.ProfileItem;
+import more_classes.ProfilePageActivity;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -38,7 +41,7 @@ public class ApiUserInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public void DoTaskInBack(Integer id) {
+    public void GetUserInfoFromApi(Integer id, final Context appCon) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -52,10 +55,20 @@ public class ApiUserInfo extends AppCompatActivity {
             public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
                 if (!response.isSuccessful()) {
                     Log.i("ApiUserInfo badresponse", "Response has error X(");
-                    return;
                 }
-                Repository.TheProfileItem = response.body();
-                Log.i("ApiUserInfo GoodRespons", "Response ----------> ="+response.message());
+                else
+                {
+                    Log.i("ApiUserInfo ", "Response ----------> ="+response.message());
+                    if(Repository.TheProfileItem!=null){  //Refresh profile page
+                        Repository.TheProfileItem = response.body();
+                        Intent intent = new Intent(appCon,ProfilePageActivity.class );
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        appCon.startActivity(intent);
+                    }
+                   else
+                       Repository.TheProfileItem = response.body();
+                }
+
             }
 
             @Override
@@ -67,14 +80,14 @@ public class ApiUserInfo extends AppCompatActivity {
         });
     }
 
-    public void UpdateUserInfoApi( Context mContext) {
+    public void UpdateUserInfoApi(final Context mContext, final Context appCon) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         theApiFunctions client = retrofit.create(theApiFunctions.class);
 
-        ProfileItem user=Repository.TheProfileItem;
+        final ProfileItem user=Repository.TheProfileItem;
         RequestBody fullName = RequestBody.create(MediaType.parse("text/plain"), user.getUser_name());
         RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), user.getUser_phone());
         RequestBody identification = RequestBody.create(MediaType.parse("text/plain"), user.getUser_passport());
@@ -83,24 +96,19 @@ public class ApiUserInfo extends AppCompatActivity {
         RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), userImageFile);
         MultipartBody.Part image = MultipartBody.Part.createFormData("image", userImageFile.getName(), fileReqBody);
 
-        Log.i("ApiUserInfo", "image path:---------> "+FileUtil.getPath(Uri.parse(filePath),mContext));
-        Log.i("ApiUserInfo", "user name:---------> "+ user.getUser_name());
-        Log.i("ApiUserInfo", "user phone:---------> "+ user.getUser_phone());
-        Log.i("ApiUserInfo", "user passport:---------> "+ user.getUser_passport());
-
-        Call<ProfileItem> call = client.updateUserInfoItem(image,phone,identification,fullName);
+        Call<ProfileItem> call = client.updateUserInfoItem(user.getUser_id(),image,phone,identification,fullName);
         call.enqueue(new Callback<ProfileItem>() {
             @Override
             public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("ApiUserInfo badresponse", "Update has error X("+
-                            "\n"+response.message()+
-                            "\n"+response.errorBody()+
-                            "\n"+response.body() +
-                            "\n"+response.code()+
-                            "\n"+response.raw());
+                    Log.i("ApiUserInfo", "Update image has error X("+
+                            "\n"+response.message()+ "\n"+response.errorBody()+ "\n"+response.body());
                 }
-                else Log.i("ApiUserInfo GoodRespons", "Update Done ----------> ="+response.body()+response.message());
+                else {
+                    Log.i("ApiUserInfo", "Update image Done ----------> ="+response.body()+response.message());
+                    Toast.makeText(appCon, "profile updated :)", Toast.LENGTH_SHORT).show();
+                    Repository.getUserInfo(user.getUser_id(),appCon);
+                }
             }
 
             @Override
@@ -112,14 +120,14 @@ public class ApiUserInfo extends AppCompatActivity {
 
     }
 
-    public void UpdateUserInfoApiNoImage( Context mContext) {
+    public void UpdateUserInfoApiNoImage(final Context mContext, final Context appCon ) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         theApiFunctions client = retrofit.create(theApiFunctions.class);
 
-        ProfileItem user=Repository.TheProfileItem;
+        final ProfileItem user=Repository.TheProfileItem;
         ProfileItem uploadedProfileItem=new ProfileItem(user.getUser_name(),user.getUser_phone(),user.getUser_passport());
 
         Call<ProfileItem> call = client.updateUserInfoNoImage(user.getUser_id(),uploadedProfileItem);
@@ -127,14 +135,14 @@ public class ApiUserInfo extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
                 if (!response.isSuccessful()) {
-                    Log.i("ApiUserInfo badresponse", "Update has error X("+
-                            "\n"+response.message()+
-                            "\n"+response.errorBody()+
-                            "\n"+response.body() +
-                            "\n"+response.code()+
-                            "\n"+response.raw());
+                    Log.i("ApiUserInfo ", "Update has error X("+
+                            "\n"+response.message()+ "\n"+response.errorBody()+ "\n"+response.body());
                 }
-                else Log.i("ApiUserInfo GoodRespons", "Update Done ----------> ="+response.body()+response.message());
+                else{
+                    Log.i("ApiUserInfo ", "Update Done without image ----------> ="+response.body()+response.message());
+                    Toast.makeText(appCon, "profile updated :)", Toast.LENGTH_SHORT).show();
+                    Repository.getUserInfo(user.getUser_id(),appCon);
+                }
             }
 
             @Override

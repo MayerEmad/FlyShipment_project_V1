@@ -30,6 +30,7 @@ public interface theApiFunctions {
     @Multipart
     @POST("user_update/{user_info_id}")
     Call<ProfileItem> updateUserInfoItem(
+            @Path("user_info_id") int id,
             @Part MultipartBody.Part image,
             @Part("phone") RequestBody phone,
             @Part("identification") RequestBody identification,

@@ -23,16 +23,16 @@ public class Repository
 
     public static ProfileItem TheProfileItem=null;
 
-    public static void getUserInfo(SharedPreferences id){
+    public static void getUserInfo(int id,Context appCon){
         ApiUserInfo task=new ApiUserInfo();
-        task.DoTaskInBack(id.getInt("userid",2));
+        task.GetUserInfoFromApi(id,appCon);
     }
-    public static void updateUserInfo(Context EditProfilePageContext,boolean imageEdited) {
+    public static void updateUserInfo(Context EditProfilePageContext,boolean imageEdited,Context appCon) {
         ApiUserInfo task=new ApiUserInfo();
         if(imageEdited)
-            task.UpdateUserInfoApi(EditProfilePageContext);
+            task.UpdateUserInfoApi(EditProfilePageContext,appCon);
         else
-            task.UpdateUserInfoApiNoImage(EditProfilePageContext);
+            task.UpdateUserInfoApiNoImage(EditProfilePageContext,appCon);
     }
 
     //------------------------shipments-------------------------
