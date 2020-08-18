@@ -10,5 +10,10 @@
     <color name="red">#FFCC0000</color>
     <color name="green">#FF99CC00</color>
     <color name="blue">#FF0288D1</color>
+    <color name="backGroundColor">#FFFFFAEC</color>
+    <color name="navigationColor">#4A6572</color>
+    <color name="yellowColor">#F9AA33</color>
+    <color name="darkGround">#232F34</color>
+    <color name="bluemin">#0097A7</color>
 
 </resources>

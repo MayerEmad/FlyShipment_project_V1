@@ -6,7 +6,7 @@ public class TripItem {
     @SerializedName("traveller_info_id")
     private int trip_id;
     @SerializedName("user_info_id")
-    private String user_id;
+    private int user_id;
     @SerializedName("from_country")
     private String country_from;
     @SerializedName("to_country")
@@ -26,7 +26,7 @@ public class TripItem {
 
 
     //uploading constructor
-    public TripItem(String from, String to, String date, double availableWeight, String userId,int isEditable)
+    public TripItem(String from, String to, String date, double availableWeight, int userId,int isEditable)
     {
         country_from =from;
         country_to =to;
@@ -36,10 +36,11 @@ public class TripItem {
         this.isEditable=isEditable;
     }
 
-    public TripItem(int trip_id, String from, String to, String date, double availableWeight, String profImgUrl, String profName,
+    public TripItem(int trip_id,int user_id, String from, String to, String date, double availableWeight, String profImgUrl, String profName,
                     double rate, int isEditable)
     {
         this.trip_id = trip_id;
+        this.user_id=user_id;
         country_from =from;
         country_to =to;
         meeting_date=date;
@@ -49,6 +50,10 @@ public class TripItem {
         profile_name=profName;
         user_rate=rate;
         this.isEditable=isEditable;
+    }
+
+    public int getUser_id() {
+        return user_id;
     }
 
     public int getTrip_id() { return this.trip_id; }

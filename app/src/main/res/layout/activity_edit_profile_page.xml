@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B7A1ABAC">
+    android:background="#30555C">
 
 
     <EditText
@@ -14,9 +13,14 @@
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
         android:gravity="center"
         android:hint="@string/last_name_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
         android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/edit_profile_first_name_edit_text"
         app:layout_constraintTop_toBottomOf="@+id/edit_profile_image_image_view" />
 
@@ -28,7 +32,8 @@
         android:layout_marginEnd="16dp"
         android:gravity="center_vertical|end"
         android:text=""
-        android:textColor="@color/gray2"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +48,7 @@
         android:checked="true"
         android:gravity="center_vertical"
         android:text="@string/passport_num_word"
+        android:textColor="#FEFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,13 +56,14 @@
 
     <EditText
         android:id="@+id/edit_profile_phone_edit_text"
-        android:layout_width="220dp"
+        android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginTop="7dp"
         android:layout_marginEnd="16dp"
         android:gravity="center_vertical|end"
         android:text=""
-        android:textColor="@color/gray2"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,25 +71,28 @@
 
     <ImageButton
         android:id="@+id/edit_profile_back_button"
-        android:layout_width="68dp"
-        android:layout_height="40dp"
+        android:layout_width="65dp"
+        android:layout_height="48dp"
         android:layout_marginStart="27dp"
         android:layout_marginTop="22dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/bushape"
+        android:foreground="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_rew" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <EditText
         android:id="@+id/edit_profile_first_name_edit_text"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginStart="72dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="24dp"
         android:gravity="center"
         android:hint="@string/first_name_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_profile_image_image_view" />
 
@@ -90,16 +100,16 @@
         android:id="@+id/edit_profile_image_image_view"
         android:layout_width="189dp"
         android:layout_height="186dp"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="112dp"
-        android:background="#FFFFFF"
-        android:foreground="@android:drawable/ic_input_add"
+        android:background="#30555C"
+        android:foreground="@drawable/ic_add_photo"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <CheckedTextView
         android:id="@+id/edit_profile_email_check_text"
@@ -110,6 +120,7 @@
         android:checked="true"
         android:gravity="center_vertical"
         android:text="@string/email_word"
+        android:textColor="#FEFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +135,7 @@
         android:checked="true"
         android:gravity="center_vertical"
         android:text="@string/phone_num_word"
+        android:textColor="#FEFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,13 +143,14 @@
 
     <EditText
         android:id="@+id/edit_profile_email_edit_text"
-        android:layout_width="240dp"
+        android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:gravity="center_vertical|end"
         android:text=""
-        android:textColor="@color/gray2"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -145,10 +158,11 @@
 
     <Button
         android:id="@+id/edit_profile_save_button"
-        android:layout_width="200dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="105dp"
-        android:layout_marginBottom="51dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginBottom="72dp"
+        android:background="@drawable/bushape"
         android:text="@string/save_changes_word"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

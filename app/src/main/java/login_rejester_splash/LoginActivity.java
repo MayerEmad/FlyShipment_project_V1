@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.R;
 
+import adapters_and_items.ProfileItem;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,32 +58,32 @@ public class LoginActivity extends AppCompatActivity {
 
         private void calloginApi() {
 
-        APIManager.getInstance().getAPI().login(email.getText().toString(),pass.getText().toString()).enqueue(new Callback<RespnseModel>() {
+        APIManager.getInstance().getAPI().login(email.getText().toString(),pass.getText().toString()).enqueue(new Callback<ProfileItem>() {
             @Override
-            public void onResponse(Call<RespnseModel> call, Response<RespnseModel> response) {
-                if (response.isSuccessful()) {
-                    RespnseModel msg = response.body();
-                    String res = msg.getMessage();
+            public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
+                String msg=response.message();
+                if (response.isSuccessful()&&response.body().getUser_id()!=0)
+                {
+                  /*  prefs = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor et = prefs.edit();
+                    et.putBoolean("isLogin", true);
+                    et.commit();*/
 
-                    if(res.equals("Login Done")){
-                        prefs = getSharedPreferences("checkbox", MODE_PRIVATE);
-                        SharedPreferences.Editor et = prefs.edit();
-                        et.putBoolean("isLogin", true);
-                        et.commit();
+                    PREF_USER_ID = getSharedPreferences("userid" , MODE_PRIVATE);
+                    SharedPreferences.Editor idet = PREF_USER_ID.edit();
+                    idet.putInt("userid", response.body().getUser_id());
+                    idet.commit();
 
-
-                        Toast.makeText(getApplicationContext(), msg.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(i);}
-                    else {
-                        Toast.makeText(getApplicationContext(), msg.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                    }}
+                    Toast.makeText(getApplicationContext(), "welcome"+response.body().getUser_nick_name(),Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(i);
+                } else {
+                        Toast.makeText(getApplicationContext(), "Wrong Password or Email",Toast.LENGTH_LONG).show();
+                }
+            }
 
             @Override
-            public void onFailure(Call<RespnseModel> call, Throwable t) {
+            public void onFailure(Call<ProfileItem> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), "Failed",
                                 Toast.LENGTH_LONG).show();
             }

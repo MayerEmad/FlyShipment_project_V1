@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flyshippment_project.R;
+import com.example.flyshippment_project.Repository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,8 +18,8 @@ import retrofit2.Response;
 
 public class RejesterActivity extends AppCompatActivity {
     Button register;
-    EditText name, email, pass, conpass , id;
-    String full;
+    EditText name, email, pass, conpass,first,second , id;
+    String full,userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +32,16 @@ public class RejesterActivity extends AppCompatActivity {
         name = (EditText) findViewById(R.id.etregname);
         pass = (EditText) findViewById(R.id.etregpass);
         conpass = (EditText) findViewById(R.id.etregcon);
+        first=(EditText)findViewById(R.id.et_reg_first_name);
+        second=(EditText)findViewById(R.id.et_reg_second_name);
+
         id = (EditText) findViewById(R.id.etid);
-        full = name.getText().toString();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-//                if (pass.getText().toString().equals(conpass.getText().toString())
-//                        && !email.getText().toString().isEmpty() && !pass.getText().toString().isEmpty()){
-//
-//                    users.add(new userdata (email.getText().toString(),name.getText().toString(),pass.getText().toString()));
-//                }
-//                Toast.makeText(getApplicationContext(), "succesful",
-//                        Toast.LENGTH_LONG).show();
-//                Intent i = new Intent(Register.this , Log_in.class);
-//                startActivity(i);
                 if(email.getText().toString().matches("") ){
                     email.setError("Required");
                 }
@@ -63,11 +57,27 @@ public class RejesterActivity extends AppCompatActivity {
                 else if(id.getText().toString().matches("")){
                     id.setError("Required");
                 }
+                else if(first.getText().toString().matches("")){
+                    id.setError("Required");
+                }
+                else if(second.getText().toString().matches("")){
+                    id.setError("Required");
+                }
                 else if(!(conpass.getText().toString().equals(pass.getText().toString()))){
                     conpass.setError("Must be same");
                 }
                 else {
-                    callsignupApi();
+                    full=first.getText().toString()+" "+second.getText().toString();
+                    userName="";
+                    String str=name.getText().toString().trim();
+                    for(int i=0;i<str.length();i++)
+                    {
+                        if(str.charAt(i)==' ')break;
+                        userName+=name.getText().toString().charAt(i);
+                    }
+                    Repository.startRejestering(getApplicationContext(),
+                            email.getText().toString(), userName,
+                            pass.getText().toString(),full);
                 }
 
 
@@ -78,7 +88,8 @@ public class RejesterActivity extends AppCompatActivity {
     }
     private void callsignupApi() {
 
-        APIManager.getInstance().getAPI().register(email.getText().toString(), name.getText().toString(),pass.getText().toString(),full)
+        APIManager.getInstance().getAPI().register(email.getText().toString(), name.getText().toString(),
+                pass.getText().toString(),full)
                 .enqueue(new Callback<RespnseModel>() {
                     @Override
                     public void onResponse(Call<RespnseModel> call, Response<RespnseModel> response) {

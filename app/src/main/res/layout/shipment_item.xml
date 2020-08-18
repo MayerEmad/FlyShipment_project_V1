@@ -4,24 +4,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="205dp">
+    android:layout_height="200dp"
+    android:layout_marginBottom="4dp"
+
+    android:background="@drawable/item_borders">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/shipment_item_upper_part"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:background="#6F738A"
+        android:layout_marginEnd="3dp"
+        android:background="@drawable/bushape5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/shipment_item_arrow_image"
             android:layout_width="40dp"
-            android:layout_height="10dp"
+            android:layout_height="15dp"
             android:layout_marginTop="24dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/outline_arrow_right_alt_black_18dp"
             app:layout_constraintEnd_toStartOf="@+id/shipment_item_countery_to"
             app:layout_constraintStart_toEndOf="@+id/shipment_item_countery_from"
             app:layout_constraintTop_toBottomOf="@+id/shipment_item_name" />
@@ -37,7 +42,7 @@
 
         <TextView
             android:id="@+id/shipment_item_product_weight"
-            android:layout_width="110sp"
+            android:layout_width="110dp"
             android:layout_height="20dp"
             android:background="#90A19B9B"
             android:gravity="center_horizontal"
@@ -68,12 +73,12 @@
             android:layout_height="34dp"
             android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="#022545"
             android:textSize="17sp"
-            android:textStyle="bold|italic"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/shipment_item_product_image"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Shipment name" />
+            tools:text=" Shippment Name" />
 
         <TextView
             android:id="@+id/shipment_item_countery_from"
@@ -82,12 +87,12 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="#022545"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/shipment_item_product_image"
             app:layout_constraintTop_toBottomOf="@+id/shipment_item_name"
-            tools:text="countery from" />
+            tools:text=" Country From" />
 
         <TextView
             android:id="@+id/shipment_item_countery_to"
@@ -96,21 +101,21 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="#022545"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/shipment_item_arrow_image"
             app:layout_constraintTop_toBottomOf="@+id/shipment_item_name"
-            tools:text="countery to" />
+            tools:text=" Country To " />
 
         <TextView
             android:id="@+id/shipment_item_date"
             android:layout_width="280dp"
             android:layout_height="34dp"
             android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="#022545"
             android:textSize="17sp"
             app:layout_constraintStart_toEndOf="@+id/shipment_item_product_image"
             app:layout_constraintTop_toBottomOf="@+id/shipment_item_countery_from"
@@ -121,7 +126,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#577898"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="#232F34"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shipment_item_upper_part">
@@ -130,9 +138,10 @@
             android:id="@+id/shipment_item_profile_img"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="11dp"
             android:src="@drawable/ic_launcher_background"
+            app:layout_constraintEnd_toStartOf="@+id/shipment_item_rating_bar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -142,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_below="@+id/shipment_item_profile_name"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
             android:layout_toRightOf="@+id/shipment_item_profile_img"
             android:numStars="5"
             android:rating="4.3"
@@ -152,9 +161,9 @@
 
         <TextView
             android:id="@+id/shipment_item_profile_name"
-            android:layout_width="110dp"
+            android:layout_width="150dp"
             android:layout_height="21dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@android:color/white"
@@ -169,8 +178,8 @@
             android:layout_width="120dp"
             android:layout_height="35dp"
             android:layout_marginTop="18dp"
-            android:layout_marginEnd="35dp"
-            android:background="#FF0"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bushape"
             android:text="@string/send_request_question"
             android:textSize="12sp"
             android:textStyle="italic"

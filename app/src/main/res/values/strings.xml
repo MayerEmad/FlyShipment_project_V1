@@ -7,30 +7,30 @@
     <string name="log_in">Log IN</string>
 
     // mayer
-    <string name="search_word">search</string>
+    <string name="search_word"> Search </string>
     <string name="save_word">save</string>
-    <string name="save_changes_word">save changes</string>
-    <string name="update_word">update</string>
-    <string name="delete_word">delete</string>
+    <string name="save_changes_word"> Save Changes </string>
+    <string name="update_word">Update</string>
+    <string name="delete_word">Delete</string>
 
-    <string name="from_word">from</string>
-    <string name="to_word">to</string>
-    <string name="item_name_word">item name</string>
-    <string name="item_url_word">item url</string>
-    <string name="item_number_word">item number</string>
-    <string name="item_price_word">item price</string>
-    <string name="item_weight_word">item weight</string>
-    <string name="total_price_word">total price</string>
-    <string name="total_weight_word">total weight</string>
-    <string name="available_weight_word">available weight</string>
-    <string name="date_word">date</string>
+    <string name="from_word">From</string>
+    <string name="to_word">To</string>
+    <string name="item_name_word">Item Name</string>
+    <string name="item_url_word">Item Url</string>
+    <string name="item_number_word">Item Number</string>
+    <string name="item_price_word">Item Price</string>
+    <string name="item_weight_word">Item Weight</string>
+    <string name="total_price_word">Total Price</string>
+    <string name="total_weight_word">Total Weight</string>
+    <string name="available_weight_word">Available Weight</string>
+    <string name="date_word">Date</string>
     <string name="email_word">Email:</string>
     <string name="passport_num_word">Passport num:</string>
     <string name="phone_num_word">Phone num:</string>
-    <string name="change_photo_word">change photo</string>
-    <string name="first_name_word">first name</string>
-    <string name="last_name_word">last name</string>
-    <string name="go_profile_word">go to profile</string>
+    <string name="change_photo_word">Change Photo</string>
+    <string name="first_name_word">First Name</string>
+    <string name="last_name_word">Last Name</string>
+    <string name="go_profile_word">Go To Profile</string>
 
 
     <string name="add_shipment_word">ADD SHIPMENT</string>

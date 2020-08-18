@@ -28,12 +28,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
- /*
- FixMe
-  -----------this call must be done Once and at the beginning
-  -----------must be sycronance Task --->use execute() not enqueue()
- */
-
 public class ApiUserInfo extends AppCompatActivity {
 
     @Override

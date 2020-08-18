@@ -88,7 +88,7 @@ public class CreateTripItemActivity extends AppCompatActivity implements DatePic
                 {
 
                     TripItem item =new TripItem(
-                            -1, fromCountry, toCountry, lastDate, Double.parseDouble(freeWeight),USERINFO.getUser_image_url(),
+                            -1,USERINFO.getUser_id(), fromCountry, toCountry, lastDate, Double.parseDouble(freeWeight),USERINFO.getUser_image_url(),
                             USERINFO.getUser_name(), USERINFO.getUser_rate(),1);
 
                     //uploading...

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.R;
+import com.example.flyshippment_project.Repository;
 
 import java.util.ArrayList;
 
@@ -57,7 +59,7 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
             country_to =(TextView)listItemView.findViewById(R.id.trip_item_country_to);
             meeting_date=(TextView)listItemView.findViewById(R.id.trip_item_date);
             available_weight_text=(TextView)listItemView.findViewById(R.id.trip_item_available_weight);
-            consumed_weight_text=(TextView)listItemView.findViewById(R.id.trip_item_consumed_weight);
+            //consumed_weight_text=(TextView)listItemView.findViewById(R.id.trip_item_consumed_weight);
             profile_image=(ImageView)listItemView.findViewById(R.id.trip_item_profile_img);
             profile_name=(TextView)listItemView.findViewById(R.id.trip_item_profile_name);
             sender_rate_bar=(RatingBar)listItemView.findViewById(R.id.trip_item_rating_bar);
@@ -85,12 +87,12 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
         holder.country_to.setText(item.getCountry_to());
         holder.meeting_date.setText(item.getMeeting_date());
         holder.available_weight_text.setText(item.getStrAvailable_weight());
-        holder.consumed_weight_text.setText(item.getConsumed_weight());
+//        holder.consumed_weight_text.setText(item.getConsumed_weight());
         Glide.with(mContext).load(item.getProfile_image_url())
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(holder.profile_image);
-        holder.profile_name.setText(item.getProfile_name());
+        holder.profile_name.setText(item.getProfile_name());  //FIXME nick name ???
         holder.sender_rate_bar.setRating(item.getUser_rate());
         if(!parent.equals("trip_shower_fragment"))holder.request_btn.setVisibility(View.INVISIBLE);
 
@@ -101,13 +103,19 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
             public void onClick(View v)
             {
                 if(parent.equals("trip_shower_fragment")) {
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    intent.putExtra("openShipmentNav", true);
-                    intent.putExtra("AdapterRecyclerTripParent", true);
-                    intent.putExtra("AdapterTripId",item.getTrip_id());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    mContext.startActivity(intent);
-
+                    if(item.getUser_id()!=Repository.TheProfileItem.getUser_id())
+                    {
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        intent.putExtra("openShipmentNav", true);
+                        intent.putExtra("AdapterRecyclerTripParent", true);
+                        intent.putExtra("AdapterTripId",item.getTrip_id());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        mContext.startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(mContext, "you can't ship in your trip", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }

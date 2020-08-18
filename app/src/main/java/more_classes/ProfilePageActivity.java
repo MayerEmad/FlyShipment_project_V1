@@ -93,25 +93,28 @@ public class ProfilePageActivity extends AppCompatActivity {
         userTrips.setText(String.valueOf(user.getUser_trips()));
         userShipments.setText(String.valueOf(user.getUser_shipments()));
 
-        if(user.getUser_phone()==null) {
-            phoneCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
-            userPhoneTextV.setText("need to fill");
-        }
-        else {
-            phoneCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
-            userPhoneTextV.setText(user.getUser_phone());
-        }
         if(user.getUser_mail()==null) {
             emailCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
-            userEmailTextV.setText("need to fill");
+            userEmailTextV.setText("required");
         }
         else{
             emailCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
             userEmailTextV.setText(user.getUser_mail());
         }
-        if(user.getUser_passport()==null){
+
+        if(user.getUser_phone()==null ||  user.getUser_phone().equals("required")) {
+            phoneCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
+            userPhoneTextV.setHint("required");
+            userPhoneTextV.setHintTextColor(getColor(R.color.red));
+        }
+        else {
+            phoneCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);
+            userPhoneTextV.setText(user.getUser_phone());
+        }
+        if(user.getUser_passport()==null ||  user.getUser_passport().equals("required")){
             passportCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
-            userPassportTextV.setText("need to fill");
+            userPassportTextV.setHint("required");
+            userPhoneTextV.setHintTextColor(getColor(R.color.red));
         }
         else{
             passportCheckText.setCheckMarkDrawable(R.drawable.round_check_circle_white_18dp);

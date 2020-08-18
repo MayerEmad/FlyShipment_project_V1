@@ -53,7 +53,7 @@ public class TripNavFragment extends Fragment {
         ArrayList<TripItem> userList= Repository.getUserTripsFromApi();
         if(userList!=null)
         {
-            noTripText.setVisibility(View.INVISIBLE);
+            if(!userList.isEmpty())noTripText.setVisibility(View.INVISIBLE);
             RecyclerView.Adapter mAdapter = new AdapterRecyclerTrip(userList, getContext(),parentCaller);
             recyclerView.setAdapter(mAdapter);
         }
@@ -75,7 +75,7 @@ public class TripNavFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<TripItem> tripItems) {
                 recyclerView.setAdapter(new AdapterRecyclerTrip(tripItems,getContext(),parentCaller));
-                noTripText.setVisibility(View.INVISIBLE);
+               if(!tripItems.isEmpty()) noTripText.setVisibility(View.INVISIBLE);
             }
         });
     }

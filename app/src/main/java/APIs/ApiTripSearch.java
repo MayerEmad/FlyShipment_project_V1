@@ -69,7 +69,7 @@ public class ApiTripSearch extends AppCompatActivity {
                 .build();
         theApiFunctions service = retrofit.create(theApiFunctions.class);
 
-        String userId = String.valueOf(Repository.TheProfileItem.getUser_id());
+        int userId = Repository.TheProfileItem.getUser_id();
         String from_country = item.getCountry_from();
         String to_country = item.getCountry_to();
         Double weight = item.getAvailable_weight();
@@ -103,7 +103,7 @@ public class ApiTripSearch extends AppCompatActivity {
                 .build();
         theApiFunctions service = retrofit.create(theApiFunctions.class);
 
-        String userId = String.valueOf(Repository.TheProfileItem.getUser_id());
+        int userId = Repository.TheProfileItem.getUser_id();
         String from_country = item.getCountry_from();
         String to_country = item.getCountry_to();
         Double weight = item.getAvailable_weight();

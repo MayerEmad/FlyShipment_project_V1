@@ -167,7 +167,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity implements Dat
                 if (noEmptyField() )
                 {
                     ShipmentItem item =new ShipmentItem(
-                            -1, itemImageUrl,Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
+                            -1,USERINFO.getUser_id(), itemImageUrl,Double.parseDouble(itemWeight), Double.parseDouble(itemNumber),
                             itemName, fromCountry, toCountry, lastDate, Double.parseDouble(itemPrice),
                             USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl,1);
 

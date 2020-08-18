@@ -239,7 +239,10 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
             public void onClick(View view)
             {
                 getting();
-                if (noEmptyField())
+
+                if(!Repository.completeProfileData())
+                    Toast.makeText(EditShipmentItemActivity.this, "need to complete profile data", Toast.LENGTH_SHORT).show();
+                else if (noEmptyField())
                 {
                     setting(USERINFO);
                     ITEM.setIsEditable(0);

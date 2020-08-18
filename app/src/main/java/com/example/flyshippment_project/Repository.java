@@ -2,9 +2,13 @@ package com.example.flyshippment_project;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.webkit.URLUtil;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
+import APIs.ApiRejester;
 import APIs.ApiRequests;
 import APIs.ApiShipmentSearch;
 import APIs.ApiTripNav;
@@ -19,6 +23,22 @@ import adapters_and_items.TripItem;
 
 public class Repository
 {
+    public static boolean completeProfileData(){
+        ProfileItem user=Repository.TheProfileItem;
+        return user.getUser_phone()!=null && !user.getUser_phone().equals("required") &&
+               user.getUser_passport()!=null && !user.getUser_passport().equals("required");
+    }
+    public static boolean validPhone(String phoneNum){
+        return phoneNum.matches("^[0-9]{10,13}$");
+    }
+    public static boolean validPassport(String passport){
+        return passport.matches("^(?!^0+$)[a-zA-Z0-9]{3,20}$");
+    }
+    public static boolean validUrl(String url){
+        return URLUtil.isValidUrl(url);
+    }
+
+
     //--------------------UserInfo-------------------------
 
     public static ProfileItem TheProfileItem=null;
@@ -27,6 +47,7 @@ public class Repository
         ApiUserInfo task=new ApiUserInfo();
         task.GetUserInfoFromApi(id,appCon);
     }
+
     public static void updateUserInfo(Context EditProfilePageContext,boolean imageEdited,Context appCon) {
         ApiUserInfo task=new ApiUserInfo();
         if(imageEdited)
@@ -36,10 +57,8 @@ public class Repository
     }
 
     //------------------------shipments-------------------------
-    // return LiveData from MyModelView
 
-    public static ArrayList<ShipmentItem> getShipmentsFromApi(Context appCon)
-    {
+    public static ArrayList<ShipmentItem> getShipmentsFromApi(Context appCon) {
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.GetShipmentItemsFromServer(appCon); //  Log.i("Repository getShips", "------> getting data from server...");
         return MyViewModel.getShipmentLiveData().getValue();
@@ -141,6 +160,12 @@ public class Repository
     public static void sendShipmentDealRate(float rate, int user_id) {
         ApiRequests task=new ApiRequests();
         task.SendShipmentDealRate(rate,user_id);
+    }
+
+    //-----------------------Rejester---------------------
+    public static void startRejestering(Context appCon,String a, String b,String c,String d){
+        ApiRejester task=new ApiRejester();
+        task.StartRejestering(appCon,a,b,c,d);
     }
 }
 

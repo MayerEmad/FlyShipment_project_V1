@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
 
@@ -32,6 +33,7 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
     private Context mContext;
     private String parent;
     private int tripId;
+
     // Provide a suitable constructor (depends on the kind of dataset)
     public AdapterRecyclerShipment(ArrayList<ShipmentItem> DataList,Context con,String dad,int trip_id)
     {
@@ -96,6 +98,7 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
         holder.profile_name.setText(item.getProfile_name());
         holder.sender_rate_bar.setRating(item.getUserRate());
 
+
         if(parent.equals("AdapterRecyclerTripParent"))
         {
             holder.request_btn.setText(R.string.add_to_trip_text);
@@ -110,24 +113,31 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
                 holder.request_btn.setEnabled(false);
             }
         }
-        else if(parent.equals("shipment_shower_freg")){
+        else if(parent.equals("shipment_shower_freg"))
+        {
             holder.request_btn.setText("next version");
             holder.request_btn.setEnabled(false);
         }
-        else holder.request_btn.setVisibility(View.INVISIBLE);
+        else
+            holder.request_btn.setVisibility(View.INVISIBLE);
 
         //Listeners..
         holder.request_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(parent.equals("AdapterRecyclerTripParent")){
-                    //FIXME validate shipment size and trip available weight
-                    Repository.sendRequestForTrip(item.getShipment_id(),tripId);
-                    item.setIsEditable(-1);
-                    Repository.getUserShipmentsFromApi();
-                    holder.request_btn.setText(R.string.request_sent_text);
-                    holder.request_btn.setEnabled(false);
-                    // Log.i("requestTest", "onRequestButton-->AddToTrip----------> ship_id= " +item.getShipment_id()+"trip_id= "+tripId);
+                    // --------------- available weight checking-------------------
+                    final TripItem trip=getTripUsingId(tripId);
+                     if(item.getTotalWeight()<=trip.getAvailable_weight())
+                     {
+                           Repository.sendRequestForTrip(item.getShipment_id(),tripId);
+                           item.setIsEditable(-1);
+                           Repository.getUserShipmentsFromApi();
+                           holder.request_btn.setText(R.string.request_sent_text);
+                           holder.request_btn.setEnabled(false);
+                     }
+                     else
+                         Toast.makeText(mContext, "more than available weight", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -155,6 +165,20 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
                 }
             }
         });
+    }
+
+    private TripItem getTripUsingId(int tripId) {
+        //FIXME --------------- not the best way -------------------
+        if(!parent.equals("AdapterRecyclerTripParent"))return null; // adapter for searching only
+
+        ArrayList<TripItem> trips = MyViewModel.getTripLiveData().getValue();
+        for(TripItem trip : trips)
+        {
+            if (trip.getTrip_id() == tripId) {
+                return trip;
+            }
+        }
+        return null;
     }
 
     // ok Return the size of your dataSet (invoked by the layout manager)

@@ -43,7 +43,6 @@ public class ShipmentNavFragment extends Fragment
 
         Bundle arguments = getArguments();
         if(arguments!=null) {
-           // Log.i("requestTest", "ShipNavFreg------->data received ");
             parentCaller = getArguments().getString("requestCaller");
             tripId = getArguments().getInt("AdapterTripId");
         }else {
@@ -58,7 +57,6 @@ public class ShipmentNavFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        final MyViewModel viewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MyViewModel.class);
         FloatingActionButton fab =(FloatingActionButton) view.findViewById(R.id.floating_button_shipment_nav);
         final TextView noShipmentText=(TextView) view.findViewById(R.id.no_shipments_text);
         recyclerView = (RecyclerView) view.findViewById(R.id.user_shipments_recycler_view);
@@ -70,7 +68,7 @@ public class ShipmentNavFragment extends Fragment
         if(parentCaller.equals("AdapterRecyclerTripParent"))fab.setVisibility(View.INVISIBLE);
         if(userList!=null)
         {
-            noShipmentText.setVisibility(View.INVISIBLE);
+            if(!userList.isEmpty())noShipmentText.setVisibility(View.INVISIBLE);
             RecyclerView.Adapter mAdapter = new AdapterRecyclerShipment(userList, getContext(),parentCaller,tripId);
             recyclerView.setAdapter(mAdapter);
         }
@@ -82,7 +80,6 @@ public class ShipmentNavFragment extends Fragment
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 Intent intent =new Intent(getContext(),CreateShipmentItemActivity.class);
                 startActivity(intent);
             }
@@ -92,7 +89,7 @@ public class ShipmentNavFragment extends Fragment
             @Override
             public void onChanged(ArrayList<ShipmentItem> shipmentItems) {
                 recyclerView.setAdapter(new AdapterRecyclerShipment(shipmentItems,getContext(),parentCaller,tripId));
-                noShipmentText.setVisibility(View.INVISIBLE);
+                if(!shipmentItems.isEmpty())noShipmentText.setVisibility(View.INVISIBLE);
             }
         });
     }

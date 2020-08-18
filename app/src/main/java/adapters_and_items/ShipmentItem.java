@@ -7,6 +7,7 @@ public class ShipmentItem {
     private static final int NO_IMAGE_PROVIDED = -1;
 
     @SerializedName("ship_info_id") private int shipment_id;
+    @SerializedName("user_info_id") private int user_id;
     @SerializedName("itemName") private String product_name;
     @SerializedName("from_country") private String country_from;
     @SerializedName("to_country")  private String country_to;
@@ -38,10 +39,11 @@ public class ShipmentItem {
     }
 
     // constructor
-    public ShipmentItem(int shipment_id, String prodImg, double prodWeight, double itemsNum, String name, String from, String to,
+    public ShipmentItem(int shipment_id, int user_id, String prodImg, double prodWeight, double itemsNum, String name, String from, String to,
                         String date, double price, String profImg, String profName, double rate, String productUrl, int isEditable)
     {
         this.shipment_id = shipment_id;
+        this.user_id=user_id;
         this.product_image=prodImg;
         weight=prodWeight;
         items_number=itemsNum;
@@ -93,6 +95,7 @@ public class ShipmentItem {
         return shipment_id;
     }
     public int getIsEditable() { return isEditable; }
+    public int getUser_id() { return user_id; }
 
     public void setIsEditable(int isEditable) { this.isEditable = isEditable; }
 

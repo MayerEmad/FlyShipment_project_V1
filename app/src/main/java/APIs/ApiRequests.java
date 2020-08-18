@@ -211,9 +211,11 @@ public class ApiRequests extends AppCompatActivity {
 
                     //FIXME --------------- not the best way -------------------
                     ArrayList<ShipmentDealItem> deals = MyViewModel.getShipmentDealsLiveData().getValue();
-                    for(ShipmentDealItem deal : deals) {
-                        if (deal.getDeal_id() == deal_id)
-                        { deal.setStatus_state(deal.getStatus_state() + 1);break; }
+                    for(ShipmentDealItem deal : deals)
+                    {
+                        if (deal.getDeal_id() == deal_id) {
+                            deal.setStatus_state(deal.getStatus_state() + 1);break;
+                        }
                     }
                     Intent intent = new Intent(appCon, ShipmentDealPathActivity.class);
                     intent.putExtra("DEAL_ID",deal_id);

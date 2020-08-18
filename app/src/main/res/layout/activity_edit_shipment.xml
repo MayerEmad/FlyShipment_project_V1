@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="left"
-    android:background="#798C8A">
+    android:background="#344955">
 
     <Button
         android:id="@+id/edit_shipment_upload_button"
         android:layout_width="260dp"
         android:layout_height="60dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bushape"
         android:text="@string/upload_word"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +29,8 @@
         android:height="40dp"
         android:gravity="center_vertical"
         android:hint="@string/item_url_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintEnd_toEndOf="@+id/edit_shipment_item_name"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_item_name"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_name" />
@@ -37,11 +39,12 @@
         android:id="@+id/edit_shipment_item_total_weight"
         android:layout_width="133dp"
         android:layout_height="43dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="34dp"
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
         android:text="Total Weight=0gm"
+        android:textColor="@color/yellowColor"
         app:layout_constraintStart_toEndOf="@+id/edit_shipment_item_weight"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_price" />
 
@@ -49,12 +52,13 @@
         android:id="@+id/edit_shipment_item_total_price"
         android:layout_width="133dp"
         android:layout_height="43dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="8dp"
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
         android:text="total price=0$"
+        android:textColor="@color/yellowColor"
         app:layout_constraintStart_toEndOf="@+id/edit_shipment_item_price"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_urll" />
 
@@ -67,6 +71,10 @@
         android:height="40dp"
         android:gravity="center"
         android:text="@string/item_number_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_item_urll"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_weight" />
 
@@ -79,6 +87,8 @@
         android:height="40dp"
         android:gravity="center"
         android:hint="@string/item_price_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_urll" />
 
@@ -90,6 +100,8 @@
         android:height="40dp"
         android:gravity="center"
         android:hint="@string/item_weight_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_item_price"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_price" />
 
@@ -100,6 +112,8 @@
         android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:hint="@string/date_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintEnd_toEndOf="@+id/edit_shipment_to"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_to"
@@ -112,6 +126,8 @@
         android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:hint="@string/to_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintEnd_toEndOf="@+id/edit_shipment_from"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_from"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_from" />
@@ -126,6 +142,8 @@
         android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
         android:hint="@string/from_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintBottom_toTopOf="@+id/edit_shipment_to"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
@@ -141,6 +159,8 @@
         android:height="40dp"
         android:gravity="center_vertical"
         android:hint="@string/item_name_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintEnd_toEndOf="@+id/edit_shipment_date"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_date"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_date" />
@@ -149,44 +169,48 @@
         android:id="@+id/edit_shipment_get_image_button"
         android:layout_width="130dp"
         android:layout_height="57dp"
-        android:layout_marginTop="8dp"
-        android:foreground="@android:drawable/ic_menu_camera"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/bushape"
+        android:foreground="@drawable/add_photo"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_item_weight"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_plus_item" />
 
     <EditText
         android:id="@+id/edit_shipment_item_number"
-        android:layout_width="79dp"
+        android:layout_width="50dp"
         android:layout_height="43dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="95dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="number"
         android:text="0"
+        android:textColor="@color/yellowColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_total_weight" />
 
     <Button
         android:id="@+id/edit_shipment_plus_item"
-        android:layout_width="42dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="45dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bushape"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="@android:drawable/ic_input_add"
+        android:foreground="@drawable/ic_plus"
         app:layout_constraintEnd_toStartOf="@+id/edit_shipment_item_number"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_total_weight" />
 
     <Button
         android:id="@+id/edit_shipment_minus_item"
         android:layout_width="45dp"
-        android:layout_height="43dp"
+        android:layout_height="36dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bushape"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="@android:drawable/ic_delete"
+        android:foreground="@drawable/ic_minus"
         app:layout_constraintStart_toEndOf="@+id/edit_shipment_item_number"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_total_weight" />
 
@@ -194,29 +218,30 @@
         android:id="@+id/edit_shipment_the_image"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:foreground="@drawable/ic_photo"
+        android:hapticFeedbackEnabled="false"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toEndOf="@+id/edit_shipment_get_image_button"
-        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_number"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_shipment_item_number" />
 
     <Button
         android:id="@+id/edit_shipment_edit_button"
         android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/bushape"
         android:text="@string/save_changes_word"
         app:layout_constraintStart_toStartOf="@+id/edit_shipment_get_image_button"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_get_image_button" />
 
     <Button
         android:id="@+id/edit_shipment_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="65dp"
+        android:layout_height="53dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="#FFF"
+        android:background="@drawable/bushape"
         android:foreground="?attr/actionModeCloseDrawable"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -227,7 +252,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@android:color/holo_red_dark"
+        android:background="@drawable/bushape"
         android:text="@string/delete_word"
         android:textIsSelectable="false"
         android:textSize="16sp"
@@ -239,11 +264,14 @@
         android:id="@+id/edit_shipment_warning_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="If you presses Uploade you will not be able to edit this shipment"
+        android:textColor="#F3F5F6"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_shipment_the_image" />
 

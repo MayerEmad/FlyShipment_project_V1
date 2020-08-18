@@ -8,6 +8,7 @@ import adapters_and_items.ShipmentDealItem;
 import adapters_and_items.ShipmentItem;
 import adapters_and_items.ShipmentRequestItem;
 import adapters_and_items.TripItem;
+import login_rejester_splash.RespnseModel;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -131,4 +132,11 @@ public interface theApiFunctions {
     @POST("rate/{user_id}")
     @FormUrlEncoded
     Call<ShipmentDealItem> send_shipment_deal_rate(@Path("user_id") int user_id , @Field("rate") float rate);
+
+    //---------------Rejester-----------------
+    @POST("register")
+    @FormUrlEncoded
+    public Call<RespnseModel> register(@Field("email") String email, @Field("userName") String name,
+                                       @Field("password") String pass, @Field("fullName") String fullname
+    ) ;
 }

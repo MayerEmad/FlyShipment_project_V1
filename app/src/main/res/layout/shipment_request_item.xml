@@ -20,7 +20,7 @@
             android:layout_height="10dp"
             android:layout_marginTop="14dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/outline_arrow_right_alt_black_18dp"
             app:layout_constraintEnd_toStartOf="@+id/shipment_request_item_countery_to"
             app:layout_constraintStart_toEndOf="@+id/shipment_request_item_countery_from"
             app:layout_constraintTop_toBottomOf="@+id/shipment_request_item_name" />
@@ -69,7 +69,7 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@android:color/white"
             android:textSize="17sp"
-            android:textStyle="bold|italic"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/shipment_request_item_product_image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="shipment name" />
@@ -107,7 +107,7 @@
             android:layout_width="280dp"
             android:layout_height="34dp"
             android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@android:color/white"
             android:textSize="17sp"
@@ -132,7 +132,7 @@
             android:layout_height="45dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="11dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/outline_account_box_black_18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

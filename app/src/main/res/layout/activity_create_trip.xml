@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D67F7F">
+    android:background="#30555D">
 
     <EditText
         android:id="@+id/create_trip_last_date"
@@ -15,6 +15,8 @@
         android:layout_marginEnd="44dp"
         android:gravity="center_vertical"
         android:hint="@string/date_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_trip_available_weight" />
@@ -28,6 +30,8 @@
         android:layout_marginEnd="44dp"
         android:gravity="center_vertical"
         android:hint="@string/available_weight_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +46,8 @@
         android:layout_marginEnd="44dp"
         android:gravity="center_vertical"
         android:hint="@string/to_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,11 +58,13 @@
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="180dp"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
         android:hint="@string/from_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
         app:layout_constraintBottom_toTopOf="@+id/create_trip_to"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
@@ -65,12 +73,12 @@
 
     <Button
         android:id="@+id/create_trip_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="66dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="#FFF"
-        android:foreground="?attr/actionModeCloseDrawable"
+        android:background="@drawable/bushape"
+        android:foreground="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,7 +87,8 @@
         android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/bushape"
         android:text="@string/add_trip_word"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_trip_last_date" />

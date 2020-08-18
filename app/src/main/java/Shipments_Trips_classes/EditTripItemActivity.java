@@ -18,6 +18,7 @@ import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.R;
 import com.example.flyshippment_project.Repository;
 
+import adapters_and_items.ProfileItem;
 import adapters_and_items.TripItem;
 
 public class EditTripItemActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -130,7 +131,9 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
                 lastDate = dateText.getText().toString();
                 freeWeight=weightText.getText().toString();
 
-                if (noEmptyField())
+                if(!Repository.completeProfileData())
+                    Toast.makeText(EditTripItemActivity.this, "need to complete profile data", Toast.LENGTH_SHORT).show();
+                else if (noEmptyField())
                 {
                     ITEM.setCountry_from(fromCountry);
                     ITEM.setCountry_to(toCountry);
@@ -143,7 +146,7 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
                     // Go back TripNavFragment
                     arrow_back_function();
                 } else {
-                    Toast.makeText(EditTripItemActivity.this, "Empty uploaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTripItemActivity.this, "Empty field", Toast.LENGTH_SHORT).show();
                 }
             }
         });

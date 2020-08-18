@@ -58,19 +58,16 @@ public class ApiShipmentSearch extends AppCompatActivity
                     Log.i("APIShipmemtSearch get", "Response has error = "+response.errorBody()+" code = "+response.code());
                 }
                 list = (ArrayList<ShipmentItem>) response.body();
-                Toast.makeText(appCon, "we received shipments", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(appCon, "we received shipments", Toast.LENGTH_SHORT).show();
                // Log.i("Pretty Response ------",new GsonBuilder().setPrettyPrinting().create().toJson(response.body()));
                 MyViewModel.setShipmentLiveData(list);
             }
             @Override
             public void onFailure(Call<List<ShipmentItem>> call, Throwable t) {
-                //Toast.makeText(ApiShipmentSearch.this, "Response failed :(", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(appCon, "", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
-
 
 
     public void UploadShipmentItem(ShipmentItem item, Context mContext)

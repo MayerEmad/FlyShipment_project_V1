@@ -40,7 +40,6 @@ public class ApiTripNav extends AppCompatActivity {
             public void onResponse(Call<List<TripItem>> call, Response<List<TripItem>> response) {
                 if (!response.isSuccessful()) {
                     Log.i("ApiUserTrip get", "Response has error X(");
-                    // retry
                 }
                 else
                 {

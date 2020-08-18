@@ -20,7 +20,9 @@
         android:id="@+id/no_trips_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You have no trips yet"
+        android:gravity="center"
+        android:paddingTop="300dp"
+        android:text=" You have no trips yet "
         android:textSize="40sp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -33,7 +35,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/bushape"
-        tools:ignore="RelativeOverlap" />
+        app:backgroundTint="#FFFFFF"
+        app:srcCompat="@drawable/add_ic"
+        tools:ignore="RelativeOverlap,VectorDrawableCompat" />
 
 </RelativeLayout>

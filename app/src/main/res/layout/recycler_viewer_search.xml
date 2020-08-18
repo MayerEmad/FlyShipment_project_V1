@@ -8,11 +8,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc1"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FEFEFE"
         android:drawSelectorOnTop="true"
-        android:background="@color/down"
+        android:orientation="vertical"
         tools:ignore="" />
 
 

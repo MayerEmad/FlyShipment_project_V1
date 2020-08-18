@@ -13,15 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="@color/down"
+        android:layout_marginBottom="-4dp"
+        android:background="#232F34"
         android:drawSelectorOnTop="true"
         android:orientation="vertical" />
+
     <TextView
         android:id="@+id/no_shipments_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You have no shipments yet"
-        android:textSize="40sp" />
+        android:text=" You have no shipments yet "
+        android:textColor="#FEFEFE"
+        android:paddingTop="300dp"
+        android:textStyle="bold"
+        android:textSize="30sp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button_shipment_nav"
@@ -33,7 +38,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/bushape"
-        tools:ignore="RelativeOverlap" />
+        app:backgroundTint="#FFFFFF"
+        app:srcCompat="@drawable/add_ic"
+        tools:ignore="RelativeOverlap,VectorDrawableCompat" />
 
 </RelativeLayout>

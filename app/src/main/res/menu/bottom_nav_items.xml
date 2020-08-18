@@ -3,22 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
         <item android:id="@+id/search_bottom_nav"
-            android:title="search"
-            android:icon="@drawable/ic_launcher_background" />
+            android:title="Search"
+            android:icon="@drawable/ic_stat_name"
+            />
 
          <item android:id="@+id/shipment_bottom_nav"
-            android:title="shipment"
-            android:icon="@drawable/ic_launcher_background" />
+            android:title="Shippment"
+            android:icon="@drawable/outline_shopping_bag_black_18dp" />
 
          <item android:id="@+id/trib_bottom_nav"
-            android:title="trib"
-            android:icon="@drawable/ic_launcher_background" />
+            android:title="Trib"
+            android:icon="@drawable/outline_explore_black_18dp" />
 
         <item android:id="@+id/inbox_bottom_nav"
-            android:title="inbox"
-            android:icon="@drawable/ic_launcher_background" />
+            android:title="Inbox"
+            android:icon="@drawable/outline_add_task_black_18dp" />
 
         <item android:id="@+id/more_bottom_nav"
-            android:title="more"
-            android:icon="@drawable/ic_launcher_background" />
+            android:title="Profile"
+            android:icon="@drawable/outline_account_box_black_18dp" />
 </menu>
