@@ -14,77 +14,78 @@
         <RelativeLayout
             android:id="@+id/upper_page"
             android:layout_width="match_parent"
-            android:layout_height="185dp"
+            android:layout_height="190dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="-2dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/navigationColor">
 
             <EditText
                 android:id="@+id/from"
                 android:layout_width="220dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rounded_edit_text"
+                android:drawableLeft="@drawable/outline_flight_takeoff_black_18dp"
+                android:gravity="center_vertical"
                 android:hint=" From : "
                 android:inputType="textAutoComplete"
-                android:drawableLeft="@drawable/outline_flight_takeoff_black_18dp"
                 android:padding="7dp"
                 android:textColor="@color/navigationColor"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:textColorHighlight="#000" />
+                android:textColorHighlight="#000"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/to"
                 android:layout_width="220dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_below="@+id/from"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rounded_edit_text"
+                android:drawableLeft="@drawable/outline_flight_land_black_18dp"
+                android:gravity="center_vertical"
                 android:hint=" To : "
                 android:inputType="textAutoComplete"
-                android:drawableLeft="@drawable/outline_flight_land_black_18dp"
                 android:padding="7dp"
                 android:textColor="@color/navigationColor"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:textColorHighlight="#000" />
+                android:textColorHighlight="#000"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/date"
                 android:layout_width="220dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_below="@+id/to"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rounded_edit_text"
                 android:drawableLeft="@drawable/date_ic"
+                android:gravity="center_vertical"
                 android:hint=" Date "
                 android:inputType="textAutoComplete"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
                 android:padding="7dp"
                 android:textColor="@color/navigationColor"
-                android:textColorHighlight="#000" />
+                android:textColorHighlight="#000"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/weight"
                 android:layout_width="140dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
                 android:layout_toEndOf="@+id/from"
                 android:background="@drawable/rounded_edit_text"
-                android:hint=" Weight (Kg)"
                 android:drawableLeft="@drawable/round_lock_black_18dp"
+                android:gravity="center_vertical"
+                android:hint=" Weight (Kg)"
                 android:inputType="textAutoComplete"
                 android:padding="7dp"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
                 android:textColor="@color/navigationColor"
-                android:textColorHighlight="#000" />
+                android:textColorHighlight="#000"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/search_button"
@@ -92,7 +93,7 @@
                 android:layout_height="50dp"
                 android:layout_below="@+id/weight"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="39dp"
                 android:layout_toEndOf="@+id/date"
                 android:background="@drawable/bushape"
                 android:padding="7dp"
@@ -102,11 +103,10 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/search_page_upper_tab"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="start"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/bushape"
                 app:menu="@menu/search_page_upper_tab_items" />
         </RelativeLayout>
@@ -116,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/upper_page"
-            android:background="@color/gray2" />
+            android:background="#F2F2F2" />
 
     </RelativeLayout>
 

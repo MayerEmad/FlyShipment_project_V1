@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import Shipments_Trips_classes.CreateTripItemActivity;
 import Shipments_Trips_classes.EditTripItemActivity;
+import Shipments_Trips_classes.ShowTripActivity;
 import Shipments_Trips_classes.TripNavFragment;
 
 public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTrip.MyViewHolder>
@@ -137,7 +138,8 @@ public class AdapterRecyclerTrip extends RecyclerView.Adapter<AdapterRecyclerTri
                 }
                 else if(parent.equals("trip_shower_fragment")){
                     //go to show the tripItem
-                    Intent intent =new Intent(mContext, CreateTripItemActivity.class);
+                    Intent intent =new Intent(mContext, ShowTripActivity.class);
+                    intent.putExtra("TripItemPosition",position);
                     mContext.startActivity(intent);
                 }
             }

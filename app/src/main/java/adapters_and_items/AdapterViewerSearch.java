@@ -20,10 +20,10 @@ public class AdapterViewerSearch extends FragmentStatePagerAdapter
     public Fragment getItem(int position) {
         if (position == 0) {
            // Log.i("AdapterViewer", "----------Shipment_Shower_Freg is Created");
-            return new Shipment_Shower_Frag();
+            return new Trip_Shower_Frag();
         } else {
             //Log.i("AdapterViewer", "----------Trip_Shower_Freg is created");
-            return new Trip_Shower_Frag();
+            return new Shipment_Shower_Frag();
         }
     }
 
@@ -33,7 +33,7 @@ public class AdapterViewerSearch extends FragmentStatePagerAdapter
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position==0) return "Shipments";
-        else return "Trips";
+        if(position==0) return "Trips";
+        else return "Shipments";
     }
 }

@@ -118,11 +118,11 @@ public class AdapterRecyclerShipmentRequests extends RecyclerView.Adapter<Adapte
         if(parent.equals("shipment_inbox_fragment")){
             if(item.getApproving_state()==1){
                 holder.status_btn.setText(R.string.go_to_deals_text);
-                holder.status_btn.setBackgroundColor(R.color.green);
+                holder.status_btn.setBackgroundColor(R.drawable.bushape);
             }
             else if(item.getApproving_state()==-1){
                 holder.status_btn.setText(R.string.remove_from_request_text);
-                holder.status_btn.setBackgroundColor(R.color.red);
+                holder.status_btn.setBackgroundColor(R.drawable.bushape6);
             }
         }
 

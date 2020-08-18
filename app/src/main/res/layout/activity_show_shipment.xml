@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="left"
+    android:background="#344955">
+
+    <EditText
+        android:id="@+id/show_shipment_item_urll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:width="300dp"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:hint="@string/item_url_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintEnd_toEndOf="@+id/show_shipment_item_name"
+        app:layout_constraintStart_toStartOf="@+id/show_shipment_item_name"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_item_name" />
+
+    <TextView
+        android:id="@+id/show_shipment_item_total_weight"
+        android:layout_width="133dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="34dp"
+        android:width="80dp"
+        android:height="40dp"
+        android:gravity="center"
+        android:text="Total Weight=0gm"
+        android:textColor="@color/yellowColor"
+        app:layout_constraintStart_toEndOf="@+id/show_shipment_item_weight"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_item_price" />
+
+    <TextView
+        android:id="@+id/show_shipment_item_total_price"
+        android:layout_width="133dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="8dp"
+        android:width="80dp"
+        android:height="40dp"
+        android:gravity="center"
+        android:text="total price=0$"
+        android:textColor="@color/yellowColor"
+        app:layout_constraintStart_toEndOf="@+id/show_shipment_item_price"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_item_urll" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="116dp"
+        android:layout_height="43dp"
+        android:width="80dp"
+        android:height="40dp"
+        android:gravity="center"
+        android:text="@string/item_number_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/show_shipment_item_urll"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_item_weight" />
+
+    <EditText
+        android:id="@+id/show_shipment_item_price"
+        android:layout_width="133dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        android:width="80dp"
+        android:height="40dp"
+        android:gravity="center"
+        android:hint="@string/item_price_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_item_urll" />
+
+    <EditText
+        android:id="@+id/show_shipment_item_weight"
+        android:layout_width="133dp"
+        android:layout_height="43dp"
+        android:width="80dp"
+        android:height="40dp"
+        android:gravity="center"
+        android:hint="@string/item_weight_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintStart_toStartOf="@+id/show_shipment_item_price"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_item_price" />
+
+    <EditText
+        android:id="@+id/show_shipment_date"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:hint="@string/date_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintEnd_toEndOf="@+id/show_shipment_to"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/show_shipment_to"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_to" />
+
+    <EditText
+        android:id="@+id/show_shipment_to"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:hint="@string/to_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintEnd_toEndOf="@+id/show_shipment_from"
+        app:layout_constraintStart_toStartOf="@+id/show_shipment_from"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_from" />
+
+    <EditText
+        android:id="@+id/show_shipment_from"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_vertical"
+        android:hint="@string/from_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintBottom_toTopOf="@+id/show_shipment_to"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/show_shipment_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:width="300dp"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:hint="@string/item_name_word"
+        android:textColor="#F3F5F6"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintEnd_toEndOf="@+id/show_shipment_date"
+        app:layout_constraintStart_toStartOf="@+id/show_shipment_date"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_date" />
+
+    <EditText
+        android:id="@+id/show_shipment_item_number"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="128dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="0"
+        android:textColor="@color/yellowColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_item_total_weight" />
+
+    <ImageView
+        android:id="@+id/show_shipment_the_image"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="136dp"
+        android:foreground="@drawable/ic_photo"
+        android:hapticFeedbackEnabled="false"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_shipment_item_number" />
+
+    <Button
+        android:id="@+id/show_shipment_back_button"
+        android:layout_width="65dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bushape"
+        android:foreground="?attr/actionModeCloseDrawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

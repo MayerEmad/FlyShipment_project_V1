@@ -64,17 +64,17 @@ public class LoginActivity extends AppCompatActivity {
                 String msg=response.message();
                 if (response.isSuccessful()&&response.body().getUser_id()!=0)
                 {
-                  /*  prefs = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    prefs = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor et = prefs.edit();
                     et.putBoolean("isLogin", true);
-                    et.commit();*/
+                    et.commit();
 
                     PREF_USER_ID = getSharedPreferences("userid" , MODE_PRIVATE);
                     SharedPreferences.Editor idet = PREF_USER_ID.edit();
                     idet.putInt("userid", response.body().getUser_id());
                     idet.commit();
 
-                    Toast.makeText(getApplicationContext(), "welcome"+response.body().getUser_nick_name(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "welcome "+response.body().getUser_name(),Toast.LENGTH_LONG).show();
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(i);
                 } else {

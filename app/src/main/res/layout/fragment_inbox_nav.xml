@@ -10,10 +10,12 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/inbox_page_upper_tab"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_gravity="start"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/bushape"
         android:outlineSpotShadowColor="@color/cardview_dark_background"
+        app:layout_constraintBottom_toTopOf="@+id/inbox_page_viewer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

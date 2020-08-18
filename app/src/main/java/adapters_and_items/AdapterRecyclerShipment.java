@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import Shipments_Trips_classes.CreateShipmentItemActivity;
 import Shipments_Trips_classes.EditShipmentItemActivity;
+import Shipments_Trips_classes.ShowShipmentActivity;
 
 
 public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecyclerShipment.MyViewHolder>
@@ -158,9 +159,17 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
                     intent.putExtra("ShipmentItemPosition",position);
                     mContext.startActivity(intent);
                 }
-                else if(parent.equals("shipment_shower_freg") ||parent.equals("AdapterRecyclerTripParent")){
+                else if(parent.equals("shipment_shower_freg")){
                     //go to show the ShipmentItem
-                    Intent intent =new Intent(mContext, CreateShipmentItemActivity.class);
+                    Intent intent =new Intent(mContext, ShowShipmentActivity.class);
+                    intent.putExtra("ShipmentItemPosition",position);
+                    intent.putExtra("user",0);
+                    mContext.startActivity(intent);
+                }
+                else if(parent.equals("AdapterRecyclerTripParent")){
+                    Intent intent =new Intent(mContext, ShowShipmentActivity.class);
+                    intent.putExtra("ShipmentItemPosition",position);
+                    intent.putExtra("user",1);
                     mContext.startActivity(intent);
                 }
             }

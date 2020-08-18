@@ -56,11 +56,30 @@
     <string name="reject_word">reject</string>
     <string name="show_step">Show Step</string>
     <string name="shipper_confirmation_text">Shipper confirmation</string>
-    <string name="meet_shipper_text">Meet Shipper</string>
+    <string name="deliver_shipment_text">Delivery of the shipment</string>
     <string name="reach_destination_text">Reach destination</string>
     <string name="fly_from_home_text">Fly from home</string>
     <string name="receive_shipment_text">Receive shipment</string>
     <string name="confirm_word">Confirm</string>
     <string name="next_step_word">next step</string>
+
+    <string name="terms_and_privacy_text">
+        i) Privacy principles
+We build privacy that works for everyone. It’s a responsibility that comes with creating products and services that are free and accessible for all. We look to these principles to guide our products, our processes, and our people in keeping our users’ data private, safe, and secure.
+ii) In case of problems or disagreements
+By law, you have the right to
+        (1)a certain quality of service, and
+        (2) ways to fix problems if things go wrong. These terms don’t limit or take away any of those rights. For example, if you’re a consumer, then you continue to enjoy all legal rights granted to consumers under applicable law.
+iii) Warranty We provide our services using reasonable skill and care. If we don’t meet the quality level described in this warranty, you agree to tell us and we’ll work with you to try to resolve the issue.
+If you don’t follow these terms or the service-specific additional terms, and we don’t take action right away, that doesn’t mean we’re giving up any rights that we may have, such as taking action in the future.
+We may update these terms and service-specific additional terms
+        (1) to reflect changes in our services or how we do business — for example, when we add new services, features, technologies, pricing, or benefits (or remove old ones),
+        (2) for legal, regulatory, or security reasons, or
+        (3) to prevent abuse or harm.
+If we materially change these terms or service-specific additional terms, we’ll provide you with reasonable advance notice and the opportunity to review the changes, except
+        (1) when we launch a new service or feature, or
+        (2) in urgent situations, such as preventing ongoing abuse or responding to legal requirements.
+        If you don’t agree to the new terms, you should remove your content and stop using the services.
+    </string>
 
 </resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#30555D">
+
+    <EditText
+        android:id="@+id/show_trip_last_date"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="44dp"
+        android:gravity="center_vertical"
+        android:hint="@string/date_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_trip_available_weight" />
+
+    <EditText
+        android:id="@+id/show_trip_available_weight"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="44dp"
+        android:gravity="center_vertical"
+        android:hint="@string/available_weight_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_trip_to" />
+
+    <EditText
+        android:id="@+id/show_trip_to"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="44dp"
+        android:gravity="center_vertical"
+        android:hint="@string/to_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_trip_from" />
+
+    <EditText
+        android:id="@+id/show_trip_from"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_vertical"
+        android:hint="@string/from_word"
+        android:textColor="#FEFEFE"
+        android:textColorHint="#FEFEFE"
+        app:layout_constraintBottom_toTopOf="@+id/show_trip_to"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/show_trip_back_button"
+        android:layout_width="68dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bushape"
+        android:foreground="?attr/actionModeCloseDrawable"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

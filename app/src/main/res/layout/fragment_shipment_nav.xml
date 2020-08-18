@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-4dp"
-        android:background="#232F34"
+        android:background="@color/down"
         android:drawSelectorOnTop="true"
         android:orientation="vertical" />
 

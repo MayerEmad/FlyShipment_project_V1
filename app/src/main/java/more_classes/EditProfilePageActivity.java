@@ -151,7 +151,7 @@ public class EditProfilePageActivity  extends AppCompatActivity
 
         if(USERINFO.getUser_phone()==null || USERINFO.getUser_phone().equals("required")) {
             phoneCheckText.setCheckMarkDrawable(R.drawable.round_error_black_18dp);
-            Toast.makeText(EditProfilePageActivity.this, "black mark", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(EditProfilePageActivity.this, "black mark", Toast.LENGTH_SHORT).show();
             userPhoneEditText.setHint("required");
             userPhoneEditText.setHintTextColor(getColor(R.color.red));
         }

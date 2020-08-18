@@ -19,6 +19,8 @@
         android:textColorHint="#FEFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:maxLines="1"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_phone_edit_text" />
 
@@ -50,6 +52,8 @@
         android:textColorHint="#FEFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:maxLines="1"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_email_edit_text" />
 
@@ -255,6 +259,8 @@
         android:textColorHint="#FEFEFE"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:maxLines="1"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_user_name_text_view" />
 

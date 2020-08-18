@@ -103,6 +103,7 @@ public class ApiShipmentSearch extends AppCompatActivity
             {
                 if (!response.isSuccessful()) {
                     Log.i("ApiShipmemtSearch get", "Response has error--------------- = "+response.body());
+                    Repository.getUserShipmentsFromApi();
                 }
                else {
                     Log.i("ApiShipmentSearch", "onResponse:------------------->  succeed on uploading "+response.body());

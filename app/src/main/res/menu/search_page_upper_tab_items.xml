@@ -3,13 +3,12 @@
 
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/shipment_upper_tab"
-        android:title="@string/shipments_word"
-        android:icon="@drawable/ic_launcher_background" />
-
     <item android:id="@+id/trip_upper_tab"
         android:title="@string/trips_word"
         android:icon="@drawable/ic_launcher_background"/>
 
+    <item android:id="@+id/shipment_upper_tab"
+        android:title="@string/shipments_word"
+        android:icon="@drawable/ic_launcher_background" />
 
 </menu>

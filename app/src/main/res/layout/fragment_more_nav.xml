@@ -10,11 +10,11 @@
 
     <ImageView
         android:id="@+id/more_profile_image"
-        android:layout_width="116dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="52dp"
-        android:src="@drawable/outline_photo_black_18dp"
+        android:layout_width="103dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_photo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,10 +22,54 @@
         android:id="@+id/more_goto_prifle_button"
         android:layout_width="150dp"
         android:layout_height="51dp"
-        android:layout_marginStart="69dp"
-        android:layout_marginTop="82dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="68dp"
         android:background="@drawable/bushape"
         android:text="@string/go_profile_word"
         app:layout_constraintStart_toEndOf="@+id/more_profile_image"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/terms_privacy_textview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="start"
+        android:scrollbars="vertical"
+        android:text="@string/terms_and_privacy_text"
+        android:textColor="#FEFEFE"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/terms_lable"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/terms_lable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="52dp"
+        android:text="Terms and Privacy"
+        android:textColor="@color/yellowColor"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/more_goto_prifle_button" />
+
+    <TextView
+        android:id="@+id/user_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="#FEFEFE"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/more_profile_image" />
 </androidx.constraintlayout.widget.ConstraintLayout>

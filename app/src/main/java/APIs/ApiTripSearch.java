@@ -84,6 +84,7 @@ public class ApiTripSearch extends AppCompatActivity {
             public void onResponse(Call<TripItem> call, Response<TripItem> response) {
                 if (!response.isSuccessful()) {
                     Log.i("ApiTripSearch post", response.message() + " ------- " + response.body());
+                    Repository.getUserTripsFromApi();
                 }
                else  Log.i("ApiTripSearch Uploading", "onResponse:--------->  succeed on uploading " + response.message()+"\n");
             }

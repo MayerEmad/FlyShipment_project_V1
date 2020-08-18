@@ -3,6 +3,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -115,6 +117,7 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
         itemImageUrl=ITEM.getProduct_image();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +140,7 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
         urlText = (EditText) findViewById(R.id.edit_shipment_item_urll);
          urlText.setText(ITEM.getProduct_url());
         theImageView=(ImageView)findViewById(R.id.edit_shipment_the_image);
+        theImageView.setForeground(null);
          Glide.with(this).load(ITEM.getProduct_image())
                  .skipMemoryCache(true)
                  .diskCacheStrategy(DiskCacheStrategy.NONE)

@@ -13,11 +13,13 @@
         android:id="@+id/shipment_item_upper_part"
         android:layout_width="match_parent"
         android:layout_height="130dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="3dp"
         android:background="@drawable/bushape5"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -36,9 +38,9 @@
             android:layout_width="110dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/shipment_item_reward"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/shipment_item_product_weight"
@@ -48,7 +50,7 @@
             android:gravity="center_horizontal"
             android:textColor="@android:color/black"
             android:textSize="15sp"
-            android:textStyle="italic|bold"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/shipment_item_product_image"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="50 Kg" />
@@ -73,7 +75,7 @@
             android:layout_height="34dp"
             android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#022545"
+            android:textColor="#FEFEFE"
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/shipment_item_product_image"
@@ -87,7 +89,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#022545"
+            android:textColor="#FEFEFE"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/shipment_item_product_image"
@@ -101,7 +103,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#022545"
+            android:textColor="#FEFEFE"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/shipment_item_arrow_image"
@@ -115,7 +117,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#022545"
+            android:textColor="#FEFEFE"
             android:textSize="17sp"
             app:layout_constraintStart_toEndOf="@+id/shipment_item_product_image"
             app:layout_constraintTop_toBottomOf="@+id/shipment_item_countery_from"
@@ -126,8 +128,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="5dp"
         android:background="#232F34"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

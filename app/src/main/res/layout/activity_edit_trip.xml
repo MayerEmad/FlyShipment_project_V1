@@ -22,7 +22,7 @@
     <EditText
         android:id="@+id/edit_trip_last_date"
         android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="44dp"
@@ -37,7 +37,7 @@
     <EditText
         android:id="@+id/edit_trip_available_weight"
         android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="44dp"
@@ -53,7 +53,7 @@
     <EditText
         android:id="@+id/edit_trip_to"
         android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="44dp"
@@ -69,9 +69,9 @@
     <EditText
         android:id="@+id/edit_trip_from"
         android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
@@ -125,7 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
         android:text="@string/before_uploading_trip_text"
