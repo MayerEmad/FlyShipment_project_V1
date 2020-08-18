@@ -18,6 +18,7 @@ public class AdapterViewerSearch extends FragmentStatePagerAdapter
     @NonNull
     @Override
     public Fragment getItem(int position) {
+
         if (position == 0) {
            // Log.i("AdapterViewer", "----------Shipment_Shower_Freg is Created");
             return new Trip_Shower_Frag();
