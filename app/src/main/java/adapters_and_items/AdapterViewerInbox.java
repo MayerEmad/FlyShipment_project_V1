@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.example.flyshippment_project.Repository;
+
 import inbox_classes.Deals_Inbox_Frag;
 import inbox_classes.Shipments_Inbox_Frag;
 
@@ -19,9 +21,10 @@ public class AdapterViewerInbox extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
+            Repository.getShipmentRequestsFromApi();
             return new Shipments_Inbox_Frag();
         } else {
-            //Log.i("AdapterViewer", "----------Trip_Shower_Freg is created");
+            Repository.getShipmentDealsFromApi();
             return new Deals_Inbox_Frag();
         }
     }

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.flyshippment_project.MainActivity;
 import com.example.flyshippment_project.MyViewModel;
 import com.example.flyshippment_project.Repository;
 import com.google.gson.GsonBuilder;
@@ -153,6 +154,14 @@ public class ApiRequests extends AppCompatActivity {
                     Log.i("ApiShipmentRequest", "Response has error = "+response.message()+" code = "+response.code());
                 else{
                     Log.i("ApiShipmentRequest", "rejected shipment removed from requests= "+response.message());
+
+                    Context appCon=Repository.APPContext;
+                    Toast.makeText(appCon, "Shipment removed :)", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(appCon, MainActivity.class);
+                    intent .putExtra("openInboxNav",true);
+                    overridePendingTransition(0, 0);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    appCon.startActivity(intent);
                 }
             }
             @Override
@@ -247,6 +256,7 @@ public class ApiRequests extends AppCompatActivity {
                     Log.i("ApiShipmentRequest", "Response has error = "+response.message()+" code = "+response.code());
                 else {
                     Log.i("ApiShipmentRequest", "shipments deal rate send= " + response.message());
+                    Toast.makeText(Repository.APPContext, "rate sent", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -23,6 +23,9 @@ import adapters_and_items.TripItem;
 
 public class Repository
 {
+    public static Context APPContext=null;
+
+
     public static boolean completeProfileData(){
         ProfileItem user=Repository.TheProfileItem;
         return user.getUser_phone()!=null && !user.getUser_phone().equals("required") &&
@@ -69,11 +72,11 @@ public class Repository
         ApiShipmentSearch task=new ApiShipmentSearch();
         task.UploadShipmentItem(item,CreateShipmentItemActivityContext,appCon);
     }
-     public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext,boolean imageEdited)
+     public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext,boolean imageEdited,Context appCon)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
         if(imageEdited)
-            task.UpdateShipmentItem(item,EditShipmentItemActivityContext);
+            task.UpdateShipmentItem(item,EditShipmentItemActivityContext,appCon);
         else
             task.UpdateShipmentItemNoImage(item,EditShipmentItemActivityContext);//update but not the image
     }

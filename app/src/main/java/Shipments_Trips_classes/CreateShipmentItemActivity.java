@@ -39,6 +39,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity implements Dat
     private String itemNumber = "";
     private String itemUrl = "";
     private String itemImageUrl = "";
+    private boolean ok=false;
 
     private EditText fromText;
     private EditText toText;
@@ -83,7 +84,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity implements Dat
     private boolean noEmptyField() {
         if (fromCountry.isEmpty() || toCountry.isEmpty() || lastDate.isEmpty() || itemName.isEmpty() ||
                 itemPrice.isEmpty() || itemWeight.isEmpty() || itemNumber.equals("0") ||
-                itemUrl.isEmpty() || itemImageUrl ==null) return false;
+                itemUrl.isEmpty() || itemImageUrl ==null || !ok) return false;
         return true;
     }
 
@@ -174,17 +175,18 @@ public class CreateShipmentItemActivity extends AppCompatActivity implements Dat
                     // uploading...
                     Repository.uploadShipmentItem(item,CreateShipmentItemActivity.this,getApplicationContext());
 
-                    ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
+                    ArrayList<ShipmentItem>list=  MyViewModel.getUserShipmentLiveData().getValue();
                     if(list==null) {
                         MyViewModel.setUserShipmentLiveData(new ArrayList<ShipmentItem>());
                         list=Repository.getUserShipmentsFromApi();
                     }
                     list.add(item);
-
+                    addShipmentBtn.setEnabled(false);
+                    addShipmentBtn.setText("saving");
                     Log.i("CreateShipmentItemvity", "--------------------------uploading done first: ");
-                    Toast.makeText(CreateShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(CreateShipmentItemActivity.this, "Shipment saved :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
-                    arrow_back_function();
+                    //arrow_back_function();
                 } else {
                     Toast.makeText(CreateShipmentItemActivity.this, "Empty Field", Toast.LENGTH_SHORT).show();
                 }
@@ -201,6 +203,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity implements Dat
             {
                 Uri selectedImagePath = data.getData();
                 itemImageUrl=selectedImagePath.toString();
+                ok=true;
                // itemImageUrl = FileUtil.getPath(selectedImagePath,CreateShipmentItemActivity.this );
                // Log.i("onActivityResult", "------------------->\n "+itemImageUrl);
                 try {

@@ -28,6 +28,7 @@ import com.example.flyshippment_project.Repository;
 
 import java.util.ArrayList;
 
+import Shipments_Trips_classes.CreateTripItemActivity;
 import inbox_classes.Deals_Inbox_Frag;
 
 public class AdapterRecyclerShipmentRequests extends RecyclerView.Adapter<AdapterRecyclerShipmentRequests.MyViewHolder>
@@ -159,7 +160,9 @@ public class AdapterRecyclerShipmentRequests extends RecyclerView.Adapter<Adapte
                  //FIXME got to Deals
               }
               else if(item.getApproving_state()==-1){
+
                   Repository.afterRejectShipmentRequest(item.getRequest_id());
+                  Log.i("Api", "onClick:------> "+item.getRequest_id());
               }
             }});
     }

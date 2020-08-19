@@ -230,7 +230,7 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
                 if (noEmptyField())
                 {
                     setting(USERINFO);
-                    Repository.updateShipmentItem(ITEM,EditShipmentItemActivity.this,imageEdited);
+                    Repository.updateShipmentItem(ITEM,EditShipmentItemActivity.this,imageEdited,getApplicationContext());
                     Toast.makeText(EditShipmentItemActivity.this, "Shipment Edited :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
                     arrow_back_function();
@@ -252,8 +252,8 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
                 {
                     setting(USERINFO);
                     ITEM.setIsEditable(0);
-                    Repository.updateShipmentItem(ITEM,EditShipmentItemActivity.this,imageEdited);
-                    Toast.makeText(EditShipmentItemActivity.this, "Shipment Edited :)", Toast.LENGTH_SHORT).show();
+                    Repository.updateShipmentItem(ITEM,EditShipmentItemActivity.this,imageEdited,getApplicationContext());
+                   // Toast.makeText(EditShipmentItemActivity.this, "Shipment Edited :)", Toast.LENGTH_SHORT).show();
                     // Go back ShipmentNavFragment
                     arrow_back_function();
                 }

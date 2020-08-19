@@ -68,9 +68,6 @@ public class RejesterActivity extends AppCompatActivity {
                             email.getText().toString(), userName,
                             pass.getText().toString(),full);
                 }
-
-
-
             }
         });
 

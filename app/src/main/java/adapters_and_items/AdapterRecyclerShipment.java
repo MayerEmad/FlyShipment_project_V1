@@ -131,6 +131,8 @@ public class AdapterRecyclerShipment extends RecyclerView.Adapter<AdapterRecycle
                     final TripItem trip=getTripUsingId(tripId);
                      if(item.getTotalWeight()<=trip.getAvailable_weight())
                      {
+                         holder.request_btn.setText("Sent");
+                         holder.request_btn.setEnabled(false);
                            Repository.sendRequestForTrip(item.getShipment_id(),tripId);
                            item.setIsEditable(-1);
                            Repository.getUserShipmentsFromApi();

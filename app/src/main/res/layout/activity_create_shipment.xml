@@ -87,7 +87,7 @@
         android:width="80dp"
         android:height="40dp"
         android:gravity="center"
-        android:text="Total Weight = 0gm"
+        android:text="Total Weight = 0kg"
         android:textColor="#F9AA33"
         app:layout_constraintStart_toEndOf="@+id/create_shipment_item_weight"
         app:layout_constraintTop_toBottomOf="@+id/create_shipment_item_total_price" />

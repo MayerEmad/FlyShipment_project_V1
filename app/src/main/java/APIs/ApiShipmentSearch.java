@@ -36,6 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiShipmentSearch extends AppCompatActivity
 {
+
     private ArrayList<ShipmentItem> list;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -108,6 +109,7 @@ public class ApiShipmentSearch extends AppCompatActivity
                 }
                else {
                     Log.i("ApiShipmentSearch", "onResponse:------------------->  succeed on uploading "+response.body());
+                    Toast.makeText(appCon, "Shipment saved :)", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(appCon, MainActivity.class);
                     intent .putExtra("openShipmentNav",true);
                     overridePendingTransition(0, 0);
@@ -123,7 +125,7 @@ public class ApiShipmentSearch extends AppCompatActivity
         });
     }
 
-    public void UpdateShipmentItem(ShipmentItem item, Context mContext)
+    public void UpdateShipmentItem(ShipmentItem item, Context mContext,final Context appCon)
     {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -169,6 +171,12 @@ public class ApiShipmentSearch extends AppCompatActivity
                 }
                 else {
                     Log.i("ApiShipmem update", "onResponse:------------------->  succeed on updating "+response.message());
+                    Toast.makeText(appCon, "Shipment updated :)", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(appCon, MainActivity.class);
+                    intent .putExtra("openShipmentNav",true);
+                    overridePendingTransition(0, 0);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    appCon.startActivity(intent);
                 }
             }
             @Override

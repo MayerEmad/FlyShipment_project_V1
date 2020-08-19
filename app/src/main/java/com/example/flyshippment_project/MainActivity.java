@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Repository.APPContext=getApplicationContext();
+
         //* Check if the device is connected to the internet
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = Objects.requireNonNull(cm).getActiveNetworkInfo();
@@ -94,6 +96,10 @@ public class MainActivity extends AppCompatActivity
         else if(extras!=null && extras.containsKey("openTripNav") && extras.getBoolean("openTripNav")) {
             bottomNav.getMenu().getItem(2).setChecked(true);
             getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new TripNavFragment()).commit();
+        }
+        else if(extras!=null && extras.containsKey("openInboxNav") && extras.getBoolean("openInboxNav")) {
+            bottomNav.getMenu().getItem(3).setChecked(true);
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_frame,new InboxNavFragment()).commit();
         }
         else if(extras!=null && extras.containsKey("openMoreNav") && extras.getBoolean("openMoreNav")) {
             bottomNav.getMenu().getItem(4).setChecked(true);

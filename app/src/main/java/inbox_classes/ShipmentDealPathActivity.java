@@ -54,7 +54,7 @@ public class ShipmentDealPathActivity extends AppCompatActivity
         CheckBox chb4 = (CheckBox) findViewById(R.id.shipment_deal_path_step_4);
         CheckBox chb5 = (CheckBox) findViewById(R.id.shipment_deal_path_step_5);
         Button progressButton = (Button) findViewById(R.id.shipment_deal_path_progress_button);
-        Button rateButton=(Button)findViewById(R.id.shipment_deal_path_rate_button);
+        final Button rateButton=(Button)findViewById(R.id.shipment_deal_path_rate_button);
         final RatingBar rateBar=(RatingBar)findViewById(R.id.shipment_deal_path_rating_bar);
         CheckBoxArray.add(chb1);
         CheckBoxArray.add(chb2);
@@ -105,6 +105,7 @@ public class ShipmentDealPathActivity extends AppCompatActivity
                     user_id=finalDealItem.getReceiver_user_id();
                else
                     user_id=finalDealItem.getSender_user_id();
+               rateButton.setVisibility(View.INVISIBLE);
                Repository.sendShipmentDealRate(rate,user_id);
             }
         });
