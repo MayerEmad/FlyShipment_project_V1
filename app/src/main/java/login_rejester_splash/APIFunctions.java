@@ -16,4 +16,9 @@ public interface APIFunctions {
                                    @Query("password") String pass
     ) ;
 
+    @POST("logout?")
+    public Call<RespnseModel> logout(@Query("api_token") String api_token
+
+    ) ;
+
 }

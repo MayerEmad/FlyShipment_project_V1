@@ -20,7 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    public SharedPreferences prefs , PREF_USER_ID;
+    public SharedPreferences prefs , PREF_USER_ID ,prefsstring;
     Button login;
     EditText email, pass;
 
@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProfileItem> call, Response<ProfileItem> response) {
                 String msg=response.message();
+
                 if (response.isSuccessful()&&response.body().getUser_id()!=0)
                 {
                     prefs = getSharedPreferences("checkbox", MODE_PRIVATE);
@@ -73,6 +74,13 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor idet = PREF_USER_ID.edit();
                     idet.putInt("userid", response.body().getUser_id());
                     idet.commit();
+
+                    Log.i("dss", "onResponse: " + response.body().getApi_token());
+                    prefsstring = getSharedPreferences("Appitoken" , MODE_PRIVATE);
+                    SharedPreferences.Editor stringed = prefsstring.edit();
+                    stringed.putString("Appitoken",response.body().getApi_token() );
+                    stringed.commit();
+
 
                     Toast.makeText(getApplicationContext(), "welcome "+response.body().getUser_name(),Toast.LENGTH_LONG).show();
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
