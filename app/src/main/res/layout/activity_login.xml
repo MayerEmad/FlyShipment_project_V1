@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:width="200dp"
                 android:inputType="textPassword"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="70dp"
                 android:maxLines="1"
                 android:textColor="#ffffff"/>
         </LinearLayout>
