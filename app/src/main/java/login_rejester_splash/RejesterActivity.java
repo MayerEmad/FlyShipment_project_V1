@@ -18,7 +18,7 @@ import retrofit2.Response;
 
 public class RejesterActivity extends AppCompatActivity {
     Button register;
-    EditText name, email, pass, conpass,first,second , id;
+    EditText name, email, pass, conpass,first,second ;
     String full,userName;
 
     @Override
@@ -34,8 +34,6 @@ public class RejesterActivity extends AppCompatActivity {
         conpass = (EditText) findViewById(R.id.etregcon);
         first=(EditText)findViewById(R.id.et_reg_first_name);
         second=(EditText)findViewById(R.id.et_reg_second_name);
-
-        id = (EditText) findViewById(R.id.etid);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,15 +51,6 @@ public class RejesterActivity extends AppCompatActivity {
                 }
                 else if(conpass.getText().toString().matches("")){
                     conpass.setError("Required");
-                }
-                else if(id.getText().toString().matches("")){
-                    id.setError("Required");
-                }
-                else if(first.getText().toString().matches("")){
-                    id.setError("Required");
-                }
-                else if(second.getText().toString().matches("")){
-                    id.setError("Required");
                 }
                 else if(!(conpass.getText().toString().equals(pass.getText().toString()))){
                     conpass.setError("Must be same");
