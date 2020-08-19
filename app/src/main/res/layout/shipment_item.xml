@@ -64,6 +64,7 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="#000"
             android:textSize="18sp"
+
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/shipment_item_product_image"
