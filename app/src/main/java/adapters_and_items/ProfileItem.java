@@ -19,6 +19,16 @@ public class ProfileItem
     @SerializedName("trip") @Expose private int user_trips;
     @SerializedName("ship") @Expose private int user_shipments;
 
+    public String getApi_token() {
+        return api_token;
+    }
+
+    public void setApi_token(String api_token) {
+        this.api_token = api_token;
+    }
+
+    @SerializedName("api_token") @Expose  private String api_token;
+
 
     // update constructor
     public ProfileItem(String user_name,String user_phone, String user_passport)
@@ -27,7 +37,7 @@ public class ProfileItem
         this.user_phone = user_phone;
         this.user_passport = user_passport;
     }
-    public ProfileItem(int user_id, String user_name, String user_nick_name, String user_image_url, String user_mail, String user_phone,
+    public ProfileItem(int user_id, String user_name, String user_nick_name, String user_image_url,String api_token, String user_mail, String user_phone,
                        String user_passport, double user_rate, int user_deals, int user_trips, int user_shipments) {
         this.user_id = user_id;
         this.user_name = user_name;
@@ -40,6 +50,7 @@ public class ProfileItem
         this.user_deals = user_deals;
         this.user_trips = user_trips;
         this.user_shipments = user_shipments;
+        this.api_token = api_token;
     }
 
     public int getUser_id() {
