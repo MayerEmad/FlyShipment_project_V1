@@ -1,6 +1,7 @@
 package APIs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,7 +71,7 @@ public class ApiShipmentSearch extends AppCompatActivity
     }
 
 
-    public void UploadShipmentItem(ShipmentItem item, Context mContext)
+    public void UploadShipmentItem(ShipmentItem item, Context mContext, final Context appCon)
     {
         Retrofit retrofit= new Retrofit.Builder()
                 .baseUrl("https://originaliereny.com/shipping/public/api/")
@@ -107,6 +108,11 @@ public class ApiShipmentSearch extends AppCompatActivity
                 }
                else {
                     Log.i("ApiShipmentSearch", "onResponse:------------------->  succeed on uploading "+response.body());
+                    Intent intent = new Intent(appCon, MainActivity.class);
+                    intent .putExtra("openShipmentNav",true);
+                    overridePendingTransition(0, 0);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    appCon.startActivity(intent);
                 }
             }
             @Override

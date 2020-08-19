@@ -87,6 +87,8 @@ public class EditTripItemActivity extends AppCompatActivity implements DatePicke
             @Override
             public void onClick(View v) {
                 Repository.deleteTripItem(ITEM.getTrip_id());
+                Toast.makeText(EditTripItemActivity.this,"Trip Deleted" , Toast.LENGTH_SHORT).show();
+                arrow_back_function();
             }
         });
 

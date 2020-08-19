@@ -183,6 +183,8 @@ public class EditShipmentItemActivity extends AppCompatActivity implements DateP
             @Override
             public void onClick(View v) {
                 Repository.deleteShipmentItem(ITEM.getShipment_id());
+                Toast.makeText(EditShipmentItemActivity.this,"Shipment Deleted" , Toast.LENGTH_SHORT).show();
+                arrow_back_function();
             }
         });
 

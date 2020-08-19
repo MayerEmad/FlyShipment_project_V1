@@ -64,10 +64,10 @@ public class Repository
         return MyViewModel.getShipmentLiveData().getValue();
     }
 
-    public static void uploadShipmentItem(ShipmentItem item, Context CreateShipmentItemActivityContext)
+    public static void uploadShipmentItem(ShipmentItem item, Context CreateShipmentItemActivityContext,Context appCon)
     {
         ApiShipmentSearch task=new ApiShipmentSearch();
-        task.UploadShipmentItem(item,CreateShipmentItemActivityContext);
+        task.UploadShipmentItem(item,CreateShipmentItemActivityContext,appCon);
     }
      public static void updateShipmentItem(ShipmentItem item, Context EditShipmentItemActivityContext,boolean imageEdited)
     {

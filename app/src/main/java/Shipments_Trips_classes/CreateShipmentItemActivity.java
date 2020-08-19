@@ -172,7 +172,7 @@ public class CreateShipmentItemActivity extends AppCompatActivity implements Dat
                             USERINFO.getUser_image_url(), USERINFO.getUser_name(), USERINFO.getUser_rate(),itemUrl,1);
 
                     // uploading...
-                    Repository.uploadShipmentItem(item,CreateShipmentItemActivity.this);
+                    Repository.uploadShipmentItem(item,CreateShipmentItemActivity.this,getApplicationContext());
 
                     ArrayList<ShipmentItem>list= Repository.getUserShipmentsFromApi();
                     if(list==null) {
