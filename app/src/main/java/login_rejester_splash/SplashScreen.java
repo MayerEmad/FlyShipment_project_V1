@@ -24,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                sp = getSharedPreferences("checkbox", 0);
                 boolean cb1 = sp.getBoolean("isLogin", false);
-                if (cb1){
+                if (!cb1){
                    startActivity(new Intent(SplashScreen.this, MainActivity.class));
                 }
                 else {
